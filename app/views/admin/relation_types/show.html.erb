@@ -1,0 +1,18 @@
+<%= form_for([:admin, @relation_type]) do |f| %>
+    <h1>Relation type</h1>
+    <table>
+      <tr>
+        <td class="label"><%= f.label :from %></td>
+        <td class="value"><%= @relation_type.from %></td>
+      </tr>
+      <tr>
+        <td class="label"><%= t('.phrases') %></td>
+        <td class="value"><%= @relation_type.from_to_phrase %></td>
+        <td class="value"><%= @relation_type.to_from_phrase %></td>
+      </tr>
+      <tr>
+        <td class="label"><%= f.label :to %></td>
+        <td class="value"><%= @relation_type.to %></td>
+      </tr>
+    </table>
+<% end %>

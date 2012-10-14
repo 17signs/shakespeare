@@ -1,0 +1,20 @@
+<%= form_for([:admin, @relation_type]) do |f| %>
+    <h1><%= t('.edit_relation_type') %></h1>
+    <table>
+      <tr>
+        <td class="label"><%= f.label :from %></td>
+        <td class="value"><%= f.select :from_id, Poem.poem_types_for_relations() %></td>
+      </tr>
+      <tr>
+        <td class="label"><%= t('.phrases') %></td>
+        <td class="value"><%= f.text_field :from_to_phrase, :placeholder => t('.from_to_phrase') %></td>
+        <td class="value"><%= f.text_field :to_from_phrase, :placeholder => t('.to_from_phrase') %></td>
+      </tr>
+      <tr>
+        <td class="label"><%= f.label :to %></td>
+        <td class="value"><%= f.select :to_id, Poem.poem_types_for_relations() %></td>
+      </tr>
+    </table>
+    <hr>
+    <%= f.submit %>
+<% end %>

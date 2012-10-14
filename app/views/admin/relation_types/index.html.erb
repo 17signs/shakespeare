@@ -1,0 +1,6 @@
+<h1><%= t('.relation_types') %></h1>
+<% @relation_types.each do |rt| %>
+    <%= rt.from %> <%= rt.from_to_phrase %> (reverse: <%= rt.to_from_phrase %>) <%= rt.to %> <%= link_to t('.edit'), edit_admin_relation_type_path(rt), :class => "link" %>
+<% end %>
+<hr>
+<%= link_to t('.new'), new_admin_relation_type_path %>

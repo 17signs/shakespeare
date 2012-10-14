@@ -1,0 +1,6 @@
+<h1>All Relations</h1>
+<% @relations.each do |r| %>
+    <%= link_to r, r %>
+<% end %>
+<hr />
+<%= link_to 'New relation', new_relation_path %>
