@@ -1,0 +1,8 @@
+<%= content_tag_for(:div, value) do %>
+  <%= form_for(value, :remote => true) do |f| %>
+    <%= f.text_field :name %>
+    <%= f.text_field :value %>
+    <%= f.submit %>
+    <%= link_to t('.delete'), value, :method => :delete, :remote => true, :class => 'link' %>
+  <% end %>
+<% end %>

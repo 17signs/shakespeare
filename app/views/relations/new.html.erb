@@ -1,0 +1,15 @@
+<%= form_for(@relation) do |f| %>
+    <h1>New relation</h1>
+
+    <%= f.label :type %>:
+    <%= f.text_field :type %><br />
+
+   <%= f.label :from %>: <%= @from %><br />
+   <%= f.hidden_field :from, :value => @from.id %>
+
+    <%= f.label :to %>:
+    <%= f.select :to, Poem.poems_for_relations() %><br />
+
+    <hr />
+    <%= f.submit %>
+<% end %>

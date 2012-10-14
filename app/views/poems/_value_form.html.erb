@@ -1,0 +1,6 @@
+<%= form_for(@value, :remote => true) do |f| %>
+    <%= f.hidden_field :poem, :value => @poem.id %>
+    <%= f.text_field :name %>
+    <%= f.text_field :value %>
+    <%= f.submit 'New value' %>
+<% end %>

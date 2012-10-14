@@ -1,0 +1,72 @@
+<div class="header">
+  <div class="header_left">
+    <h1><% if @poem.parent %><%= @poem.parent %>: <% end %><%= @poem %></h1>
+  </div>
+  <div class="header_right">
+    <ul class="header_menu">
+      <li><%= link_to t('.edit'), edit_poem_path(@poem), :class => 'link' %></li>
+      <li><%= link_to t('.index'), poems_path, :class => 'link' %></li>
+      <li><%= link_to t('.new'), new_poem_path, :class => 'link' %></li>
+      <li><%= link_to t('.delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'link' %></li>
+    </ul>
+  </div>
+</div>
+<div class="content2">
+    <%= field_set_tag t('.properties') do %>
+        <table>
+          <tr>
+            <td class="label_cell"><%= t('.type') %></td>
+            <td class="value_cell">
+              <% if @poem.parent %>
+                <%= link_to @poem.parent, @poem.parent %>
+              <% else %>
+                <%= t('.no_type') %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label_cell"><%= t('.name') %></td>
+            <td class="value_cell"><%= @poem.poem_name %></td>
+          </tr>
+          <tr>
+            <td class="label_cell"><%= t('.is_poem_type') %></td>
+            <td class="value_cell">
+              <% if @poem.is_poem_type? %>
+                  yes
+                  <% else %>
+                  no
+                  <% end %>
+            </td>
+          </tr>
+        </table>
+    <% end %>
+
+  <%= field_set_tag t('.values') do %>
+    <table id="values">
+      <% @poem.values.each do |v| %>
+        <tr>
+          <td class="label_cell"><%= v.name %></td>
+          <td class="value_cell"><%= v.value %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+
+  <%= field_set_tag t('.referencing') do %>
+      <table id="relations">
+        <%= render @poem.links_to_successors %>
+      </table>
+  <% end %>
+
+  <%= field_set_tag t('.referenced_by') do %>
+  <% end %>
+
+  <% if @poem.is_poem_type? %>
+    <%= field_set_tag t('.usage') do %>
+      <% @poem.children.each do |c| %>
+        <%= link_to c, c, :class => "link" %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+</div>

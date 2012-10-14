@@ -1,0 +1,6 @@
+<%= form_for(@relation, :remote => true) do |f| %>
+    <%= f.hidden_field :from, :value => @poem.id %>
+    <%= f.select :relation_type, RelationType.select_list %>
+    <%= f.select :to, Poem.poems_for_relations %><br />
+    <%= f.submit 'New relation' %>
+<% end %>
