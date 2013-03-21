@@ -1,0 +1,23 @@
+ToDos
+
+Ruby
+- check "throw :error"
+
+Shakespeare
+- (high) Publish!
+- (high) Rework mdms#index, text does not match
+- (low) Search does not look for attribute names. Is there a need to do?
+
+Finder
+- (medium) keep list alive, but show only latest four columns (offset), but than: provide scrolling
+
+Poems
+- (high) Lineage
+- (low) Rework index page: grouping by 1st letter
+
+Relations
+- Do not show relation-to-poems as long no relation type is selected
+- (medium) remove existing poems from relation-to-list
+
+Admin/Relation types
+- (medium) full navigation for relation types (all, index, etc.)

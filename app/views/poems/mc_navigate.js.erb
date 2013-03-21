@@ -1,0 +1,16 @@
+$('#mc_main').empty();
+<% $mc.each_with_index do |col, index| %>
+  $('#mc_main').append('<li><table class="miller_column" id="mc<%= index %>"></table></li>');
+<% end %>
+
+<% $mc.each_with_index do |col, index| %>
+  <% col.each do |poem| %>
+    $('#mc<%= index %>').append('<tr id="<%= poem.id %>"><td><%= link_to poem.to_s, poem %></td><% if poem.has_successors? %><td><%= link_to '&raquo;'.html_safe, poems_mc_navigate_path(:id => poem.id, :mc => index), :remote => true %></td><% end %></tr>');
+  <% end %>
+<% end %>
+
+<% $mc_selected.each do |poem| %>
+  $('#<%= poem %>').addClass("mc_selected");
+<% end %>
+
+$('#mc<%= $mc.length - 1 %>').css({border:"none"});

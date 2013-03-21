@@ -1,0 +1,184 @@
+// styles are ordered alphabetically, but grouped into
+// a) standard html tags
+// b) classes
+// c) ID's
+
+// variables reflecting the color scheme (more or less)
+// which is bright orange with some shades of gray
+
+$heading_color: #142423;
+$main_background: rgba(232, 232, 232, 1.0);
+$main_color: black;
+
+$header_background: rgba(255, 128, 0, 1.0);
+$finder_background: rgba(255, 128, 0, 0.9);
+$highlight_color: rgba(0, 136, 178, 1.0);
+
+// section a) standard html tags
+
+body {
+    background-color: $main_background;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    margin: 0;
+    padding: 0;
+    color: $main_color;
+}
+
+h1 {
+  color: $highlight_color;
+}
+
+fieldset {
+  border: none;
+  border-top: 1px solid #cc9752;
+}
+
+footer {
+  margin-top: 20px;
+  color: black;
+}
+
+legend {
+  color: #cc9752;
+  font-size: 115%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+// section b) classes
+
+.action_link {
+  color: $highlight_color;
+  font-weight: bold;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.container {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px 0;
+  clear: both;
+}
+
+.content {
+  background-color: #e5dbcf;
+  box-shadow: 2px 2px 10px #999999;
+  padding: 60px 20px 20px;
+}
+
+.content2 {
+  clear: both;
+}
+
+.header {
+  clear: both;
+  width: 100%;
+}
+
+.header_left {
+  float: left;
+}
+
+.header_right {
+  float: right;
+}
+
+.header_menu ul {
+  display: block;
+  list-style-type: none;
+}
+.header_menu > li {
+  display: inline;
+  text-decoration: none;
+}
+
+.label_cell {
+  padding: 5px 20px 5px 0;
+  vertical-align: top;
+  color: #0f3b5f;
+  font-weight: bold;
+}
+
+.link {
+  color: $highlight_color;
+  font-weight: bold;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav-wrapper {
+  left: 0;
+  margin-bottom: 0;
+  position: fixed;
+  right: 0;
+  z-index: 1030;
+  background-color: $header_background;
+  background-image: -moz-linear-gradient(center top , #FFFFFF, #F9F9F6);
+  background-image: -webkit-linear-gradient(center top , #FFFFFF, #F9F9F6);
+  background-image: linear-gradient(center top , #FFFFFF, #F9F9F6);
+  background-repeat: repeat-x;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(0, 0, 0, 0.1) inset;
+  min-height: 40px;
+}
+
+.finder_layer {
+  z-index: 2020;
+  position: fixed;
+  margin-left: 0;
+  margin-top: 120px;
+  background-color: $finder_background;
+  box-shadow: 3px 3px 15px #999999;
+  color: white;
+  padding: 10px;
+}
+
+
+.finder_layer a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.miller_column {
+  border-right: 1px solid #e5dbcf;
+  border-spacing: 0;
+}
+
+.miller_column td {
+  padding-left: 2ex;
+  padding-right: 2ex;
+}
+
+.mc_selected {
+  background-color: #e5dbcf;
+}
+
+#miller_column_view ul li {
+  float: left;
+  list-style-type: none;
+}
+
+.right {
+  float: right;
+  vertical-align: middle;
+}
+
+.right > form {
+  display: inline;
+}
+
+.shakespeare {
+  font-family: "Lucida Grande",sans-serif;
+  font-size: 250%;
+  font-style: italic;
+  font-weight: bold;
+  color: $highlight_color;
+}
+
+.value_cell {
+  padding: 5px 20px 5px 0;
+}

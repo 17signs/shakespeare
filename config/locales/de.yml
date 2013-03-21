@@ -1,7 +1,7 @@
 # Sample localization file for English. Add more files in this directory for other locales.
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
-en:
+de:
   poem_no_name: "<no name yet>"
   layouts:
     application:
@@ -55,7 +55,7 @@ en:
     index:
       all_poems: "All poems"
       new: "New"
-      in_poem_types: "... in poem types"
+      in_poem_types: "... der Poemtypen"
       in_poems: "... in poems"
       in_values: "... in values"
     edit_backup:
@@ -69,8 +69,8 @@ en:
       referenced_by: "Referenced by"
   mdms:
     index:
-      welcome: "Welcome"
-      new: "New"
+      welcome: "Willkommen"
+      new: "Neu"
   values:
     value:
       delete: "Delete"

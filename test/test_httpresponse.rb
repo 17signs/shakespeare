@@ -1,24 +1,48 @@
 require "test/unit"
 
-class WebrickTest < Test::Unit::TestCase
+require "webrick"
+require "minitest/autorun"
 
-  # Called before every test method runs. Can be used
-  # to set up fixture information.
-  def setup
-    # Do nothing
+module WEBrick
+    class TestHTTPResponse < MiniTest::Unit::TestCase
+        class FakeLogger
+            attr_reader :messages
+
+            def initialize
+                @messages = []
+              end
+
+            def warn msg
+                @messages << msg
+              end
+          end
+
+        def test_304_does_not_log_warning
+            logger          = FakeLogger.new
+            config          = Config::HTTP
+            config[:Logger] = logger
+
+            res             = HTTPResponse.new config
+            res.status      = 304
+            res.keep_alive  = true
+
+            res.setup_header
+
+            assert_equal 0, logger.messages.length
+          end
+
+        def test_204_does_not_log_warning
+            logger          = FakeLogger.new
+            config          = Config::HTTP
+            config[:Logger] = logger
+
+            res             = HTTPResponse.new config
+            res.status      = 204
+            res.keep_alive  = true
+
+            res.setup_header
+
+            assert_equal 0, logger.messages.length
+          end
+      end
   end
-
-  # Called after every test method runs. Can be used to tear
-  # down fixture information.
-
-  def teardown
-    # Do nothing
-  end
-
-  # Fake test
-  def test_fail
-
-    # To change this template use File | Settings | File Templates.
-    fail("Not implemented")
-  end
-end
