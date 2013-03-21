@@ -1,26 +1,24 @@
 class ValuesController < ApplicationController
 
   def create
-    data = params[:value]
-    poem = Poem.find_by_id(data[:poem])
-    data[:poem] = poem
+    value_data = params[:value]
+    poem = Poem.find_by_id(value_data[:poem])
 
-    @value = Value.new(data)
-    @value.save
-
-    # Save the DOM model id for later highlighting
-    @did = dom_id(@value)
-
-    respond_to do |format|
-      format.js
+    if poem
+      @value = poem.add_value(value_data[:name], value_data[:value])
+      # Save the DOM model id for later highlighting
+      @did = dom_id(@value)
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
   def destroy
-    @value = Value.find_by_id(params[:id])
+    value = Value.find_by_id(params[:id])
     # Save the DOM model id for later hiding
-    @did = dom_id(@value)
-    @value.destroy
+    @did = dom_id(value)
+    value.poem.remove_value(value.name)
 
     respond_to do |format|
       format.js

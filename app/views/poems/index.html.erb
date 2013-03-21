@@ -1,15 +1,59 @@
 <div class="header">
   <div class="header_left">
-    <h1><%= t('.all_poems') %></h1>
+    <h1>
+      <% if params[:search] %>
+        <%= t('.search_results_for') %>: <%= params[:search] %>
+      <% else %>
+        <%= t('.overview') %>
+      <% end %>
+    </h1>
   </div>
   <div class="header_right">
     <ul class="header_menu">
-      <li><%= link_to t('.new'), new_poem_path, :class => 'link' %></li>
+      <li><%= link_to t('.index'), poems_path, :class => 'action_link' %></li>
+      <li><%= link_to t('.new'), new_poem_path, :class => 'action_link' %></li>
     </ul>
   </div>
 </div>
 <div class="content2">
-  <% @poems.each do |p| %>
-      <%= link_to p, p, :class => 'link' %>
+  <% if @poem_types && @poem_types.to_a.length > 0 %>
+    <%= field_set_tag t('.in_poem_types') do %>
+      <% @poem_types.each do |p| %>
+        <%= link_to p, p, :class => 'action_link' %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% if @poems && @poems.to_a.length > 0  %>
+    <%= field_set_tag t('.in_poems') do %>
+      <% @poems.each do |p| %>
+        <%= link_to p, p, :class => 'action_link' %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% if @values && @values.to_a.length > 0  %>
+    <%= field_set_tag t('.in_values') do %>
+      <table>
+        <tr>
+          <td class="label_cell"><%= t('poem_type') %></td>
+          <td class="label_cell"><%= t('poem') %></td>
+          <td class="label_cell"><%= t('attribute') %></td>
+          <td class="label_cell"><%= t('value') %></td>
+        </tr>
+        <% @values.each do |v| %>
+            <% if v.poem %>
+          <tr>
+            <% if v.poem.parent == nil %>
+                <td class="value_cell"><%= t('.no_type') %></td>
+            <% else %>
+                <td class="value_cell"><%= link_to v.poem.parent, v.poem.parent, :class => 'link' %></td>
+            <% end %>
+            <td class="value_cell"><%= link_to v.poem, v.poem, :class => 'link' %></td>
+            <td class="value_cell"><%= v.name %></td>
+            <td class="value_cell"><%= v.value %></td>
+          </tr>
+                <% end %>
+        <% end %>
+      </table>
+    <% end %>
   <% end %>
 </div>

@@ -31,6 +31,11 @@ class Admin::RelationTypesController < ApplicationController
   end
 
   def destroy
+    relation_type = RelationType.find_by_id(params[:id])
+    relation_type.destroy
+
+    @relation_types = RelationType.all()
+    redirect_to admin_relation_types_path
   end
 
   def update

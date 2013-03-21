@@ -5,9 +5,9 @@
     </div>
     <div class="header_right">
       <ul class="header_menu">
-        <li><%= link_to t('.cancel'), @poem, :class => 'link' %></li>
-        <li><%= link_to t('.index'), poems_path, :class => 'link' %></li>
-        <li><%= link_to t('.delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'link' %></li>
+        <li><%= link_to t('.cancel'), @poem, :class => 'action_link' %></li>
+        <li><%= link_to t('.index'), poems_path, :class => 'action_link' %></li>
+        <li><%= link_to t('.delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'action_link' %></li>
       </ul>
     </div>
 </div>
@@ -18,7 +18,7 @@
       <table>
         <tr>
           <td class="label_cell"><%= t('.type') %></td>
-          <td class="value_cell"><%= f.select :parent_id, Poem.poem_types, :include_blank => true %></td>
+          <td class="value_cell"><%= f.collection_select :parent_id, Poem.poem_types, :id, :poem_name, :include_blank => true %></td>
         </tr>
         <tr>
           <td class="label_cell"><%= t('.name') %></td>
@@ -41,15 +41,27 @@
   <% end %>
 
   <%= field_set_tag t('.referencing') do %>
-    <table id="relations">
-      <%= render @poem.links_to_successors %>
-    </table>
-    <div id="relation_form">
-      <%= render 'relation_form' %>
-    </div>
+      <% if @poem.relation_types.length == 0 %>
+        <%= t('.no_relation_types') %>
+      <% else %>
+        <table id="relations">
+          <%= render @poem.links_to_successors %>
+        </table>
+        <div id="relation_form">
+          <%= render 'relation_form' %>
+        </div>
+      <% end %>
   <% end %>
 
   <%= field_set_tag t('.referenced_by') do %>
+  <% end %>
+
+  <% if @poem.has_children? %>
+      <%= field_set_tag t('.usage') do %>
+          <% @poem.children.each do |c| %>
+              <%= link_to c, c, :class => "action_link" %>
+          <% end %>
+      <% end %>
   <% end %>
 
 </div>

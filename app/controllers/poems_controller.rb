@@ -5,8 +5,8 @@ class PoemsController < ApplicationController
     @poem.save
     @poem.reload
 
-    # copy value structure from parent type if requested
-    if params[:copy_value_fields] && @poem.parent
+    # copy value structure from parent type
+    if @poem.parent
 
       @poem.parent.values.each do |pv|
         nv = Value.new()
@@ -24,8 +24,11 @@ class PoemsController < ApplicationController
 
   def destroy
     @poem = Poem.find_by_id(params[:id])
+
     @poem.destroy if @poem
+
     redirect_to poems_path
+
   end
 
   def edit
@@ -37,7 +40,15 @@ class PoemsController < ApplicationController
   end
 
   def index
-    @poems = Poem.all()
+    #@poems = Poem.search(params[:search])
+    if params[:search]
+      @poems = Poem.search_poems(params[:search])
+      @poem_types = Poem.search_poem_types(params[:search])
+      @values = Poem.search_values(params[:search])
+    else
+      @poems = Poem.poems()
+      @poem_types = Poem.poem_types()
+    end
   end
 
   def new
@@ -51,11 +62,20 @@ class PoemsController < ApplicationController
   def update
     @poem = Poem.find_by_id(params[:id])
     @poem.update_attributes!(params[:poem])
-    #@poem.properties = params[:properties]
-    #@poem.values = params[:values] if params[:values]
+
     if @poem.save
       @poem.reload
       redirect_to @poem
+    end
+
+  end
+
+  def mc_navigate
+    poem = Poem.find_by_id(params[:id])
+    Poem.navigate(poem, params[:mc])
+
+    respond_to do |format|
+      format.js
     end
   end
 

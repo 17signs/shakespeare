@@ -2,19 +2,56 @@ class RelationsController < ApplicationController
 
   def create
     data = params[:relation]
-    poem = Poem.find_by_id(data[:from])
-    data[:from] = poem
-    poem = Poem.find_by_id(data[:to])
-    data[:to] = poem
-    type = RelationType.find_by_id(data[:relation_type])
-    data[:relation_type] = type
+    new_relation_data = Hash.new()
+    new_poem_data = Hash.new()
 
-    @relation = Relation.new(data)
-    @relation.save
+    # distinguish selected target poem or new poem; indicator is :to == 0
+    if data[:to] == "0"
+      new_relation_data[:from]          = Poem.find_by_id(data[:from])
 
-    respond_to do |format|
-      format.js
+      relation_type = RelationType.find_by_id(data[:relation_type])
+      new_relation_data[:relation_type] = relation_type
+
+      new_poem_data[:parent]       = relation_type.to
+      new_poem_data[:is_poem_type] = "0"
+      @poem = Poem.new(new_poem_data)
+      @poem.save
+      @poem.reload
+
+      new_relation_data[:to] = @poem
+
+      @relation = Relation.new(new_relation_data)
+      @relation.save
+
+      # copy value structure from parent type
+      if @poem.parent
+
+        @poem.parent.values.each do |pv|
+          nv = Value.new()
+          nv.poem = @poem
+          nv.name = pv.name
+          nv.value = pv.value
+          nv.save
+        end
+
+      end
+
+      # start editing the newly created poem
+      redirect_to edit_poem_path(@poem)
+    else
+
+      new_relation_data[:from]          = Poem.find_by_id(data[:from])
+      new_relation_data[:relation_type] = RelationType.find_by_id(data[:relation_type])
+      new_relation_data[:to]            = Poem.find_by_id(data[:to])
+
+      @relation = Relation.new(new_relation_data)
+      @relation.save
+
+      @poem = new_relation_data[:from]
+      redirect_to edit_poem_path(@poem)
+
     end
+
   end
 
   def destroy
@@ -33,9 +70,20 @@ class RelationsController < ApplicationController
   end
 
   def new
-    puts "New relation with params #{params}"
     @relation = Relation.new()
-    @from = Poem.where('id' => params[:poem_id]).first
+    @from = Poem.find_by_id(params[:poem_id])
+    @relation_types = @from.relation_types
+  end
+
+  def relation_type_selected
+    relation_type = RelationType.find_by_id(params[:relation_type])
+    if relation_type
+      @poems_to = relation_type.to.children
+
+      respond_to do |format|
+        format.js
+      end
+    end
   end
 
 end

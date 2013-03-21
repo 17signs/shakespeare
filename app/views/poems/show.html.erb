@@ -4,42 +4,42 @@
   </div>
   <div class="header_right">
     <ul class="header_menu">
-      <li><%= link_to t('.edit'), edit_poem_path(@poem), :class => 'link' %></li>
-      <li><%= link_to t('.index'), poems_path, :class => 'link' %></li>
-      <li><%= link_to t('.new'), new_poem_path, :class => 'link' %></li>
-      <li><%= link_to t('.delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'link' %></li>
+      <li><%= link_to t('.edit'), edit_poem_path(@poem), :class => 'action_link' %></li>
+      <li><%= link_to t('.index'), poems_path, :class => 'action_link' %></li>
+      <li><%= link_to t('.new'), new_poem_path, :class => 'action_link' %></li>
+      <li><%= link_to t('.delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'action_link' %></li>
     </ul>
   </div>
 </div>
 <div class="content2">
-    <%= field_set_tag t('.properties') do %>
-        <table>
-          <tr>
-            <td class="label_cell"><%= t('.type') %></td>
-            <td class="value_cell">
-              <% if @poem.parent %>
-                <%= link_to @poem.parent, @poem.parent %>
-              <% else %>
-                <%= t('.no_type') %>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td class="label_cell"><%= t('.name') %></td>
-            <td class="value_cell"><%= @poem.poem_name %></td>
-          </tr>
-          <tr>
-            <td class="label_cell"><%= t('.is_poem_type') %></td>
-            <td class="value_cell">
-              <% if @poem.is_poem_type? %>
-                  yes
-                  <% else %>
-                  no
-                  <% end %>
-            </td>
-          </tr>
-        </table>
-    <% end %>
+  <%= field_set_tag t('.properties') do %>
+    <table>
+      <tr>
+        <td class="label_cell"><%= t('.type') %></td>
+          <td class="value_cell">
+            <% if @poem.parent %>
+              <%= link_to @poem.parent, @poem.parent, :class => 'link' %>
+            <% else %>
+              <%= t('.no_type') %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td class="label_cell"><%= t('.name') %></td>
+          <td class="value_cell"><%= @poem %></td>
+        </tr>
+        <tr>
+          <td class="label_cell"><%= t('.is_poem_type') %></td>
+          <td class="value_cell">
+            <% if @poem.is_poem_type? %>
+              <%= t('.yes') %>
+            <% else %>
+              <%= t('no') %>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+  <% end %>
 
   <%= field_set_tag t('.values') do %>
     <table id="values">
@@ -59,14 +59,58 @@
   <% end %>
 
   <%= field_set_tag t('.referenced_by') do %>
+      <table id="references">
+        <%= render @poem.links_to_predecessors %>
+      </table>
   <% end %>
 
   <% if @poem.is_poem_type? %>
     <%= field_set_tag t('.usage') do %>
       <% @poem.children.each do |c| %>
-        <%= link_to c, c, :class => "link" %>
+        <%= link_to c, c, :class => "action_link" %>
       <% end %>
     <% end %>
   <% end %>
 
+  <%= field_set_tag t('.lineage') do %>
+    <div id="lineage"></div>
+  <% end %>
+
 </div>
+
+<script type="text/javascript">
+
+    var redraw;
+    var height = 300;
+    var width = 1000;
+
+    window.onload = function() {
+        var g = new Graph();
+        g.addNode("<%= @poem.id %>", {label:"<%= @poem.to_s %>"});
+
+        <% @poem.links_to_predecessors.each do |pred| %>
+          g.addNode("<%= pred.from.id %>", {label:"<%= pred.from.to_s %>"});
+          g.addEdge("<%= pred.from.id %>", "<%= @poem.id %>", {label:"<%= pred.relation_type.to_s %>", directed:true});
+        <% end %>
+
+        <% @poem.links_to_successors.each do |succ| %>
+          g.addNode("<%= succ.to.id %>", {label:"<%= succ.to.to_s %>"});
+          g.addEdge("<%= @poem.id %>", "<%= succ.to.id %>", {label : "<%= succ.relation_type.to_s %>", directed:true});
+        <% end %>
+
+        /* layout the graph using the Spring layout implementation */
+        var layouter = new Graph.Layout.Spring(g);
+        layouter.layout();
+
+        /* draw the graph using the RaphaelJS draw implementation */
+        var renderer = new Graph.Renderer.Raphael('lineage', g, width, height);
+        renderer.draw();
+
+        redraw = function() {
+            layouter.layout();
+            renderer.draw();
+        };
+
+  };
+
+</script>

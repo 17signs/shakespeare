@@ -10,14 +10,10 @@ class RelationType
   belongs_to :from, :class_name => 'Poem'
   belongs_to :to, :class_name => 'Poem'
 
-  has_many :relations
+  has_many :relations, :dependent => :destroy
 
   def to_s
     from_to_phrase
-  end
-
-  def self.select_list
-    RelationType.all.map{|rt| [rt.to_s, rt.id] }
   end
 
 end

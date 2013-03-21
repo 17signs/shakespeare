@@ -1,22 +1,22 @@
-
-    <div class="header">
-      <div class="header_left">
-        <h1><%= t('.new_poem') %></h1>
-      </div>
-      <div class="header_right">
-        <ul class="header_menu">
-          <li><%= link_to t('.cancel'), @poem, :class => 'link' %></li>
-          <li><%= link_to t('.index'), poems_path, :class => 'link' %></li>
-        </ul>
-      </div>
+<div class="header">
+  <div class="header_left">
+    <h1><%= t('.new_poem') %></h1>
+  </div>
+  <div class="header_right">
+    <ul class="header_menu">
+      <li><%= link_to t('.cancel'), @poem, :class => 'action_link' %></li>
+      <li><%= link_to t('.index'), poems_path, :class => 'action_link' %></li>
+    </ul>
+  </div>
 </div>
+
 <div class="content2">
   <%= field_set_tag t('.properties') do %>
-      <%= form_for(@poem) do |f| %>
-          <table>
+    <%= form_for(@poem) do |f| %>
+      <table>
         <tr>
           <td class="label"><%= t('.type') %></td>
-          <td class="value"><%= f.select :parent_id, Poem.poem_types, :include_blank => true %></td>
+          <td class="value"><%= f.collection_select :parent_id, Poem.poem_types, :id, :poem_name, :include_blank => true %></td>
         </tr>
         <tr>
           <td class="label"><%= t('.name') %></td>
@@ -26,12 +26,8 @@
           <td class="label"><%= t('.is_poem_type') %></td>
           <td class="value"><%= f.check_box :is_poem_type %></td>
         </tr>
-        <tr>
-          <td class="label"><%= t('.copy_value_fields') %></td>
-          <td class="value"><%= check_box_tag :copy_value_fields, "yes", false %></td>
-        </tr>
       </table>
       <%= f.submit t('.save') %>
-  <% end %>
+    <% end %>
   <% end %>
 </div>

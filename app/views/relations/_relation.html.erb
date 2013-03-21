@@ -1,6 +1,6 @@
 <%= content_tag_for(:tr, relation) do %>
-    <td><%= link_to relation.from, relation.from %></td>
+    <td><%= link_to relation.from, relation.from, :class => 'link' %></td>
     <td><%= relation.relation_type %></td>
-    <td><%= link_to relation.to, relation.to %></td>
+    <td><%= link_to relation.to, relation.to, :class => 'link' %></td>
     <td>(<%= link_to 'Delete', relation, :confirm => 'Sure?', :method => :delete, :remote => true %>)</td>
 <% end %>

@@ -6,29 +6,105 @@
   <%= javascript_include_tag "application" %>
   <%= javascript_include_tag "rails" %>
   <%= csrf_meta_tags %>
+  <%= javascript_include_tag "raphael-min.js" %>
+  <%= javascript_include_tag "graffle.js" %>
+  <%= javascript_include_tag "graph.js" %>
 </head>
 <body>
 
 <div class="main-nav-wrapper">
   <div class="container">
-    <div class="left">
-      <span class="shakespeare">shakespeare // </span>
-      <%= link_to t('.home'), mdms_path, :class => 'link' %>
-    </div>
+    <span class="shakespeare">shakespeare // </span>
+    <%= link_to t('.home'), mdms_path, :class => 'action_link' %>
+    <%= link_to t('.admin'), admin_path, :class => 'action_link' %>
     <div class="right">
-      <%= form_tag mdms_path, :method => :get do %>
+      <%= form_tag poems_path, :method => :get do %>
+        <%= submit_tag "Search", :name => nil, :style => 'visibility: hidden' %>
         <%= search_field_tag :search, '', :placeholder => 'search...' %>
-        <%= check_box_tag :advanced_search, value = 'set', checked = true %>
-        <%= submit_tag "Search", :name => nil %>
+      <% end %>
+      <%= form_tag mdms_path, :class => 'locale' do %>
+        <%= submit_tag 'submit' %>
+        <%= select_tag 'set_locale', options_for_select(LANGUAGES, I18n.locale.to_s), :onchange => 'this.form.submit()' %>
       <% end %>
     </div>
   </div>
 </div>
+
+<div class="finder_layer" id="mc_closed">
+  <%= t('.finder') %>
+</div>
+
+<div class="finder_layer" id="mc_open">
+  <div id="hide_navigation"><%= t('.finder') %></div>
+  <% if $mc.length == 0%>
+    <%= t('.nothing_to_navigate') %>
+  <% else %>
+      <div id="miller_column_view">
+        <ul id="mc_main">
+          <% $mc.each_with_index do |col, index| %>
+            <li>
+              <table class="miller_column" id="mc<%= index %>">
+                <% col.each do |poem| %>
+                  <tr id="<%= poem.id %>">
+                    <td><%= link_to poem.to_s, poem %></td>
+                    <% if poem.has_successors? %>
+                      <td><%= link_to '&raquo;'.html_safe, poems_mc_navigate_path(:id => poem.id, :mc => index), :remote => true %></td>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </table>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+</div>
+
 <div class="container">
   <div class="content">
     <%= yield %>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+      $('.locale input').css("visibility", "hidden");
+
+      $('#mc_open').css("visibility", "hidden");
+
+      <% $mc_selected.each do |poem| %>
+      $('#<%= poem %>').addClass("mc_selected");
+      <% end %>
+
+      /* remove right border from last mc navigation column table */
+
+      $('#mc<%= $mc.length - 1 %>').css({border:"none"});
+
+      $('#mc_closed').click(
+              function() {
+                  $('#mc_closed').css("visibility", "hidden");
+                  $('#mc_open').css("visibility", "visible");
+              }
+      );
+
+      $('#hide_navigation').click(
+              function() {
+                  $('#mc_closed').css("visibility", "visible");
+                  $('#mc_open').css("visibility", "hidden");
+              }
+      );
+
+      $(function(){
+          $('legend').click(function(){
+              $(this).siblings().slideToggle("fast");
+          });
+      });
+
+  });
+</script>
+
+<%= yield :javascript %>
 
 </body>
 </html>

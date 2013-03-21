@@ -1,0 +1,19 @@
+    <div class="header">
+      <div class="header_left">
+        <h1><%= t('.welcome') %></h1>
+      </div>
+      <div class="header_right">
+        <ul class="header_menu">
+          <li><%= link_to t('.index'), poems_path, :class => 'action_link' %></li>
+          <li><%= link_to t('.new'), new_poem_path, :class => 'action_link' %></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content2">
+      ... to <span class="shakespeare">shakespeare</span>, your Meta Data Management System. That you see this welcome
+      page indicates that no poems are created so far. Thus your first task is to create a
+      <%= link_to t('.new'), new_poem_path, :class => 'link' %> poem. Ideally one which
+      is a poem type itself to start structuring your meta data. A good separation would be Business and Technical
+      meta data.
+    </div>

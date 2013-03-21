@@ -4,3 +4,7 @@
     <%= f.text_field :value %>
     <%= f.submit 'New value' %>
 <% end %>
+
+<% if @poem.has_children? %>
+  <p>WARNING: Adding or removing values does affect all existing children of this poem!</p>
+<% end %>

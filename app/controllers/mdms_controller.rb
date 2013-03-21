@@ -1,5 +1,12 @@
 class MdmsController < ApplicationController
   def index
-    @poems = Poem.search(params[:search], params[:advanced_search]||nil)
+    if params[:set_locale]
+      redirect_to mdms_path(:locale => params[:set_locale])
+    else
+      # miller column navigation
+      $mc = nil
+      $mc_selected = []
+      Poem.navigate()
+    end
   end
 end
