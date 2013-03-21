@@ -1,0 +1,93 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  poem_no_name: "<no name yet>"
+  layouts:
+    application:
+      home: "Home"
+      finder: "Finder"
+  poems:
+    new:
+      new_name_please: "Enter new name please"
+      name: "Name"
+      is_poem_type: "Is poem type?"
+      copy_value_fields: "Copy value fields?"
+      save: "Save"
+      new_poem: "New poem"
+      cancel: "Cancel"
+      index: "Index"
+      properties: "Properties"
+      type: "Type"
+    show:
+      name: "Name"
+      is_poem_type: "Is poem type?"
+      properties: "Properties"
+      values: "Values"
+      edit: "Edit"
+      index: "Index"
+      new: "New"
+      delete: "Delete"
+      type: "Type"
+      no_type: "No type"
+      referencing: "Referencing"
+      referenced_by: "Referenced by"
+      usage: "Usage"
+    edit:
+      name: "Name"
+      is_poem_type: "Is poem type?"
+      update_properties: "Update properties"
+      edit: "Edit"
+      cancel: "Cancel"
+      index: "Index"
+      delete: "Delete"
+      properties: "Properties"
+      type: "Type"
+      values: "Values"
+      referencing: "Referencing"
+      referenced_by: "Referenced by"
+      for_structuring: "Used for structuring?"
+    references:
+      references: "References"
+      referencing: "Referencing"
+      relation_type: "Relation type"
+      delete: "Delete"
+    index:
+      all_poems: "All poems"
+      new: "New"
+      in_poem_types: "... in poem types"
+      in_poems: "... in poems"
+      in_values: "... in values"
+    edit_backup:
+      edit: "Edit"
+      properties: "Properties"
+      type: "Type"
+      name: "Name"
+      is_poem_type: "Is poem type"
+      values: "Values"
+      referencing: "Referencing"
+      referenced_by: "Referenced by"
+  mdms:
+    index:
+      welcome: "Welcome"
+      new: "New"
+  values:
+    value:
+      delete: "Delete"
+  admin:
+    relation_types:
+      new:
+        from_to_phrase: "From -> To"
+        to_from_phrase: "To -> From"
+        phrases: "Phrases"
+      edit:
+        from_to_phrase: "From -> To"
+        to_from_phrase: "To -> From"
+        edit_relation_type: "Edit relation type"
+        phrases: "Phrases"
+      index:
+        relation_types: "Relation types"
+        edit: "Edit"
+        new: "New"
+      show:
+        phrases: "Phrases"
