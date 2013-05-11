@@ -10,7 +10,7 @@ $heading_color: #142423;
 $main_background: rgba(232, 232, 232, 1.0);
 $main_color: black;
 
-$header_background: rgba(255, 128, 0, 1.0);
+$header_background: rgba(255, 255, 255, 1.0);
 $finder_background: rgba(255, 128, 0, 0.9);
 $highlight_color: rgba(0, 136, 178, 1.0);
 
@@ -30,21 +30,9 @@ h1 {
   color: $highlight_color;
 }
 
-fieldset {
-  border: none;
-  border-top: 1px solid #cc9752;
-}
-
 footer {
   margin-top: 20px;
   color: black;
-}
-
-legend {
-  color: #cc9752;
-  font-size: 115%;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 // section b) classes
@@ -65,18 +53,20 @@ legend {
 }
 
 .content {
-  background-color: #e5dbcf;
+  background-color: #ffffff;
   box-shadow: 2px 2px 10px #999999;
   padding: 60px 20px 20px;
 }
 
 .content2 {
+  background-color: #ffffff;
   clear: both;
 }
 
 .header {
   clear: both;
   width: 100%;
+  margin-bottom: 100px;
 }
 
 .header_left {
@@ -91,9 +81,35 @@ legend {
   display: block;
   list-style-type: none;
 }
+
 .header_menu > li {
   display: inline;
   text-decoration: none;
+}
+
+#tabbed_menu {
+  display: block;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#tabbed_menu > li {
+  display: inline;
+  text-decoration: none;
+  margin: 0;
+  padding: 10px 20px;
+}
+
+#content3 {
+  margin-top: 8px;
+  padding: 10px;
+  border-top: 1px solid $highlight_color;
+}
+
+.active {
+  background-color: $highlight_color;
+  color: white;
 }
 
 .label_cell {
@@ -136,7 +152,6 @@ legend {
   color: white;
   padding: 10px;
 }
-
 
 .finder_layer a {
   color: #ffffff;
@@ -181,4 +196,8 @@ legend {
 
 .value_cell {
   padding: 5px 20px 5px 0;
+}
+
+.hidden {
+  display: none;
 }

@@ -5,78 +5,97 @@
   <div class="header_right">
     <ul class="header_menu">
       <li><%= link_to t('.edit'), edit_poem_path(@poem), :class => 'action_link' %></li>
-      <li><%= link_to t('.index'), poems_path, :class => 'action_link' %></li>
       <li><%= link_to t('.new'), new_poem_path, :class => 'action_link' %></li>
+      <li><%= link_to t('.index'), poems_path, :class => 'action_link' %></li>
       <li><%= link_to t('.delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'action_link' %></li>
     </ul>
   </div>
 </div>
 <div class="content2">
-  <%= field_set_tag t('.properties') do %>
-    <table>
-      <tr>
-        <td class="label_cell"><%= t('.type') %></td>
-          <td class="value_cell">
-            <% if @poem.parent %>
-              <%= link_to @poem.parent, @poem.parent, :class => 'link' %>
-            <% else %>
-              <%= t('.no_type') %>
-            <% end %>
-          </td>
-        </tr>
-        <tr>
-          <td class="label_cell"><%= t('.name') %></td>
-          <td class="value_cell"><%= @poem %></td>
-        </tr>
-        <tr>
-          <td class="label_cell"><%= t('.is_poem_type') %></td>
-          <td class="value_cell">
-            <% if @poem.is_poem_type? %>
-              <%= t('.yes') %>
-            <% else %>
-              <%= t('no') %>
-            <% end %>
-          </td>
-        </tr>
-      </table>
-  <% end %>
-
-  <%= field_set_tag t('.values') do %>
-    <table id="values">
-      <% @poem.values.each do |v| %>
-        <tr>
-          <td class="label_cell"><%= v.name %></td>
-          <td class="value_cell"><%= v.value %></td>
-        </tr>
+    <ul id="tabbed_menu">
+      <li id="meta"><%= t('.meta') %></li>
+      <li id="values" class="active"><%= t('.values') %></li>
+      <li id="references"><%= t('.references') %></li>
+      <% if @poem.is_poem_type? %>
+        <li id="usage"><%= t('.usage') %></li>
       <% end %>
-    </table>
-  <% end %>
-
-  <%= field_set_tag t('.referencing') do %>
-      <table id="relations">
-        <%= render @poem.links_to_successors %>
-      </table>
-  <% end %>
-
-  <%= field_set_tag t('.referenced_by') do %>
-      <table id="references">
-        <%= render @poem.links_to_predecessors %>
-      </table>
-  <% end %>
-
-  <% if @poem.is_poem_type? %>
-    <%= field_set_tag t('.usage') do %>
-      <% @poem.children.each do |c| %>
-        <%= link_to c, c, :class => "action_link" %>
+      <% if not @poem.is_poem_type? %>
+        <li id="lineage"><%= t('.lineage') %></li>
       <% end %>
-    <% end %>
-  <% end %>
-
-  <%= field_set_tag t('.lineage') do %>
-    <div id="lineage"></div>
-  <% end %>
-
-</div>
+    </ul>
+    <div id="content3">
+      <div id="submeta" class="hidden">
+        <table>
+          <tr>
+            <td class="label_cell"><%= t('.type') %></td>
+            <td class="value_cell">
+              <% if @poem.parent %>
+                  <%= link_to @poem.parent, @poem.parent, :class => 'link' %>
+              <% else %>
+                  <%= t('.no_type') %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td class="label_cell"><%= t('.name') %></td>
+            <td class="value_cell"><%= @poem %></td>
+          </tr>
+          <tr>
+            <td class="label_cell"><%= t('.is_poem_type') %></td>
+            <td class="value_cell">
+              <% if @poem.is_poem_type? %>
+                  <%= t('.yes') %>
+              <% else %>
+                  <%= t('no') %>
+              <% end %>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div id="subvalues">
+        <table id="values">
+          <% @poem.values.each do |v| %>
+              <tr>
+                <td class="label_cell"><%= v.name %></td>
+                <td class="value_cell"><%= v.value %></td>
+              </tr>
+          <% end %>
+        </table>
+      </div>
+      <div id="subreferences" class="hidden">
+        <table>
+          <% @poem.links_to_predecessors.each do |p| %>
+            <tr>
+              <td><%= link_to p.from, p.from, :class => 'link' %></td>
+              <td><%= p.relation_type %></td>
+              <td><%= link_to p.to, p.to, :class => 'link' %></td>
+              <td></td>
+              <td></td>
+            </tr>
+          <% end %>
+          <% @poem.links_to_successors.each do |s| %>
+            <tr>
+              <td></td>
+              <td></td>
+              <td><%= link_to s.from, s.from, :class => 'link' %></td>
+              <td><%= s.relation_type %></td>
+              <td><%= link_to s.to, s.to, :class => 'link' %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+      <% if @poem.is_poem_type? %>
+        <div id="subusage" class="hidden">
+          <% @poem.children.each do |c| %>
+            <%= link_to c, c, :class => "action_link" %>
+          <% end %>
+        </div>
+      <% end %>
+      <% if not @poem.is_poem_type? %>
+        <div id="sublineage" class="hidden"></div>
+      <% end %>
+    </div>
+  </div>
 
 <script type="text/javascript">
 
@@ -103,7 +122,7 @@
         layouter.layout();
 
         /* draw the graph using the RaphaelJS draw implementation */
-        var renderer = new Graph.Renderer.Raphael('lineage', g, width, height);
+        var renderer = new Graph.Renderer.Raphael('sublineage', g, width, height);
         renderer.draw();
 
         redraw = function() {

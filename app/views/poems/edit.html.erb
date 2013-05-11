@@ -12,56 +12,48 @@
     </div>
 </div>
 <div class="content2">
-
-  <%= field_set_tag t('.properties') do %>
-    <%= form_for(@poem) do |f| %>
-      <table>
-        <tr>
-          <td class="label_cell"><%= t('.type') %></td>
-          <td class="value_cell"><%= f.collection_select :parent_id, Poem.poem_types, :id, :poem_name, :include_blank => true %></td>
-        </tr>
-        <tr>
-          <td class="label_cell"><%= t('.name') %></td>
-          <td class="value_cell"><%= f.text_field :poem_name, :value => @poem.poem_name %></td>
-        </tr>
-        <tr>
-          <td class="label_cell"><%= t('.is_poem_type') %></td>
-          <td class="value_cell"><%= f.check_box :is_poem_type %></td>
-        </tr>
-      </table>
-      <%= f.submit t('.update_properties') %>
-    <% end %>
-  <% end %>
-
-  <%= field_set_tag t('.values') do %>
-    <div id="values"><%= render @poem.values %></div>
-    <div id="value_form">
-      <%= render 'value_form' %>
+  <ul id="tabbed_menu">
+    <li id="meta"><%= t('.meta') %></li>
+    <li id="values" class="active"><%= t('.values') %></li>
+    <li id="references"><%= t('.references') %></li>
+  </ul>
+  <div id="content3">
+    <div id="submeta" class="hidden">
+      <%= form_for(@poem) do |f| %>
+          <table>
+            <tr>
+              <td class="label_cell"><%= t('.type') %></td>
+              <td class="value_cell"><%= f.collection_select :parent_id, Poem.poem_types, :id, :poem_name, :include_blank => true %></td>
+            </tr>
+            <tr>
+              <td class="label_cell"><%= t('.name') %></td>
+              <td class="value_cell"><%= f.text_field :poem_name, :value => @poem.poem_name %></td>
+            </tr>
+            <tr>
+              <td class="label_cell"><%= t('.is_poem_type') %></td>
+              <td class="value_cell"><%= f.check_box :is_poem_type %></td>
+            </tr>
+          </table>
+          <%= f.submit t('.update_properties') %>
+      <% end %>
     </div>
-  <% end %>
-
-  <%= field_set_tag t('.referencing') do %>
+    <div id="subvalues">
+      <div id="values"><%= render @poem.values %></div>
+      <div id="value_form">
+        <%= render 'value_form' %>
+      </div>
+    </div>
+    <div id="subreferences" class="hidden">
       <% if @poem.relation_types.length == 0 %>
-        <%= t('.no_relation_types') %>
+          <%= t('.no_relation_types') %>
       <% else %>
-        <table id="relations">
-          <%= render @poem.links_to_successors %>
-        </table>
-        <div id="relation_form">
-          <%= render 'relation_form' %>
-        </div>
+          <table id="relations">
+            <%= render @poem.links_to_successors %>
+          </table>
+          <div id="relation_form">
+            <%= render 'relation_form' %>
+          </div>
       <% end %>
-  <% end %>
-
-  <%= field_set_tag t('.referenced_by') do %>
-  <% end %>
-
-  <% if @poem.has_children? %>
-      <%= field_set_tag t('.usage') do %>
-          <% @poem.children.each do |c| %>
-              <%= link_to c, c, :class => "action_link" %>
-          <% end %>
-      <% end %>
-  <% end %>
-
+    </div>
+  </div>
 </div>

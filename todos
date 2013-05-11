@@ -14,6 +14,7 @@ Finder
 Poems
 - (high) Lineage
 - (low) Rework index page: grouping by 1st letter
+- show: "No values defined" in case of missing values
 
 Relations
 - Do not show relation-to-poems as long no relation type is selected

@@ -14,7 +14,6 @@
 
 <div class="main-nav-wrapper">
   <div class="container">
-    <span class="shakespeare">shakespeare // </span>
     <%= link_to t('.home'), mdms_path, :class => 'action_link' %>
     <%= link_to t('.admin'), admin_path, :class => 'action_link' %>
     <div class="right">
@@ -96,8 +95,12 @@
       );
 
       $(function(){
-          $('legend').click(function(){
-              $(this).siblings().slideToggle("fast");
+          $("#tabbed_menu li").mouseover(function(){
+              var $this = $(this);
+              $("#content3 div").addClass("hidden");
+              $("#sub"+$this.attr("id")).removeClass("hidden");
+              $(".active").removeClass("active");
+              $this.addClass("active");
           });
       });
 
