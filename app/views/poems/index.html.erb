@@ -16,44 +16,76 @@
   </div>
 </div>
 <div class="content2">
-  <% if @poem_types && @poem_types.to_a.length > 0 %>
-    <%= field_set_tag t('.in_poem_types') do %>
-      <% @poem_types.each do |p| %>
-        <%= link_to p, p, :class => 'action_link' %>
-      <% end %>
+  <ul id="tabbed_menu">
+    <% if @poem_types && @poem_types.to_a.length > 0 %>
+      <li id="tab_poem_types"><%= t('.poem_types') %></li>
     <% end %>
-  <% end %>
-  <% if @poems && @poems.to_a.length > 0  %>
-    <%= field_set_tag t('.in_poems') do %>
-      <% @poems.each do |p| %>
-        <%= link_to p, p, :class => 'action_link' %>
-      <% end %>
+    <% if @poems && @poems.to_a.length > 0 %>
+      <li id="tab_poems"><%= t('.poems') %></li>
     <% end %>
-  <% end %>
-  <% if @values && @values.to_a.length > 0  %>
-    <%= field_set_tag t('.in_values') do %>
-      <table>
-        <tr>
-          <td class="label_cell"><%= t('poem_type') %></td>
-          <td class="label_cell"><%= t('poem') %></td>
-          <td class="label_cell"><%= t('attribute') %></td>
-          <td class="label_cell"><%= t('value') %></td>
-        </tr>
-        <% @values.each do |v| %>
-            <% if v.poem %>
-          <tr>
-            <% if v.poem.parent == nil %>
-                <td class="value_cell"><%= t('.no_type') %></td>
-            <% else %>
-                <td class="value_cell"><%= link_to v.poem.parent, v.poem.parent, :class => 'link' %></td>
-            <% end %>
-            <td class="value_cell"><%= link_to v.poem, v.poem, :class => 'link' %></td>
-            <td class="value_cell"><%= v.name %></td>
-            <td class="value_cell"><%= v.value %></td>
-          </tr>
-                <% end %>
+    <% if @values && @values.to_a.length > 0 %>
+      <li id="tab_values"><%= t('.values') %></li>
+    <% end %>
+  </ul>
+  <div id="content_pane">
+    <div id="pane_poem_types" class="hidden">
+      <% if @poem_types && @poem_types.to_a.length > 0 %>
+        <% @poem_types.each do |p| %>
+          <%= link_to p, p, :class => 'action_link' %>
         <% end %>
-      </table>
-    <% end %>
-  <% end %>
+      <% end %>
+    </div>
+    <div id="pane_poems" class="hidden">
+      <% if @poems && @poems.to_a.length > 0  %>
+        <% @poems.each do |p| %>
+          <%= link_to p, p, :class => 'action_link' %>
+        <% end %>
+      <% end %>
+    </div>
+    <div id="pane_values" class="hidden">
+      <% if @values && @values.to_a.length > 0  %>
+        <table>
+          <tr>
+            <td class="label_cell"><%= t('poem_type') %></td>
+            <td class="label_cell"><%= t('poem') %></td>
+            <td class="label_cell"><%= t('attribute') %></td>
+            <td class="label_cell"><%= t('value') %></td>
+          </tr>
+          <% @values.each do |v| %>
+            <% if v.poem %>
+              <tr class="row_highlight">
+                <% if v.poem.parent == nil %>
+                  <td class="value_cell"><%= t('.no_type') %></td>
+                <% else %>
+                  <td class="value_cell"><%= link_to v.poem.parent, v.poem.parent, :class => 'link' %></td>
+                <% end %>
+                <td class="value_cell"><%= link_to v.poem, v.poem, :class => 'link' %></td>
+                <td class="value_cell"><%= v.name %></td>
+                <td class="value_cell"><%= v.value %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </table>
+      <% end %>
+    </div>
+  </div>
 </div>
+
+<script type="text/javascript">
+  window.onload = function() {
+    <% if @poems && @poems.to_a.length > 0 %>
+      $('#tab_poems').addClass('active');
+      $('#pane_poems').removeClass('hidden');
+    <% else %>
+      <% if @values && @values.to_a.length > 0 %>
+        $('#tab_values').addClass('active');
+        $('#pane_values').removeClass('hidden');
+      <% else %>
+        <% if @poem_types && @poem_types.to_a.length > 0 %>
+          $('#tab_poem_types').addClass('active');
+          $('#pane_poem_types').removeClass('hidden');
+        <% end %>
+      <% end %>
+    <% end %>
+  };
+</script>

@@ -97,8 +97,8 @@
       $(function(){
           $("#tabbed_menu li").mouseover(function(){
               var $this = $(this);
-              $("#content3 div").addClass("hidden");
-              $("#sub"+$this.attr("id")).removeClass("hidden");
+              $("#content_pane div").addClass("hidden");
+              $("#"+$this.attr("id").replace(/tab/, "pane")).removeClass("hidden");
               $(".active").removeClass("active");
               $this.addClass("active");
           });

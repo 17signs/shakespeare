@@ -6,15 +6,13 @@ Ruby
 Shakespeare
 - (high) Publish!
 - (high) Rework mdms#index, text does not match
-- (low) Search does not look for attribute names. Is there a need to do?
 
 Finder
 - (medium) keep list alive, but show only latest four columns (offset), but than: provide scrolling
 
 Poems
 - (high) Lineage
-- (low) Rework index page: grouping by 1st letter
-- show: "No values defined" in case of missing values
+- edit/show: as poem types will have no references show relation types instead
 
 Relations
 - Do not show relation-to-poems as long no relation type is selected
@@ -22,3 +20,4 @@ Relations
 
 Admin/Relation types
 - (medium) full navigation for relation types (all, index, etc.)
+  ==> No!, this shall move to to show/edit of poem types

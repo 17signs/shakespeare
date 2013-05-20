@@ -13,12 +13,12 @@
 </div>
 <div class="content2">
   <ul id="tabbed_menu">
-    <li id="meta"><%= t('.meta') %></li>
-    <li id="values" class="active"><%= t('.values') %></li>
-    <li id="references"><%= t('.references') %></li>
+    <li id="tab_meta"><%= t('.meta') %></li>
+    <li id="tab_values" class="active"><%= t('.values') %></li>
+    <li id="tab_references"><%= t('.references') %></li>
   </ul>
-  <div id="content3">
-    <div id="submeta" class="hidden">
+  <div id="content_pane">
+    <div id="pane_meta" class="hidden">
       <%= form_for(@poem) do |f| %>
           <table>
             <tr>
@@ -37,19 +37,53 @@
           <%= f.submit t('.update_properties') %>
       <% end %>
     </div>
-    <div id="subvalues">
-      <div id="values"><%= render @poem.values %></div>
-      <div id="value_form">
-        <%= render 'value_form' %>
-      </div>
+    <div id="pane_values">
+      <% @poem.values.each do |value| %>
+        <%= form_for(value, :remote => true) do |f| %>
+          <%= f.text_field :name %>
+          <%= f.text_field :value %>
+          <%= f.submit %>
+          <%= link_to t('.delete'), value, :method => :delete, :remote => true, :class => 'link' %>
+        <% end %>
+      <% end %>
+      <%= form_for(@value, :remote => true) do |f| %>
+        <%= f.hidden_field :poem, :value => @poem.id %>
+        <%= f.text_field :name %>
+        <%= f.text_field :value %>
+        <%= f.submit 'New value' %>
+      <% end %>
+      <% if @poem.has_children? %>
+        <p>WARNING: Adding or removing values does affect all existing children of this poem type!</p>
+      <% end %>
     </div>
-    <div id="subreferences" class="hidden">
+    <div id="pane_references" class="hidden">
       <% if @poem.relation_types.length == 0 %>
           <%= t('.no_relation_types') %>
       <% else %>
-          <table id="relations">
-            <%= render @poem.links_to_successors %>
-          </table>
+          <% if @poem.has_references? %>
+              <table>
+                <% @poem.links_to_predecessors.each do |p| %>
+                    <tr class="row_highlight">
+                      <td><%= link_to p.from, p.from, :class => 'link' %></td>
+                      <td>&nbsp;<%= p.relation_type %>&nbsp;</td>
+                      <td><%= link_to p.to, p.to, :class => 'link' %></td>
+                      <td></td>
+                      <td></td>
+                      <td><%= link_to t('.delete'), p, :method => :delete, :remote => true, :class => 'link' %></td>
+                    </tr>
+                <% end %>
+                <% @poem.links_to_successors.each do |s| %>
+                    <tr class="row_highlight">
+                      <td></td>
+                      <td></td>
+                      <td><%= link_to s.from, s.from, :class => 'link' %></td>
+                      <td>&nbsp;<%= s.relation_type %>&nbsp;</td>
+                      <td><%= link_to s.to, s.to, :class => 'link' %></td>
+                      <td><%= link_to t('.delete'), s, :method => :delete, :remote => true, :class => 'link' %></td>
+                    </tr>
+                <% end %>
+              </table>
+              <% end %>
           <div id="relation_form">
             <%= render 'relation_form' %>
           </div>

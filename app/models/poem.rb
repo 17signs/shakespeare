@@ -51,6 +51,10 @@ class Poem
     children.length > 0
   end
 
+  def has_references?
+    has_predecessors? || has_successors?
+  end
+
   def has_predecessors?
     links_to_predecessors != []
   end

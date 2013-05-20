@@ -101,7 +101,7 @@ footer {
   padding: 10px 20px;
 }
 
-#content3 {
+#content_pane {
   margin-top: 8px;
   padding: 10px;
   border-top: 1px solid $highlight_color;
@@ -200,4 +200,21 @@ footer {
 
 .hidden {
   display: none;
+}
+
+.action_button_image {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+}
+
+table {
+  border-collapse: collapse;
+  padding: 0;
+  margin: 0;
+
+}
+
+.row_highlight:hover {
+  background-color: $main_background;
 }

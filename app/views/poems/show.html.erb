@@ -13,18 +13,18 @@
 </div>
 <div class="content2">
     <ul id="tabbed_menu">
-      <li id="meta"><%= t('.meta') %></li>
-      <li id="values" class="active"><%= t('.values') %></li>
-      <li id="references"><%= t('.references') %></li>
+      <li id="tab_meta"><%= t('.meta') %></li>
+      <li id="tab_values" class="active"><%= t('.values') %></li>
+      <li id="tab_references"><%= t('.references') %></li>
       <% if @poem.is_poem_type? %>
-        <li id="usage"><%= t('.usage') %></li>
+        <li id="tab_usage"><%= t('.usage') %></li>
       <% end %>
       <% if not @poem.is_poem_type? %>
-        <li id="lineage"><%= t('.lineage') %></li>
+        <li id="tab_lineage"><%= t('.lineage') %></li>
       <% end %>
     </ul>
-    <div id="content3">
-      <div id="submeta" class="hidden">
+    <div id="content_pane">
+      <div id="pane_meta" class="hidden">
         <table>
           <tr>
             <td class="label_cell"><%= t('.type') %></td>
@@ -52,7 +52,8 @@
           </tr>
         </table>
       </div>
-      <div id="subvalues">
+      <div id="pane_values">
+        <% if @poem.has_values? %>
         <table id="values">
           <% @poem.values.each do |v| %>
               <tr>
@@ -61,8 +62,12 @@
               </tr>
           <% end %>
         </table>
+            <% else %>
+        <%= t('.no_values') %>
+        <% end %>
       </div>
-      <div id="subreferences" class="hidden">
+      <div id="pane_references" class="hidden">
+        <% if @poem.has_references? %>
         <table>
           <% @poem.links_to_predecessors.each do |p| %>
             <tr>
@@ -83,16 +88,19 @@
             </tr>
           <% end %>
         </table>
+            <% else %>
+        <%= t('.no_references') %>
+            <% end %>
       </div>
       <% if @poem.is_poem_type? %>
-        <div id="subusage" class="hidden">
+        <div id="pane_usage" class="hidden">
           <% @poem.children.each do |c| %>
             <%= link_to c, c, :class => "action_link" %>
           <% end %>
         </div>
       <% end %>
       <% if not @poem.is_poem_type? %>
-        <div id="sublineage" class="hidden"></div>
+        <div id="pane_lineage" class="hidden"></div>
       <% end %>
     </div>
   </div>
@@ -122,7 +130,7 @@
         layouter.layout();
 
         /* draw the graph using the RaphaelJS draw implementation */
-        var renderer = new Graph.Renderer.Raphael('sublineage', g, width, height);
+        var renderer = new Graph.Renderer.Raphael('pane_lineage', g, width, height);
         renderer.draw();
 
         redraw = function() {
