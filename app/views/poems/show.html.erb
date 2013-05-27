@@ -2,108 +2,162 @@
   <div class="header_left">
     <h1><% if @poem.parent %><%= @poem.parent %>: <% end %><%= @poem %></h1>
   </div>
-  <div class="header_right">
-    <ul class="header_menu">
-      <li><%= link_to t('.edit'), edit_poem_path(@poem), :class => 'action_link' %></li>
-      <li><%= link_to t('.new'), new_poem_path, :class => 'action_link' %></li>
-      <li><%= link_to t('.index'), poems_path, :class => 'action_link' %></li>
-      <li><%= link_to t('.delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'action_link' %></li>
-    </ul>
-  </div>
 </div>
 <div class="content2">
     <ul id="tabbed_menu">
       <li id="tab_meta"><%= t('.meta') %></li>
       <li id="tab_values" class="active"><%= t('.values') %></li>
-      <li id="tab_references"><%= t('.references') %></li>
+      <li id="tab_relations"><%= t('.relations') %></li>
       <% if @poem.is_poem_type? %>
         <li id="tab_usage"><%= t('.usage') %></li>
-      <% end %>
-      <% if not @poem.is_poem_type? %>
+      <% else %>
         <li id="tab_lineage"><%= t('.lineage') %></li>
       <% end %>
     </ul>
     <div id="content_pane">
       <div id="pane_meta" class="hidden">
-        <table>
-          <tr>
-            <td class="label_cell"><%= t('.type') %></td>
-            <td class="value_cell">
+        <div class="row_wrapper">
+          <div class="row_content">
+            <em class="bold row_label"><%= t('.type') %></em>
+            <div class="row_value">
               <% if @poem.parent %>
                   <%= link_to @poem.parent, @poem.parent, :class => 'link' %>
               <% else %>
                   <%= t('.no_type') %>
               <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td class="label_cell"><%= t('.name') %></td>
-            <td class="value_cell"><%= @poem %></td>
-          </tr>
-          <tr>
-            <td class="label_cell"><%= t('.is_poem_type') %></td>
-            <td class="value_cell">
+            </div>
+          </div>
+        </div>
+        <div class="row_wrapper">
+          <div class="row_content">
+            <em class="bold row_label"><%= t('.name') %></em>
+            <div class="row_value"><%= @poem %></div>
+          </div>
+          <div class="row_action">
+            <ul class="flat_list">
+              <li class="action_item"><%= link_to t('.edit'), edit_poem_path(@poem), :class => 'link' %></li>
+            </ul>
+          </div>
+        </div>
+        <div class="row_wrapper">
+          <div class="row_content">
+            <em class="bold row_label"><%= t('.is_poem_type') %></em>
+            <div class="row_value">
               <% if @poem.is_poem_type? %>
                   <%= t('.yes') %>
               <% else %>
                   <%= t('no') %>
               <% end %>
-            </td>
-          </tr>
-        </table>
+            </div>
+          </div>
+        </div>
+        <ul class="flat_list">
+          <li class="action_item"><%= link_to t('.create_new_poem'), new_poem_path, :class => 'button focus' %></li>
+          <li class="action_item"><%= link_to t('.delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'button' %></li>
+        </ul>
       </div>
       <div id="pane_values">
         <% if @poem.has_values? %>
-        <table id="values">
-          <% @poem.values.each do |v| %>
-              <tr>
-                <td class="label_cell"><%= v.name %></td>
-                <td class="value_cell"><%= v.value %></td>
-              </tr>
-          <% end %>
-        </table>
-            <% else %>
-        <%= t('.no_values') %>
-        <% end %>
-      </div>
-      <div id="pane_references" class="hidden">
-        <% if @poem.has_references? %>
-        <table>
-          <% @poem.links_to_predecessors.each do |p| %>
-            <tr>
-              <td><%= link_to p.from, p.from, :class => 'link' %></td>
-              <td><%= p.relation_type %></td>
-              <td><%= link_to p.to, p.to, :class => 'link' %></td>
-              <td></td>
-              <td></td>
-            </tr>
-          <% end %>
-          <% @poem.links_to_successors.each do |s| %>
-            <tr>
-              <td></td>
-              <td></td>
-              <td><%= link_to s.from, s.from, :class => 'link' %></td>
-              <td><%= s.relation_type %></td>
-              <td><%= link_to s.to, s.to, :class => 'link' %></td>
-            </tr>
-          <% end %>
-        </table>
-            <% else %>
-        <%= t('.no_references') %>
+            <div id="values">
+            <% @poem.values.each do |v| %>
+              <div id="<%= dom_id(v) %>" class="row_wrapper">
+                <div class="row_content">
+                  <em class="bold row_label"><%= v.name %></em>
+                  <div class="row_value"><%= v.value %></div>
+                </div>
+                <div class="row_action">
+                  <ul class="flat_list">
+                    <li class="action_item"><%= link_to t('.edit'), edit_value_path(v), :class => "link" %></li>
+                    <li class="action_item"><%= link_to t('.delete'), v, :method => :delete, :remote => true, :class => 'link' %></li>
+                  </ul>
+                </div>
+              </div>
             <% end %>
+            </div>
+        <% end %>
+        <a href='#' onclick='overlay()' class="button focus"><%= t('.create_new_value') %></a>
+      </div>
+      <div id="pane_relations" class="hidden">
+        <% if @poem.has_relations? %>
+            <% @poem.links_to_successors.each do |tr| %>
+                <div id="<%= dom_id(tr) %>" class="row_wrapper">
+                  <div class="row_content">
+                    <div class="row_value">
+                      <em class="bold"><%= tr.from %></em>&nbsp;<%= tr.from_to_phrase %>&nbsp;<%= link_to tr.to, tr.to, :class => 'link' %>
+                    </div>
+                  </div>
+                  <div class="row_action">
+                    <ul class="flat_list">
+                      <li class="action_item"><%= link_to t('.delete'), tr, :method => :delete, :remote => true, :class => 'link' %></li>
+                    </ul>
+                  </div>
+                </div>
+            <% end %>
+        <% end %>
+        <a href='#' onclick='overlay()' class="button focus"><%= t('.create_new_relation') %></a>
       </div>
       <% if @poem.is_poem_type? %>
         <div id="pane_usage" class="hidden">
-          <% @poem.children.each do |c| %>
-            <%= link_to c, c, :class => "action_link" %>
+          <ul class="flat_list">
+            <% @poem.children.each do |c| %>
+              <li class="action_item"><%= link_to c, c, :class => 'link' %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% else %>
+        <div id="pane_references" class="hidden">
+          <% if @poem.has_references? %>
+            <table>
+              <% @poem.links_to_predecessors.each do |p| %>
+                <tr>
+                  <td><%= link_to p.from, p.from, :class => 'link' %></td>
+                  <td><%= p.relation_type %></td>
+                  <td><%= link_to p.to, p.to, :class => 'link' %></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              <% end %>
+              <% @poem.links_to_successors.each do |s| %>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td><%= link_to s.from, s.from, :class => 'link' %></td>
+                  <td><%= s.relation_type %></td>
+                  <td><%= link_to s.to, s.to, :class => 'link' %></td>
+                </tr>
+              <% end %>
+            </table>
+          <% else %>
+            <%= t('.no_references') %>
           <% end %>
         </div>
-      <% end %>
-      <% if not @poem.is_poem_type? %>
         <div id="pane_lineage" class="hidden"></div>
       <% end %>
     </div>
   </div>
+
+<div id="overlay">
+<div id="new_relation_dialog">
+  <%= form_for(@relation) do |f| %>
+      <%= f.hidden_field :from, :value => @poem.id %>
+      <%= field_set_tag t('.create_new_relation_for')+" "+@poem do %>
+        <ol>
+          <li><%= f.label :to %><%= f.select :to, Poem.poem_types_for_relations() %></li>
+          <li>
+            <%= field_set_tag t('.phrases') do %>
+            <ol>
+              <li><%= f.label :from_to_phrase %><%= f.text_field :from_to_phrase %></li>
+              <li><%= f.label :to_from_phrase %><%= f.text_field :to_from_phrase %></li>
+            </ol>
+            <% end %>
+          </li>
+        </ol>
+        <a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a>
+        <%= f.submit :class => "button focus" %>
+      <% end %>
+  <% end %>
+</div>
+</div>
 
 <script type="text/javascript">
 
@@ -139,5 +193,11 @@
         };
 
   };
+
+    function overlay() {
+        el = document.getElementById("overlay");
+        el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+    };
+
 
 </script>

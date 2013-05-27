@@ -5,6 +5,10 @@ class RelationsController < ApplicationController
     new_relation_data = Hash.new()
     new_poem_data = Hash.new()
 
+    # get some data out of params
+    new_relation_data[:from_to_phrase] = data[:from_to_phrase]
+    new_relation_data[:to_from_phrase] = data[:to_from_phrase]
+
     # distinguish selected target poem or new poem; indicator is :to == 0
     if data[:to] == "0"
       new_relation_data[:from]          = Poem.find_by_id(data[:from])
@@ -41,14 +45,13 @@ class RelationsController < ApplicationController
     else
 
       new_relation_data[:from]          = Poem.find_by_id(data[:from])
-      new_relation_data[:relation_type] = RelationType.find_by_id(data[:relation_type])
       new_relation_data[:to]            = Poem.find_by_id(data[:to])
 
       @relation = Relation.new(new_relation_data)
       @relation.save
 
       @poem = new_relation_data[:from]
-      redirect_to edit_poem_path(@poem)
+      redirect_to @poem
 
     end
 

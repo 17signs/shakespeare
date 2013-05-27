@@ -7,6 +7,7 @@ de:
     application:
       home: "Home"
       finder: "Finder"
+      shakespeare: "shakespeare"
   poems:
     new:
       new_name_please: "Enter new name please"
@@ -33,6 +34,7 @@ de:
       referencing: "Referencing"
       referenced_by: "Referenced by"
       usage: "Usage"
+      create_new_value: "Neuen Wert erzeugen"
     edit:
       name: "Name"
       is_poem_type: "Is poem type?"

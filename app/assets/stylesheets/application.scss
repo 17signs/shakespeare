@@ -16,11 +16,16 @@ $highlight_color: rgba(0, 136, 178, 1.0);
 
 // section a) standard html tags
 
+a {
+  display: inline-block;
+}
+
 body {
     background-color: $main_background;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 13px;
     line-height: 18px;
+    height: 100%;
     margin: 0;
     padding: 0;
     color: $main_color;
@@ -30,6 +35,12 @@ h1 {
   color: $highlight_color;
 }
 
+hr {
+  border: 0;
+  height: 1px;
+  background-color: $highlight_color;
+}
+
 footer {
   margin-top: 20px;
   color: black;
@@ -37,18 +48,18 @@ footer {
 
 // section b) classes
 
-.action_link {
-  color: $highlight_color;
-  font-weight: bold;
-  text-decoration: none;
-  margin: 0 10px;
-}
-
 .container {
-  width: 90%;
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
   padding: 30px 0;
+  clear: both;
+}
+
+.nav_container {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
   clear: both;
 }
 
@@ -56,6 +67,11 @@ footer {
   background-color: #ffffff;
   box-shadow: 2px 2px 10px #999999;
   padding: 60px 20px 20px;
+}
+
+.nav_content {
+  background-color: #ffffff;
+  padding: 30px 20px;
 }
 
 .content2 {
@@ -83,6 +99,18 @@ footer {
 }
 
 .header_menu > li {
+  display: inline;
+  text-decoration: none;
+}
+
+.flat_list {
+  display: block;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.flat_list > li {
   display: inline;
   text-decoration: none;
 }
@@ -115,7 +143,7 @@ footer {
 .label_cell {
   padding: 5px 20px 5px 0;
   vertical-align: top;
-  color: #0f3b5f;
+  color: $highlight_color;
   font-weight: bold;
 }
 
@@ -125,6 +153,10 @@ footer {
   text-decoration: none;
   margin: 0;
   padding: 0;
+}
+
+.link:hover {
+  color: $finder_background;
 }
 
 .main-nav-wrapper {
@@ -143,7 +175,7 @@ footer {
 }
 
 .finder_layer {
-  z-index: 2020;
+  z-index: 1000;
   position: fixed;
   margin-left: 0;
   margin-top: 120px;
@@ -151,6 +183,8 @@ footer {
   box-shadow: 3px 3px 15px #999999;
   color: white;
   padding: 10px;
+  left: 0;
+  top: 40px;
 }
 
 .finder_layer a {
@@ -192,6 +226,7 @@ footer {
   font-style: italic;
   font-weight: bold;
   color: $highlight_color;
+  text-decoration: none;
 }
 
 .value_cell {
@@ -202,19 +237,160 @@ footer {
   display: none;
 }
 
-.action_button_image {
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-}
-
 table {
   border-collapse: collapse;
   padding: 0;
   margin: 0;
-
 }
 
 .row_highlight:hover {
   background-color: $main_background;
+}
+
+.action_cell {
+  margin-left: 70px;
+  border-left: 1px dotted $highlight_color;
+  padding-left: 10px;
+}
+
+.action_item {
+  margin: 0 10px;
+}
+
+.action_item:first-child {
+  margin: 0 10px 0 0;
+}
+
+.action_item:last-child {
+  margin: 0 0 0 10px;
+}
+
+.action_item:only-child {
+  margin: 0;
+}
+
+.button {
+  padding: 7px 14px;
+  -webkit-border-radius: 7px;
+  box-shadow: 1px 1px 2px silver;
+  text-decoration: none;
+  background-color: $main_background;
+  color: $main_color;
+}
+
+.focus {
+  background-color: $finder_background;
+  color: white;
+}
+
+.rel_relation {
+  border: 1px dotted $main_background;
+  padding: 7px 14px;
+  min-height: 32px;
+  margin: 7px 0;
+  -webkit-border-radius: 7px;
+}
+
+.rel_relation:hover {
+  background-color: $main_background;
+}
+
+.rel_relation .rel_action {
+  float: right;
+  display: none;
+}
+
+.rel_relation:hover .rel_action {
+  display: inline-block;
+}
+
+#overlay {
+  visibility: hidden;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width:100%;
+  height:100%;
+  z-index: 1050;
+  background-color: rgba(232, 232, 232, 0.4);
+}
+
+#new_relation_dialog {
+  position: absolute;
+  left: 300px;
+  top: 200px;
+  background-color: #ffffff;
+  padding: 14px;
+  border: 1px solid $finder_background;
+  -webkit-border-radius: 7px;
+  box-shadow: 10px 10px 20px silver;
+  opacity: 0.95;
+}
+
+#new_relation_dialog fieldset {
+  margin-bottom: 10px;
+  border: 0;
+}
+
+#new_relation_dialog legend {
+  font-weight: bold;
+  color: $highlight_color;
+}
+
+#new_relation_dialog label {
+  display: inline-block;
+  line-height: 1.8;
+  vertical-align: top;
+  width: 120px;
+}
+#new_relation_dialog fieldset ol {
+  margin: 0;
+  padding: 0;
+}
+#new_relation_dialog fieldset li {
+  list-style: none;
+  padding: 5px;
+  margin: 0;
+}
+
+#new_relation_dialog fieldset fieldset {
+  margin-bottom: 10px;
+  border: 1px solid $highlight_color;
+}
+
+.row_wrapper  {
+  border: 1px dotted $main_background;
+  padding: 7px 14px;
+  min-height: 32px;
+  margin: 7px 0;
+  -webkit-border-radius: 7px;
+}
+
+.row_label {
+  float: left;
+  min-width: 20%;
+  max-width: 20%;
+}
+
+.row_wrapper .row_action {
+  float: left;
+  display: none;
+}
+
+.row_wrapper:hover {
+  background-color: $main_background;
+}
+
+.row_wrapper:hover .row_action {
+  display: block;
+}
+
+.row_value:after {
+  content: '.';
+  visibility: hidden;
+}
+
+em.bold {
+  font-weight: bold;
+  font-style: normal;
 }

@@ -19,7 +19,7 @@ Shakespeare::Application.routes.draw do
     resources :values
     resources :relations
 
-    root :to => 'mdms#index', :as => 'mdms'
+    root :to => 'poems#index', :as => 'mdms'
   end
 
 end

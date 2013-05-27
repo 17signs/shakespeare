@@ -16,9 +16,6 @@ class Poem
   has_many :links_to_predecessors, :class_name => 'Relation', :foreign_key => 'to_id', :dependent => :destroy
   has_many :links_to_successors, :class_name => 'Relation', :foreign_key => 'from_id', :dependent => :destroy
 
-  has_many :from_relations, :class_name => 'RelationType', :foreign_key => 'to_id', :dependent => :destroy
-  has_many :to_relations, :class_name => 'RelationType', :foreign_key => 'from_id', :dependent => :destroy
-
   def destroy
     # call normal behaviour
     super
@@ -52,6 +49,10 @@ class Poem
   end
 
   def has_references?
+    has_predecessors? || has_successors?
+  end
+
+  def has_relations?
     has_predecessors? || has_successors?
   end
 
@@ -104,15 +105,21 @@ class Poem
   end
 
   def has_value?(value_name)
-    puts "checking value existence #{value_name}"
     Value.find('poem_id' => id, :name => value_name) != nil
   end
 
   def remove_value(value_name)
+    puts "about to remove: #{value_name}"
     if has_value?(value_name)
+      puts "#{value_name} exists"
       value = get_value(value_name)
       value.destroy
+      puts "#{value_name} destroyed"
       children.each { |child| child.remove_value(value_name) }
+      puts "and same for children"
+    else
+      puts "hmm"
+      puts Value.where('poem_id' => id, :name => value_name).first
     end
   end
 

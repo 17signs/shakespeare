@@ -4,6 +4,8 @@ class Relation
   key :relation_type
   key :from
   key :to
+  key :from_to_phrase
+  key :to_from_phrase
 
   belongs_to :relation_type
 

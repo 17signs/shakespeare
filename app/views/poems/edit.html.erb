@@ -5,9 +5,9 @@
     </div>
     <div class="header_right">
       <ul class="header_menu">
-        <li><%= link_to t('.cancel'), @poem, :class => 'action_link' %></li>
-        <li><%= link_to t('.index'), poems_path, :class => 'action_link' %></li>
-        <li><%= link_to t('.delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'action_link' %></li>
+        <li class="action_item"><%= link_to t('.cancel'), @poem, :class => 'link' %></li>
+        <li class="action_item"><%= link_to t('.index'), poems_path, :class => 'link' %></li>
+        <li class="action_item"><%= link_to t('.delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'link' %></li>
       </ul>
     </div>
 </div>
@@ -15,7 +15,10 @@
   <ul id="tabbed_menu">
     <li id="tab_meta"><%= t('.meta') %></li>
     <li id="tab_values" class="active"><%= t('.values') %></li>
-    <li id="tab_references"><%= t('.references') %></li>
+    <% if @poem.is_poem_type? %>
+    <% else %>
+      <li id="tab_references"><%= t('.references') %></li>
+    <% end %>
   </ul>
   <div id="content_pane">
     <div id="pane_meta" class="hidden">
@@ -56,38 +59,41 @@
         <p>WARNING: Adding or removing values does affect all existing children of this poem type!</p>
       <% end %>
     </div>
-    <div id="pane_references" class="hidden">
-      <% if @poem.relation_types.length == 0 %>
-          <%= t('.no_relation_types') %>
-      <% else %>
-          <% if @poem.has_references? %>
-              <table>
-                <% @poem.links_to_predecessors.each do |p| %>
-                    <tr class="row_highlight">
-                      <td><%= link_to p.from, p.from, :class => 'link' %></td>
-                      <td>&nbsp;<%= p.relation_type %>&nbsp;</td>
-                      <td><%= link_to p.to, p.to, :class => 'link' %></td>
-                      <td></td>
-                      <td></td>
-                      <td><%= link_to t('.delete'), p, :method => :delete, :remote => true, :class => 'link' %></td>
-                    </tr>
-                <% end %>
-                <% @poem.links_to_successors.each do |s| %>
-                    <tr class="row_highlight">
-                      <td></td>
-                      <td></td>
-                      <td><%= link_to s.from, s.from, :class => 'link' %></td>
-                      <td>&nbsp;<%= s.relation_type %>&nbsp;</td>
-                      <td><%= link_to s.to, s.to, :class => 'link' %></td>
-                      <td><%= link_to t('.delete'), s, :method => :delete, :remote => true, :class => 'link' %></td>
-                    </tr>
-                <% end %>
-              </table>
+    <% if @poem.is_poem_type? %>
+    <% else %>
+        <div id="pane_references" class="hidden">
+          <% if @poem.relation_types.length == 0 %>
+              <%= t('.no_relation_types') %>
+          <% else %>
+              <% if @poem.has_references? %>
+                  <table>
+                    <% @poem.links_to_predecessors.each do |p| %>
+                        <tr class="row_highlight">
+                          <td><%= link_to p.from, p.from, :class => 'link' %></td>
+                          <td>&nbsp;<%= p.relation_type %>&nbsp;</td>
+                          <td><%= link_to p.to, p.to, :class => 'link' %></td>
+                          <td></td>
+                          <td></td>
+                          <td><%= link_to t('.delete'), p, :method => :delete, :remote => true, :class => 'link' %></td>
+                        </tr>
+                    <% end %>
+                    <% @poem.links_to_successors.each do |s| %>
+                        <tr class="row_highlight">
+                          <td></td>
+                          <td></td>
+                          <td><%= link_to s.from, s.from, :class => 'link' %></td>
+                          <td>&nbsp;<%= s.relation_type %>&nbsp;</td>
+                          <td><%= link_to s.to, s.to, :class => 'link' %></td>
+                          <td><%= link_to t('.delete'), s, :method => :delete, :remote => true, :class => 'link' %></td>
+                        </tr>
+                    <% end %>
+                  </table>
               <% end %>
-          <div id="relation_form">
-            <%= render 'relation_form' %>
-          </div>
-      <% end %>
-    </div>
+              <div id="relation_form">
+                <%= render 'relation_form' %>
+              </div>
+          <% end %>
+        </div>
+    <% end %>
   </div>
 </div>

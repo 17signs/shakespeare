@@ -49,6 +49,12 @@ class PoemsController < ApplicationController
       @poems = Poem.poems()
       @poem_types = Poem.poem_types()
     end
+
+    # do some miller column stuff
+    $mc = nil
+    $mc_selected = []
+    Poem.navigate()
+
   end
 
   def new
@@ -57,6 +63,9 @@ class PoemsController < ApplicationController
 
   def show
     @poem = Poem.find_by_id(params[:id])
+    # create a potentially new relation type
+    @relation = Relation.new()
+    @relation.from = @poem
   end
 
   def update
