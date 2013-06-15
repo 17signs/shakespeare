@@ -1,99 +1,11 @@
-
-  <div class="header">
-    <div class="header_left">
-      <h1><%= t('.edit') %> <%= @poem.type %>: <%= @poem %></h1>
-    </div>
-    <div class="header_right">
-      <ul class="header_menu">
-        <li class="action_item"><%= link_to t('.cancel'), @poem, :class => 'link' %></li>
-        <li class="action_item"><%= link_to t('.index'), poems_path, :class => 'link' %></li>
-        <li class="action_item"><%= link_to t('.delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'link' %></li>
-      </ul>
-    </div>
-</div>
-<div class="content2">
-  <ul id="tabbed_menu">
-    <li id="tab_meta"><%= t('.meta') %></li>
-    <li id="tab_values" class="active"><%= t('.values') %></li>
-    <% if @poem.is_poem_type? %>
-    <% else %>
-      <li id="tab_references"><%= t('.references') %></li>
+<%= form_for @poem, :html => { :id => 'edit_poem' } do |f| %>
+    <%= field_set_tag t('.edit')+" "+@poem.to_s_long do %>
+        <ol>
+          <li><%= f.label :poem_name %><%= f.text_field :poem_name, :value => @poem.poem_name %></li>
+        </ol>
     <% end %>
-  </ul>
-  <div id="content_pane">
-    <div id="pane_meta" class="hidden">
-      <%= form_for(@poem) do |f| %>
-          <table>
-            <tr>
-              <td class="label_cell"><%= t('.type') %></td>
-              <td class="value_cell"><%= f.collection_select :parent_id, Poem.poem_types, :id, :poem_name, :include_blank => true %></td>
-            </tr>
-            <tr>
-              <td class="label_cell"><%= t('.name') %></td>
-              <td class="value_cell"><%= f.text_field :poem_name, :value => @poem.poem_name %></td>
-            </tr>
-            <tr>
-              <td class="label_cell"><%= t('.is_poem_type') %></td>
-              <td class="value_cell"><%= f.check_box :is_poem_type %></td>
-            </tr>
-          </table>
-          <%= f.submit t('.update_properties') %>
-      <% end %>
-    </div>
-    <div id="pane_values">
-      <% @poem.values.each do |value| %>
-        <%= form_for(value, :remote => true) do |f| %>
-          <%= f.text_field :name %>
-          <%= f.text_field :value %>
-          <%= f.submit %>
-          <%= link_to t('.delete'), value, :method => :delete, :remote => true, :class => 'link' %>
-        <% end %>
-      <% end %>
-      <%= form_for(@value, :remote => true) do |f| %>
-        <%= f.hidden_field :poem, :value => @poem.id %>
-        <%= f.text_field :name %>
-        <%= f.text_field :value %>
-        <%= f.submit 'New value' %>
-      <% end %>
-      <% if @poem.has_children? %>
-        <p>WARNING: Adding or removing values does affect all existing children of this poem type!</p>
-      <% end %>
-    </div>
-    <% if @poem.is_poem_type? %>
-    <% else %>
-        <div id="pane_references" class="hidden">
-          <% if @poem.relation_types.length == 0 %>
-              <%= t('.no_relation_types') %>
-          <% else %>
-              <% if @poem.has_references? %>
-                  <table>
-                    <% @poem.links_to_predecessors.each do |p| %>
-                        <tr class="row_highlight">
-                          <td><%= link_to p.from, p.from, :class => 'link' %></td>
-                          <td>&nbsp;<%= p.relation_type %>&nbsp;</td>
-                          <td><%= link_to p.to, p.to, :class => 'link' %></td>
-                          <td></td>
-                          <td></td>
-                          <td><%= link_to t('.delete'), p, :method => :delete, :remote => true, :class => 'link' %></td>
-                        </tr>
-                    <% end %>
-                    <% @poem.links_to_successors.each do |s| %>
-                        <tr class="row_highlight">
-                          <td></td>
-                          <td></td>
-                          <td><%= link_to s.from, s.from, :class => 'link' %></td>
-                          <td>&nbsp;<%= s.relation_type %>&nbsp;</td>
-                          <td><%= link_to s.to, s.to, :class => 'link' %></td>
-                          <td><%= link_to t('.delete'), s, :method => :delete, :remote => true, :class => 'link' %></td>
-                        </tr>
-                    <% end %>
-                  </table>
-              <% end %>
-              <div id="relation_form">
-                <%= render 'relation_form' %>
-              </div>
-          <% end %>
-        </div>
-    <% end %>
-  </div>
-</div>
+    <ul class="flat_list">
+      <li class="action_item"><a href="#" onclick="document.forms['edit_poem'].submit(); return false;" class="button focus"><%= t('.save') %></a></li>
+      <li class="action_item"><a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a></li>
+    </ul>
+<% end %>

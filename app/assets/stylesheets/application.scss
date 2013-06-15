@@ -269,6 +269,16 @@ table {
   margin: 0;
 }
 
+input[type="submit"] {
+  outline: none;
+  padding: 7px 14px;
+  -webkit-border-radius: 7px;
+  box-shadow: 1px 1px 2px silver;
+  text-decoration: none;
+  background-color: $main_background;
+  color: $main_color;
+}
+
 .button {
   padding: 7px 14px;
   -webkit-border-radius: 7px;
@@ -315,7 +325,7 @@ table {
   background-color: rgba(232, 232, 232, 0.4);
 }
 
-#new_relation_dialog {
+.overlay_dialog {
   position: absolute;
   left: 300px;
   top: 200px;
@@ -325,35 +335,36 @@ table {
   -webkit-border-radius: 7px;
   box-shadow: 10px 10px 20px silver;
   opacity: 0.95;
+  visibility: hidden;
 }
 
-#new_relation_dialog fieldset {
+.overlay_dialog fieldset {
   margin-bottom: 10px;
   border: 0;
 }
 
-#new_relation_dialog legend {
+.overlay_dialog legend {
   font-weight: bold;
   color: $highlight_color;
 }
 
-#new_relation_dialog label {
+.overlay_dialog label {
   display: inline-block;
   line-height: 1.8;
   vertical-align: top;
   width: 120px;
 }
-#new_relation_dialog fieldset ol {
+.overlay_dialog fieldset ol {
   margin: 0;
   padding: 0;
 }
-#new_relation_dialog fieldset li {
+.overlay_dialog fieldset li {
   list-style: none;
   padding: 5px;
   margin: 0;
 }
 
-#new_relation_dialog fieldset fieldset {
+.overlay_dialog fieldset fieldset {
   margin-bottom: 10px;
   border: 1px solid $highlight_color;
 }

@@ -10,7 +10,7 @@ en:
       shakespeare: "shakespeare"
   poems:
     new:
-      new_name_please: "Enter new name please"
+      name_please: "Enter new name please"
       name: "Name"
       is_poem_type: "Is poem type?"
       copy_value_fields: "Copy value fields?"
@@ -39,6 +39,8 @@ en:
       phrases: "Phrases"
       to_from_phrase: "to-from phrase"
       create_new_value: "Create new value"
+      save: "Save"
+      name_please: "Enter poem name..."
     edit:
       name: "Name"
       is_poem_type: "Is poem type?"

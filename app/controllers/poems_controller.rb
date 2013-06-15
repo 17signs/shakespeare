@@ -19,7 +19,7 @@ class PoemsController < ApplicationController
     end
 
     # start editing the newly created poem
-    redirect_to edit_poem_path(@poem)
+    redirect_to @poem
   end
 
   def destroy
@@ -33,10 +33,10 @@ class PoemsController < ApplicationController
 
   def edit
     @poem = Poem.find_by_id(params[:id])
-    @relations_from = @poem.links_to_predecessors
-    @relations_to = @poem.links_to_successors
-    @relation = Relation.new()
-    @value = Value.new()
+    @html = render_to_string(:action => "edit", :formats => [:html], :layout => false)
+    respond_to do |format|
+      format.js
+    end
   end
 
   def index
@@ -59,6 +59,11 @@ class PoemsController < ApplicationController
 
   def new
     @poem = Poem.new()
+    @poem.parent = Poem.find_by_id(params[:new_parent]) if params[:new_parent]
+    @html = render_to_string(:action => "new", :formats => [:html], :layout => false)
+    respond_to do |format|
+      format.js
+    end
   end
 
   def show

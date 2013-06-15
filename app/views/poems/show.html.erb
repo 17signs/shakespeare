@@ -1,6 +1,6 @@
 <div class="header">
   <div class="header_left">
-    <h1><% if @poem.parent %><%= @poem.parent %>: <% end %><%= @poem %></h1>
+    <h1><%= @poem.to_s_long %></h1>
   </div>
 </div>
 <div class="content2">
@@ -35,7 +35,7 @@
           </div>
           <div class="row_action">
             <ul class="flat_list">
-              <li class="action_item"><%= link_to t('.edit'), edit_poem_path(@poem), :class => 'link' %></li>
+              <li class="action_item"><%= link_to t('.edit'), edit_poem_path(@poem), :remote => true, :class => 'link' %></li>
             </ul>
           </div>
         </div>
@@ -52,7 +52,8 @@
           </div>
         </div>
         <ul class="flat_list">
-          <li class="action_item"><%= link_to t('.create_new_poem'), new_poem_path, :class => 'button focus' %></li>
+          <li class="action_item"><%= link_to t('.new_poem'), new_poem_path, :remote => true, :class => 'button focus' %></li>
+          <li class="action_item"><%= link_to t('.new_child'), new_poem_path(:new_parent => @poem.parent), :remote => true, :class => 'button' %></li>
           <li class="action_item"><%= link_to t('.delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'button' %></li>
         </ul>
       </div>
@@ -67,7 +68,7 @@
                 </div>
                 <div class="row_action">
                   <ul class="flat_list">
-                    <li class="action_item"><%= link_to t('.edit'), edit_value_path(v), :class => "link" %></li>
+                    <li class="action_item"><%= link_to t('.edit'), edit_value_path(v), :remote => true, :class => "link" %></li>
                     <li class="action_item"><%= link_to t('.delete'), v, :method => :delete, :remote => true, :class => 'link' %></li>
                   </ul>
                 </div>
@@ -75,7 +76,9 @@
             <% end %>
             </div>
         <% end %>
-        <a href='#' onclick='overlay()' class="button focus"><%= t('.create_new_value') %></a>
+        <ul class="flat_list">
+          <li class="action_item"><%= link_to t('.new_value'), new_value_path(:poem => @poem.id), :remote => true, :class => "button focus" %><li>
+        </ul>
       </div>
       <div id="pane_relations" class="hidden">
         <% if @poem.has_relations? %>
@@ -94,7 +97,7 @@
                 </div>
             <% end %>
         <% end %>
-        <a href='#' onclick='overlay()' class="button focus"><%= t('.create_new_relation') %></a>
+        <a href='#' onclick='overlay("new_relation_dialog")' class="button focus"><%= t('.create_new_relation') %></a>
       </div>
       <% if @poem.is_poem_type? %>
         <div id="pane_usage" class="hidden">
@@ -136,27 +139,32 @@
     </div>
   </div>
 
-<div id="overlay">
-<div id="new_relation_dialog">
-  <%= form_for(@relation) do |f| %>
-      <%= f.hidden_field :from, :value => @poem.id %>
-      <%= field_set_tag t('.create_new_relation_for')+" "+@poem do %>
-        <ol>
-          <li><%= f.label :to %><%= f.select :to, Poem.poem_types_for_relations() %></li>
-          <li>
-            <%= field_set_tag t('.phrases') do %>
+<div id="overlay_deprecated">
+  <div id="new_relation_dialog" class="overlay_dialog">
+    <%= form_for(@relation) do |f| %>
+        <%= f.hidden_field :from, :value => @poem.id %>
+        <%= field_set_tag t('.create_new_relation_for')+" "+@poem do %>
             <ol>
-              <li><%= f.label :from_to_phrase %><%= f.text_field :from_to_phrase %></li>
-              <li><%= f.label :to_from_phrase %><%= f.text_field :to_from_phrase %></li>
+              <li><%= f.label :to %><%= f.select :to, Poem.poem_types_for_relations() %></li>
+              <li>
+                <%= field_set_tag t('.phrases') do %>
+                    <ol>
+                      <li><%= f.label :from_to_phrase %><%= f.text_field :from_to_phrase %></li>
+                      <li><%= f.label :to_from_phrase %><%= f.text_field :to_from_phrase %></li>
+                    </ol>
+                <% end %>
+              </li>
             </ol>
-            <% end %>
-          </li>
-        </ol>
-        <a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a>
-        <%= f.submit :class => "button focus" %>
-      <% end %>
-  <% end %>
-</div>
+            <a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a>
+            <%= f.submit :class => "button focus" %>
+        <% end %>
+    <% end %>
+  </div>
+  <div id="new_value_dialog" class="overlay_dialog">
+    <%= field_set_tag t('.create_new_value_for')+" "+@poem do %>
+    <% end %>
+    <a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a>
+  </div>
 </div>
 
 <script type="text/javascript">
@@ -194,9 +202,15 @@
 
   };
 
-    function overlay() {
+    function overlay(dialog) {
+        $(".overlay_dialog").each(function() {
+            $(this).css("visibility", "hidden");
+        });
         el = document.getElementById("overlay");
         el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+        if (el.style.visibility == "visible") {
+            $('#'+dialog).css("visibility", "visible");
+        }
     };
 
 

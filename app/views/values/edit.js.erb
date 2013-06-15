@@ -1,0 +1,27 @@
+$(".overlay_dialog").each(function() {
+    $(this).css("visibility", "hidden");
+});
+el = document.getElementById("overlay");
+el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+if (el.style.visibility == "visible") {
+    $('#edit_value_dialog').css("visibility", "visible");
+}
+
+var legend = $("<legend />");
+legend.append("<%= @value.poem.to_s_long %>");
+
+var fs = $("<fieldset />");
+fs.append(legend);
+
+var item = $("<li />");
+item.append("<%= label_tag :name %>");
+
+var list = $("<ol />");
+list.append(item);
+
+fs.append(list);
+
+var form = $("<form />");
+form.append(fs);
+
+$('#edit_value_dialog').append(form);

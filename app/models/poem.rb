@@ -32,6 +32,14 @@ class Poem
     end
   end
 
+  def to_s_long
+    if parent
+      parent.to_s + ": " + to_s
+    else
+      to_s
+    end
+  end
+
   def type
     if parent_id
       parent.to_s
