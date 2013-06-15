@@ -1,33 +1,44 @@
-<div class="header">
-  <div class="header_left">
-    <h1><%= t('.new_poem') %></h1>
-  </div>
-  <div class="header_right">
-    <ul class="header_menu">
-      <li><%= link_to t('.cancel'), @poem, :class => 'action_link' %></li>
-      <li><%= link_to t('.index'), poems_path, :class => 'action_link' %></li>
-    </ul>
-  </div>
-</div>
 
+  <div class="header">
+    <div class="header_left">
+      <h1><%= t('.edit') %> <%= @poem.type %>: <%= @poem %></h1>
+    </div>
+    <div class="header_right">
+      <ul class="header_menu">
+        <li class="action_item"><%= link_to t('.cancel'), @poem, :class => 'link' %></li>
+        <li class="action_item"><%= link_to t('.index'), poems_path, :class => 'link' %></li>
+        <li class="action_item"><%= link_to t('.delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'link' %></li>
+      </ul>
+    </div>
+</div>
 <div class="content2">
-  <%= field_set_tag t('.properties') do %>
-    <%= form_for(@poem) do |f| %>
-      <table>
-        <tr>
-          <td class="label"><%= t('.type') %></td>
-          <td class="value"><%= f.collection_select :parent_id, Poem.poem_types, :id, :poem_name, :include_blank => true %></td>
-        </tr>
-        <tr>
-          <td class="label"><%= t('.name') %></td>
-          <td class="value"><%= f.text_field :poem_name, :placeholder => t('.new_name_please') %></td>
-        </tr>
-        <tr>
-          <td class="label"><%= t('.is_poem_type') %></td>
-          <td class="value"><%= f.check_box :is_poem_type %></td>
-        </tr>
-      </table>
-      <%= f.submit t('.save') %>
+  <ul id="tabbed_menu">
+    <li id="tab_meta"><%= t('.meta') %></li>
+    <li id="tab_values" class="active"><%= t('.values') %></li>
+    <% if @poem.is_poem_type? %>
+    <% else %>
+      <li id="tab_references"><%= t('.references') %></li>
     <% end %>
-  <% end %>
+  </ul>
+  <div id="content_pane">
+    <div id="pane_meta" class="hidden">
+      <%= form_for(@poem) do |f| %>
+          <table>
+            <tr>
+              <td class="label_cell"><%= t('.type') %></td>
+              <td class="value_cell"><%= f.collection_select :parent_id, Poem.poem_types, :id, :poem_name, :include_blank => true %></td>
+            </tr>
+            <tr>
+              <td class="label_cell"><%= t('.name') %></td>
+              <td class="value_cell"><%= f.text_field :poem_name, :value => @poem.poem_name %></td>
+            </tr>
+            <tr>
+              <td class="label_cell"><%= t('.is_poem_type') %></td>
+              <td class="value_cell"><%= f.check_box :is_poem_type %></td>
+            </tr>
+          </table>
+          <%= f.submit t('.update_properties') %>
+      <% end %>
+    </div>
+  </div>
 </div>
