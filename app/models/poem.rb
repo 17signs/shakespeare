@@ -49,7 +49,7 @@ class Poem
   end
 
   def is_poem_type?
-    is_poem_type == '1'
+    parent == nil
   end
 
   def has_children?
@@ -77,7 +77,7 @@ class Poem
   end
 
   def relation_types
-   RelationType.where('from_id' => parent_id).map{|rt| [rt.to_s, rt.id]}
+   {}
   end
 
 # value handling
@@ -138,11 +138,15 @@ class Poem
   end
 
   def self.poem_types
-    Poem.where('is_poem_type' => '1')
+    Poem.where('parent_id' => nil)
   end
 
-  def self.poems_for_relations
-    Poem.where('is_poem_type' => '0').map{|p| [p.to_s, p.id]}
+  def poems_for_relations
+    Poem.where('is_poem_type' => is_poem_type ).map{|p| [p.to_s, p.id]}
+  end
+
+  def relation_types
+    Relation.where('from_id' => id).map{|r| [r.to_s, r.id]}
   end
 
   def self.poem_types_for_relations

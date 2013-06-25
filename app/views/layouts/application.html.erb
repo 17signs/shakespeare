@@ -6,9 +6,6 @@
   <%= javascript_include_tag "application" %>
   <%= javascript_include_tag "rails" %>
   <%= csrf_meta_tags %>
-  <%= javascript_include_tag "raphael-min.js" %>
-  <%= javascript_include_tag "graffle.js" %>
-  <%= javascript_include_tag "graph.js" %>
 </head>
 <body>
 
@@ -108,8 +105,29 @@
               $this.addClass("active");
           });
       });
-
   });
+
+  function overlay(dialog) {
+      $(".overlay_dialog").each(function() {
+          $(this).css("visibility", "hidden");
+      });
+      el = document.getElementById("overlay");
+      el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+      if (el.style.visibility == "visible") {
+          $('#'+dialog).css("visibility", "visible");
+      }
+  };
+
+  function get_to_poems() {
+      rel_id = $('#relation_parent').val();
+      to_poems = $.ajax({
+          type: "GET",
+          url: "to_poems",
+          data: {relation: rel_id},
+          dataType: 'json'
+      })
+  };
+
 </script>
 
 <%= yield :javascript %>

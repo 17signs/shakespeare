@@ -280,15 +280,15 @@ input[type="submit"] {
 }
 
 .button {
-  padding: 7px 14px;
-  -webkit-border-radius: 7px;
-  box-shadow: 1px 1px 2px silver;
   text-decoration: none;
-  background-color: $main_background;
-  color: $main_color;
+  font-weight: bold;
+  color: $highlight_color;
 }
 
 .focus {
+  padding: 7px 14px;
+  -webkit-border-radius: 7px;
+  box-shadow: 1px 1px 2px silver;
   background-color: $finder_background;
   color: white;
 }

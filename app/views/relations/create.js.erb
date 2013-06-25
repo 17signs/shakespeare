@@ -1,1 +1,3 @@
-$('#relations').append('<%= escape_javascript(render(@relation)) %>');
+$('#generic_dialog').empty().css("visibility", "hidden");
+$('#overlay').css("visibility", "hidden");
+$('#relations').append('<%= escape_javascript(render(:partial => "shared/relation", :object => @relation)) %>').hide().fadeIn();

@@ -1,13 +1,12 @@
 <%= form_for @poem do |f| %>
-  <%= field_set_tag t('.create_new_poem') do %>
+  <%= field_set_tag t('.new_poem') do %>
     <ol>
-      <li><%= f.label :parent_id %><%= f.collection_select :parent_id, Poem.poem_types, :id, :poem_name, :include_blank => true %></li>
+      <li><%= f.label t('.type') %><%= f.collection_select :parent_id, Poem.poem_types, :id, :poem_name, :include_blank => true %></li>
       <li><%= f.label :name %><%= f.text_field :poem_name, :placeholder => t('.name_please') %></li>
-      <li><%= f.label :is_poem_type %><%= f.check_box :is_poem_type %></li>
     </ol>
     <ul class="flat_list">
       <li class="action_item"><a href="#" onclick="document.forms['new_poem'].submit(); return false;" class="button focus"><%= t('.create') %></a></li>
-      <li class="action_item"><a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a></li>
+      <li class="action_item"><a href='#' onclick='overlay()' class="link"><%= t('.cancel') %></a></li>
     </ul>
   <% end %>
 <% end %>

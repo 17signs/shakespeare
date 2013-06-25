@@ -1,12 +1,11 @@
-<%= form_for @value, remote: true do |f| %>
-    <%= f.hidden_field :poem, :value => @value.poem.id %>
-    <%= field_set_tag t('.new_value_for')+" "+@value.poem do %>
+<%= form_for @value, remote: true, :html => { :id => 'edit_value' } do |f| %>
+    <%= field_set_tag t('.edit')+" "+@value do %>
     <ol>
       <li><%= f.label :name %><%= f.text_field :name %></li>
       <li><%= f.label :value %><%= f.text_field :value %></li>
     </ol>
     <ul class="flat_list">
-      <li class="action_item"><a href="#" onclick="$('#new_value').submit(); return false;" class="button focus"><%= t('.create') %></a></li>
+      <li class="action_item"><a href="#" onclick="$('#edit_value').submit(); return false;" class="button focus"><%= t('.update') %></a></li>
       <li class="action_item"><a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a></li>
     </ul>
   <% end %>

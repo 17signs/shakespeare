@@ -10,8 +10,6 @@
       <li id="tab_relations"><%= t('.relations') %></li>
       <% if @poem.is_poem_type? %>
         <li id="tab_usage"><%= t('.usage') %></li>
-      <% else %>
-        <li id="tab_lineage"><%= t('.lineage') %></li>
       <% end %>
     </ul>
     <div id="content_pane">
@@ -26,6 +24,10 @@
                   <%= t('.no_type') %>
               <% end %>
             </div>
+            <div class="row_action">
+              <ul class="flat_list">
+              </ul>
+            </div>
           </div>
         </div>
         <div class="row_wrapper">
@@ -39,65 +41,35 @@
             </ul>
           </div>
         </div>
-        <div class="row_wrapper">
-          <div class="row_content">
-            <em class="bold row_label"><%= t('.is_poem_type') %></em>
-            <div class="row_value">
-              <% if @poem.is_poem_type? %>
-                  <%= t('.yes') %>
-              <% else %>
-                  <%= t('no') %>
-              <% end %>
-            </div>
-          </div>
-        </div>
         <ul class="flat_list">
           <li class="action_item"><%= link_to t('.new_poem'), new_poem_path, :remote => true, :class => 'button focus' %></li>
-          <li class="action_item"><%= link_to t('.new_child'), new_poem_path(:new_parent => @poem.parent), :remote => true, :class => 'button' %></li>
-          <li class="action_item"><%= link_to t('.delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'button' %></li>
+          <li class="action_item"><%= link_to t('.new_sibling'), new_poem_path(:new_parent => @poem.parent), :remote => true, :class => 'link' %></li>
+          <li class="action_item"><%= link_to t('.delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'link' %></li>
         </ul>
       </div>
       <div id="pane_values">
-        <% if @poem.has_values? %>
-            <div id="values">
+        <div id="values">
+          <% if @poem.has_values? %>
             <% @poem.values.each do |v| %>
-              <div id="<%= dom_id(v) %>" class="row_wrapper">
-                <div class="row_content">
-                  <em class="bold row_label"><%= v.name %></em>
-                  <div class="row_value"><%= v.value %></div>
-                </div>
-                <div class="row_action">
-                  <ul class="flat_list">
-                    <li class="action_item"><%= link_to t('.edit'), edit_value_path(v), :remote => true, :class => "link" %></li>
-                    <li class="action_item"><%= link_to t('.delete'), v, :method => :delete, :remote => true, :class => 'link' %></li>
-                  </ul>
-                </div>
-              </div>
+              <%= render :partial => "shared/value", :object => v %>
             <% end %>
-            </div>
-        <% end %>
+          <% end %>
+        </div>
         <ul class="flat_list">
           <li class="action_item"><%= link_to t('.new_value'), new_value_path(:poem => @poem.id), :remote => true, :class => "button focus" %><li>
         </ul>
       </div>
       <div id="pane_relations" class="hidden">
-        <% if @poem.has_relations? %>
+        <div id="relations">
+          <% if @poem.has_relations? %>
             <% @poem.links_to_successors.each do |tr| %>
-                <div id="<%= dom_id(tr) %>" class="row_wrapper">
-                  <div class="row_content">
-                    <div class="row_value">
-                      <em class="bold"><%= tr.from %></em>&nbsp;<%= tr.from_to_phrase %>&nbsp;<%= link_to tr.to, tr.to, :class => 'link' %>
-                    </div>
-                  </div>
-                  <div class="row_action">
-                    <ul class="flat_list">
-                      <li class="action_item"><%= link_to t('.delete'), tr, :method => :delete, :remote => true, :class => 'link' %></li>
-                    </ul>
-                  </div>
-                </div>
+              <%= render :partial => "shared/relation", :object => tr %>
             <% end %>
-        <% end %>
-        <a href='#' onclick='overlay("new_relation_dialog")' class="button focus"><%= t('.create_new_relation') %></a>
+          <% end %>
+        </div>
+        <ul class="flat_list">
+          <li class="action_item"><%= link_to t('.new_relation'), new_relation_path(:poem => @poem.id), :remote => true, :class => "button focus" %><li>
+        </ul>
       </div>
       <% if @poem.is_poem_type? %>
         <div id="pane_usage" class="hidden">
@@ -114,7 +86,6 @@
               <% @poem.links_to_predecessors.each do |p| %>
                 <tr>
                   <td><%= link_to p.from, p.from, :class => 'link' %></td>
-                  <td><%= p.relation_type %></td>
                   <td><%= link_to p.to, p.to, :class => 'link' %></td>
                   <td></td>
                   <td></td>
@@ -125,7 +96,6 @@
                   <td></td>
                   <td></td>
                   <td><%= link_to s.from, s.from, :class => 'link' %></td>
-                  <td><%= s.relation_type %></td>
                   <td><%= link_to s.to, s.to, :class => 'link' %></td>
                 </tr>
               <% end %>
@@ -134,84 +104,6 @@
             <%= t('.no_references') %>
           <% end %>
         </div>
-        <div id="pane_lineage" class="hidden"></div>
       <% end %>
     </div>
   </div>
-
-<div id="overlay_deprecated">
-  <div id="new_relation_dialog" class="overlay_dialog">
-    <%= form_for(@relation) do |f| %>
-        <%= f.hidden_field :from, :value => @poem.id %>
-        <%= field_set_tag t('.create_new_relation_for')+" "+@poem do %>
-            <ol>
-              <li><%= f.label :to %><%= f.select :to, Poem.poem_types_for_relations() %></li>
-              <li>
-                <%= field_set_tag t('.phrases') do %>
-                    <ol>
-                      <li><%= f.label :from_to_phrase %><%= f.text_field :from_to_phrase %></li>
-                      <li><%= f.label :to_from_phrase %><%= f.text_field :to_from_phrase %></li>
-                    </ol>
-                <% end %>
-              </li>
-            </ol>
-            <a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a>
-            <%= f.submit :class => "button focus" %>
-        <% end %>
-    <% end %>
-  </div>
-  <div id="new_value_dialog" class="overlay_dialog">
-    <%= field_set_tag t('.create_new_value_for')+" "+@poem do %>
-    <% end %>
-    <a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a>
-  </div>
-</div>
-
-<script type="text/javascript">
-
-    var redraw;
-    var height = 300;
-    var width = 1000;
-
-    window.onload = function() {
-        var g = new Graph();
-        g.addNode("<%= @poem.id %>", {label:"<%= @poem.to_s %>"});
-
-        <% @poem.links_to_predecessors.each do |pred| %>
-          g.addNode("<%= pred.from.id %>", {label:"<%= pred.from.to_s %>"});
-          g.addEdge("<%= pred.from.id %>", "<%= @poem.id %>", {label:"<%= pred.relation_type.to_s %>", directed:true});
-        <% end %>
-
-        <% @poem.links_to_successors.each do |succ| %>
-          g.addNode("<%= succ.to.id %>", {label:"<%= succ.to.to_s %>"});
-          g.addEdge("<%= @poem.id %>", "<%= succ.to.id %>", {label : "<%= succ.relation_type.to_s %>", directed:true});
-        <% end %>
-
-        /* layout the graph using the Spring layout implementation */
-        var layouter = new Graph.Layout.Spring(g);
-        layouter.layout();
-
-        /* draw the graph using the RaphaelJS draw implementation */
-        var renderer = new Graph.Renderer.Raphael('pane_lineage', g, width, height);
-        renderer.draw();
-
-        redraw = function() {
-            layouter.layout();
-            renderer.draw();
-        };
-
-  };
-
-    function overlay(dialog) {
-        $(".overlay_dialog").each(function() {
-            $(this).css("visibility", "hidden");
-        });
-        el = document.getElementById("overlay");
-        el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
-        if (el.style.visibility == "visible") {
-            $('#'+dialog).css("visibility", "visible");
-        }
-    };
-
-
-</script>

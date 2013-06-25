@@ -1,13 +1,13 @@
 class Relation
   include MongoMapper::Document
 
-  key :relation_type
   key :from
   key :to
   key :from_to_phrase
   key :to_from_phrase
+  key :parent_id, ObjectId
 
-  belongs_to :relation_type
+  belongs_to :parent, :class_name => 'Relation'
 
   belongs_to :from, :class_name => "Poem"
   belongs_to :to, :class_name => "Poem"
@@ -19,14 +19,12 @@ class Relation
     Poem.reset_navigation
   end
 
+  def to_s
+    from_to_phrase
+  end
+
   def validate_references
     status = []
-
-    if :relation_type
-      status.push('true')
-    else
-      status.push('false')
-    end
 
     if :from
       status.push('true')

@@ -41,6 +41,7 @@ en:
       create_new_value: "Create new value"
       save: "Save"
       name_please: "Enter poem name..."
+      detach: "detach"
     edit:
       name: "Name"
       is_poem_type: "Is poem type?"
@@ -99,3 +100,7 @@ en:
         new: "New"
       show:
         phrases: "Phrases"
+  relations:
+    new:
+      relation_types: "Relation types"
+      relation_type: "Relation type"

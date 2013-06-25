@@ -1,12 +1,12 @@
-<div id="<%= dom_id(value) %>" class="row_wrapper">
+<div id="<%= dom_id(relation) %>" class="row_wrapper">
   <div class="row_content">
-    <em class="bold row_label"><%= value.name %></em>
-    <div class="row_value"><%= value.value %></div>
+    <div class="row_value">
+      <em class="bold"><%= relation.from %></em>&nbsp;<%= relation.from_to_phrase %>&nbsp;<%= link_to relation.to, relation.to, :class => 'link' %>
+    </div>
   </div>
   <div class="row_action">
     <ul class="flat_list">
-      <li class="action_item"><%= link_to t('.edit'), edit_value_path(value), :remote => true, :class => "link" %></li>
-      <li class="action_item"><%= link_to t('.delete'), value, :method => :delete, :remote => true, :class => 'link' %></li>
+      <li class="action_item"><%= link_to t('.delete'), relation, :method => :delete, :remote => true, :class => 'link' %></li>
     </ul>
   </div>
 </div>

@@ -93,4 +93,11 @@ class PoemsController < ApplicationController
     end
   end
 
+  def to_poems
+    poems = Poems.all.map{|p| [p.to_s, p.id]}
+    respond_to do |format|
+      format.json poems.as_json
+    end
+  end
+
 end

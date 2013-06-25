@@ -23,7 +23,7 @@
   </ul>
   <div id="content_pane">
     <div id="pane_poem_types" class="hidden">
-      <%= link_to t('.create_new_poem_type'), new_poem_path, :class => "button focus" %><br><br>
+      <%= link_to t('.new_poem_type'), new_poem_path(:is_poem_type => true), :remote => true, :class => "button focus" %><br><br>
       <% if @poem_types && @poem_types.to_a.length > 0 %>
           <ul class="flat_list">
             <% @poem_types.each do |p| %>
@@ -33,7 +33,7 @@
       <% end %>
     </div>
     <div id="pane_poems" class="hidden">
-      <%= link_to t('.create_new_poem'), new_poem_path, :class => "button focus" %><br><br>
+      <%= link_to t('.new_poem'), new_poem_path, :remote => true, :class => "button focus" %><br><br>
       <% if @poems && @poems.to_a.length > 0  %>
         <ul class="flat_list">
           <% @poems.each do |p| %>

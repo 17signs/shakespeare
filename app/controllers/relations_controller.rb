@@ -51,7 +51,10 @@ class RelationsController < ApplicationController
       @relation.save
 
       @poem = new_relation_data[:from]
-      redirect_to @poem
+      respond_to do |format|
+        format.js
+      end
+
 
     end
 
@@ -74,8 +77,11 @@ class RelationsController < ApplicationController
 
   def new
     @relation = Relation.new()
-    @from = Poem.find_by_id(params[:poem_id])
-    @relation_types = @from.relation_types
+    @from = Poem.find_by_id(params[:poem])
+    @html = render_to_string(:action => "new", :formats => [:html], :layout => false)
+    respond_to do |format|
+      format.js
+    end
   end
 
   def relation_type_selected

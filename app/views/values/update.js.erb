@@ -1,1 +1,3 @@
-$('#<%= @did %>').animate({opacity: 0.2}, 1000).delay(1000).animate({opacity: 1}, 1000);
+$('#generic_dialog').empty().css("visibility", "hidden");
+$('#overlay').css("visibility", "hidden");
+$('#<%= @did %>').replaceWith('<%= escape_javascript(render(:partial => "shared/value", :object => @value)) %>');
