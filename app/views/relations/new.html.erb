@@ -12,15 +12,25 @@
         <li class="action_item"><a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a></li>
       </ul>
     <% else %>
-      <ol>
-        <li><%= f.label :from %><%= @from %></li>
-        <li><%= f.label t('.relation_type') %><%= f.select :parent, @from.parent.relation_types, {:include_blank => true}, :onchange => 'get_to_poems()' %></li>
-        <li><%= f.label :to %><%= f.select :to, {} %></li>
-      </ol>
-      <ul class="flat_list">
-        <li class="action_item"><a href="#" onclick="$('#new_relation').submit(); return false;" class="button focus"><%= t('.create') %></a></li>
-        <li class="action_item"><a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a></li>
-      </ul>
+      <% if @from.parent.relation_types.length == 0 %>
+        Sorry, no relations defined
+        <ul class="flat_list">
+          <li class="action_item"><a href='#' onclick='overlay()' class="button focus"><%= t('.cancel') %></a></li>
+        </ul>
+      <% else %>
+        <ol>
+          <li><%= f.label :from %><%= @from %></li>
+          <li><%= f.label t('.relation_type') %><%= f.select :parent, @from.parent.relation_types, {:include_blank => true}, :onchange => 'get_to_poems()' %></li>
+          <li><%= f.label :to %><%= f.select :to, {} %></li>
+          <li><%= f.label t('.specify_phrases') %><%= check_box_tag "specify_phrases", 1, false, :onchange => 'toggle_phrases()' %></li>
+          <li id="new_rel_from_to_phrase" class="hidden"><%= f.label :from_to_phrase %><%= f.text_field :from_to_phrase %></li>
+          <li id="new_rel_to_from_phrase" class="hidden"><%= f.label :to_from_phrase %><%= f.text_field :to_from_phrase %></li>
+        </ol>
+        <ul class="flat_list">
+          <li class="action_item"><a href="#" onclick="$('#new_relation').submit(); return false;" class="button focus"><%= t('.create') %></a></li>
+          <li class="action_item"><a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a></li>
+        </ul>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

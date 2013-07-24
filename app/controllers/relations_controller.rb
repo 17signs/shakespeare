@@ -71,6 +71,14 @@ class RelationsController < ApplicationController
     end
   end
 
+  def edit
+    @relation = Relation.find_by_id(params[:id])
+    @html = render_to_string(:action => "edit", :formats => [:html], :layout => false)
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def index
     @relations = Relation.all()
   end
@@ -82,6 +90,18 @@ class RelationsController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def update
+    rel = Relation.find_by_id(params[:id])
+    rel.update_attributes!(params[:relation])
+
+    @poem = Poem.find_by_id(rel.from_id)
+
+    if @poem
+      redirect_to @poem
+    end
+
   end
 
   def relation_type_selected

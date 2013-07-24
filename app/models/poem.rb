@@ -3,7 +3,6 @@ class Poem
 
   key :parent_id, ObjectId
   key :poem_name
-  key :is_poem_type
 
   key :links_to_predecessors
   key :links_to_successors
@@ -76,10 +75,6 @@ class Poem
     values.length > 0
   end
 
-  def relation_types
-   {}
-  end
-
 # value handling
 
   def add_value(value_name, value_value)
@@ -134,7 +129,7 @@ class Poem
 # class methods
 
   def self.poems
-    Poem.where('is_poem_type' => '0')
+    Poem.where('parent_id' => {"$ne" => nil})
   end
 
   def self.poem_types
@@ -155,7 +150,7 @@ class Poem
 
   def self.root_poems
     a = []
-    Poem.where('is_poem_type' => '0').each do |p|
+    Poem.where('parent_id' => {"$ne" => nil}).each do |p|
       if not p.has_predecessors?
         a << p
       end
@@ -165,13 +160,13 @@ class Poem
 
   def self.search_poems(search)
     if search
-      Poem.where({'is_poem_type' => '0', 'poem_name' => Regexp.new(Regexp.escape(search), Regexp::IGNORECASE)})
+      Poem.where({'parent_id' => {"$ne" => nil}, 'poem_name' => Regexp.new(Regexp.escape(search), Regexp::IGNORECASE)})
     end
   end
 
   def self.search_poem_types(search)
     if search
-      Poem.where({'is_poem_type' => '1', 'poem_name' => Regexp.new(Regexp.escape(search), Regexp::IGNORECASE)})
+      Poem.where({'parent_id' => nil, 'poem_name' => Regexp.new(Regexp.escape(search), Regexp::IGNORECASE)})
     end
   end
 

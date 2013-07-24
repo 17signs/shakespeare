@@ -94,10 +94,9 @@ class PoemsController < ApplicationController
   end
 
   def to_poems
-    poems = Poems.all.map{|p| [p.to_s, p.id]}
-    respond_to do |format|
-      format.json poems.as_json
-    end
+    relation = Relation.find_by_id(params[:relation])
+    @poems = Poem.where('parent_id' => relation.to.id) if relation
+    render :json => @poems.to_json(:only => [:poem_name, :id])
   end
 
 end

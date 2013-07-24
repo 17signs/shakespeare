@@ -104,3 +104,5 @@ en:
     new:
       relation_types: "Relation types"
       relation_type: "Relation type"
+      overwrite_phrases: "Overwrite phrases"
+      specify_phrases: "Specify phrases"

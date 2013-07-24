@@ -6,6 +6,7 @@
   </div>
   <div class="row_action">
     <ul class="flat_list">
+      <li class="action_item"><%= link_to t('.edit'), edit_relation_path(relation), :remote => true, :class => 'link' %></li>
       <li class="action_item"><%= link_to t('.delete'), relation, :method => :delete, :remote => true, :class => 'link' %></li>
     </ul>
   </div>

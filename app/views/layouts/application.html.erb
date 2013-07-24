@@ -124,9 +124,23 @@
           type: "GET",
           url: "to_poems",
           data: {relation: rel_id},
-          dataType: 'json'
+          dataType: 'json',
+          success: function(data){
+              var mySelect = $('#relation_to');
+              mySelect.empty();
+              $.each(data, function(index, element) {
+                  mySelect.append(
+                    $('<option></option>').val(element.id).html(element.poem_name)
+                  );
+              });
+          }
       })
   };
+
+  function toggle_phrases() {
+      $('#new_rel_from_to_phrase').toggle();
+      $('#new_rel_to_from_phrase').toggle();
+  }
 
 </script>
 
