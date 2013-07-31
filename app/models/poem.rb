@@ -55,6 +55,10 @@ class Poem
     children.length > 0
   end
 
+  def has_parent?
+    parent != nil
+  end
+
   def has_references?
     has_predecessors? || has_successors?
   end

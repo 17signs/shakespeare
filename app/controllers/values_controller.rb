@@ -11,11 +11,27 @@ class ValuesController < ApplicationController
 
     @value = Value.new()
 
+    @value.poem  = Poem.find_by_id(value_data[:poem])
     @value.name  = value_data[:name]
     @value.value = value_data[:value]
-    @value.poem  = Poem.find_by_id(value_data[:poem])
+    @value.overwrite = value_data[:overwrite]
+    @value.removable = value_data[:removable]
+    @value.value_type = value_data[:value_type]
     @value.save
     @value.reload
+
+    # Propagate new value to poems children
+    @value.poem.children.each do |child|
+      value = Value.new()
+      value.poem = child
+      value.name = @value.name
+      value.value = @value.value
+      value.overwrite = @value.overwrite
+      value.removable = @value.removable
+      value.value_type = @value.value_type
+      value.reference = @value
+      value.save
+    end
 
     respond_to do |format|
       format.js

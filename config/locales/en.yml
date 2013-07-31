@@ -64,9 +64,7 @@ en:
     index:
       all_poems: "All poems"
       new: "New"
-      in_poem_types: "... in poem types"
-      in_poems: "... in poems"
-      in_values: "... in values"
+      value: "Value"
     edit_backup:
       edit: "Edit"
       properties: "Properties"
@@ -83,6 +81,8 @@ en:
   values:
     value:
       delete: "Delete"
+    edit:
+      default_value: "Default value"
   admin:
     relation_types:
       new:
@@ -106,3 +106,6 @@ en:
       relation_type: "Relation type"
       overwrite_phrases: "Overwrite phrases"
       specify_phrases: "Specify phrases"
+  value:
+    input: "Input"
+    area: "Text area"

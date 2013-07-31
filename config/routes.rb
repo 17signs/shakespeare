@@ -1,13 +1,5 @@
 Shakespeare::Application.routes.draw do
 
-  get "admin/index"
-
-  match '/admin', :controller => 'admin', :action => 'index'
-
-  namespace :admin do
-    resources :relation_types
-  end
-
   get "mdms/index"
 
   scope '(:locale)' do

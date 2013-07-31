@@ -6,13 +6,14 @@
 // variables reflecting the color scheme (more or less)
 // which is bright orange with some shades of gray
 
-$heading_color: #142423;
-$main_background: rgba(232, 232, 232, 1.0);
+$main_background: rgba(223, 223, 223, 1.0);
 $main_color: black;
 
 $header_background: rgba(255, 255, 255, 1.0);
-$finder_background: rgba(255, 128, 0, 0.9);
-$highlight_color: rgba(0, 136, 178, 1.0);
+// $finder_background: rgba(255, 128, 0, 0.9);
+// $highlight_color: rgba(0, 136, 178, 1.0);
+$finder_background: rgba(20, 89, 0, 0.9);
+$highlight_color: rgba(30, 89, 0, 1.0);
 
 // section a) standard html tags
 
@@ -93,16 +94,6 @@ footer {
   float: right;
 }
 
-.header_menu ul {
-  display: block;
-  list-style-type: none;
-}
-
-.header_menu > li {
-  display: inline;
-  text-decoration: none;
-}
-
 .flat_list {
   display: block;
   list-style-type: none;
@@ -156,7 +147,8 @@ footer {
 }
 
 .link:hover {
-  color: $finder_background;
+  background-color: $highlight_color;
+  color: white;
 }
 
 .main-nav-wrapper {
@@ -289,29 +281,8 @@ input[type="submit"] {
   padding: 7px 14px;
   -webkit-border-radius: 7px;
   box-shadow: 1px 1px 2px silver;
-  background-color: $finder_background;
+  background-color: $highlight_color;
   color: white;
-}
-
-.rel_relation {
-  border: 1px dotted $main_background;
-  padding: 7px 14px;
-  min-height: 32px;
-  margin: 7px 0;
-  -webkit-border-radius: 7px;
-}
-
-.rel_relation:hover {
-  background-color: $main_background;
-}
-
-.rel_relation .rel_action {
-  float: right;
-  display: none;
-}
-
-.rel_relation:hover .rel_action {
-  display: inline-block;
 }
 
 #overlay {
@@ -331,7 +302,7 @@ input[type="submit"] {
   top: 200px;
   background-color: #ffffff;
   padding: 14px;
-  border: 1px solid $finder_background;
+  border: 1px solid $highlight_color;
   -webkit-border-radius: 7px;
   box-shadow: 10px 10px 20px silver;
   opacity: 0.95;
@@ -374,7 +345,7 @@ input[type="submit"] {
   padding: 7px 14px;
   min-height: 32px;
   margin: 7px 0;
-  -webkit-border-radius: 7px;
+  -webkit-border-radius: 0px;
 }
 
 .row_label {

@@ -2,8 +2,15 @@
     <%= f.hidden_field :poem, :value => @value.poem.id %>
     <%= field_set_tag t('.new_value_for')+" "+@value.poem do %>
     <ol>
-      <li><%= f.label :name %><%= f.text_field :name %></li>
-      <li><%= f.label :value %><%= f.text_field :value %></li>
+      <% if @value.poem.parent == nil %>
+        <li><%= f.label :name %><%= f.text_field :name %></li>
+        <li><%= f.label t('.default_value') %><%= f.text_field :value %></li>
+        <li><%= f.label :overwrite %><%= f.check_box :overwrite, {checked: true} %></li>
+        <li><%= f.label :removable %><%= f.check_box :removable, {checked: true} %></li>
+        <li><%= f.label :detachable %><%= f.check_box :detachable, {checked: true} %></li>
+        <li><%= f.label :value_type %><%= f.select :value_type, Value.value_types %></li>
+      <% else %>
+      <% end %>
     </ol>
     <ul class="flat_list">
       <li class="action_item"><a href="#" onclick="$('#new_value').submit(); return false;" class="button focus"><%= t('.create') %></a></li>

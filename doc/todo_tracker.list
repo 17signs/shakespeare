@@ -1,0 +1,108 @@
+navigation
+
+  evaluate: have navigation as stand alone controller or part of poem.show action
+  evaluate: move navigation into ajax procedures
+
+poem
+
+  general
+
+    evaluate: rename parent into poem_type
+
+  poem without parent
+
+    defines values
+
+      do: control creation of new values for children (eg. forbid by setting flag)
+
+      done: name
+      done: value
+      do: overwrite option
+      type
+        input
+        textfield
+        selection list
+        check box
+        radio buttons
+        flag
+      [options]
+        fixed options
+        dynamic options
+
+      propagates changes in value defintion to poems of this type (reference value)
+
+    defines relation types
+
+      foundation to create references between poems
+
+      maybe: at this level lineage could show structuring of poem types
+        seems expensive comapred to additional value of relation table listing
+
+      done: create, show, edit (edit function was deleted, see relation type section), delete
+
+  poem with parent
+
+    do: convert poem into poem type (detach from parent; confirmation needed)
+
+relations
+
+  do: provide all (inbound/outbound) relations, but eleminate redundancies (self reflecting relations)
+
+values
+
+  do: not editable option (like constant value for certain poem types)
+  do: not removable option
+  do: detach from reference value
+
+html/css
+
+  styles
+
+    normal                  any value/content, which is displayed in normal manner --> belongs to body
+    emphazised              highlighted content, but without any functionality (navigation/action)
+    link                    everything clickable
+    focus                   a) focused by "nature" because of workflow, or b) focused by :hover
+
+  general:
+
+    do: hover pointer for buttons
+    eval: ref/href attributes, hypermedia stuff
+    do: small icon for web site
+
+shakespear general
+
+  mobile
+
+    check: mobile behaviour
+    check: specific css
+
+  configuration
+
+    evaluate: config file or table
+
+    possible entries:
+      inheritance_level: how deep changes to poem type are porpagate to children; 0,1,n,...,full
+
+  premium features
+
+    do: Data Lineage
+    do: Authentication / log in / track changes by user
+
+
+Old stuff
+
+ToDos
+
+Finder
+- (medium) keep list alive, but show only latest four columns (offset), but than: provide scrolling
+
+Relations
+- (medium) remove existing poems from relation-to-list
+
+deleted: relation type
+
+  done! check: edit needed? ==> no, simple drop and recreate relation type
+    makes it easier to handle existing references based on this relation
+
+  done! check: need for reverse phrase? ==> drop reverse phrase
+    change create/edit dialog, database will follow

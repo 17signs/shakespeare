@@ -1,7 +1,0 @@
-$('#relation_to').find('option').remove();
-
-$('#relation_to').append('<option value="0"><%= t('.create_new_poem') %></option');
-
-<% @poems_to.each do |p| %>
-    $('#relation_to').append('<option value="<%= p.id %>"><%= p %></option');
-<% end %>
