@@ -96,7 +96,11 @@ class PoemsController < ApplicationController
   def to_poems
     relation = Relation.find_by_id(params[:relation])
     @poems = Poem.where('parent_id' => relation.to.id) if relation
-    render :json => @poems.to_json(:only => [:poem_name, :id])
+    rh = Hash.new()
+    rh['poems'] = @poems.to_a
+    rh['ftp'] = relation.from_to_phrase
+    rh['tfp'] = relation.to_from_phrase
+    render :json => rh
   end
 
 end

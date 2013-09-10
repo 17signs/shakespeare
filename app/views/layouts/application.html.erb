@@ -128,11 +128,13 @@
           success: function(data){
               var mySelect = $('#relation_to');
               mySelect.empty();
-              $.each(data, function(index, element) {
+              $.each(data['poems'], function(index, element) {
                   mySelect.append(
                     $('<option></option>').val(element.id).html(element.poem_name)
                   );
               });
+              $('#relation_from_to_phrase').val(data['ftp']);
+              $('#relation_to_from_phrase').val(data['tfp']);
           }
       })
   };

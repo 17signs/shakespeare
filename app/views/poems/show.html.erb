@@ -43,8 +43,8 @@
         </div>
         <ul class="flat_list">
           <li class="action_item"><%= link_to t('.new_poem'), new_poem_path, :remote => true, :class => 'button focus' %></li>
-          <li class="action_item"><%= link_to t('.new_sibling'), new_poem_path(:new_parent => @poem.parent), :remote => true, :class => 'link' %></li>
-          <li class="action_item"><%= link_to t('.delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'link' %></li>
+          <li class="action_item"><%= link_to t('.new_sibling'), new_poem_path(:new_parent => @poem.parent), :remote => true, :class => 'button' %></li>
+          <li class="action_item"><%= link_to t('.delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'button' %></li>
         </ul>
       </div>
       <div id="pane_values">

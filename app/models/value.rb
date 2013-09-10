@@ -38,6 +38,14 @@ class Value
     end
   end
 
+  def value_to_s
+    if reference
+      reference.value
+    else
+      value
+    end
+  end
+
   def self.value_types
     ret = []
     ret << [I18n.t('value.input'), :input]

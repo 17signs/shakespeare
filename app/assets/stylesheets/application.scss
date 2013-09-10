@@ -138,18 +138,38 @@ footer {
   font-weight: bold;
 }
 
-.link {
-  color: $highlight_color;
-  font-weight: bold;
-  text-decoration: none;
+.button {
+  padding: 7px 14px;
   margin: 0;
-  padding: 0;
+  -webkit-border-radius: 7px;
+  text-decoration: none;
+  font-weight: bold;
+  color: $highlight_color;
+}
+
+.button:hover {
+  background-color: $highlight_color;
+  color: white;
+}
+
+.link {
+  padding: 0px 2px;
+  margin: 0;
+  text-decoration: none;
+  font-weight: bold;
+  color: $highlight_color;
 }
 
 .link:hover {
   background-color: $highlight_color;
   color: white;
 }
+
+.focus {
+  background-color: $highlight_color;
+  color: white;
+}
+
 
 .main-nav-wrapper {
   left: 0;
@@ -269,20 +289,6 @@ input[type="submit"] {
   text-decoration: none;
   background-color: $main_background;
   color: $main_color;
-}
-
-.button {
-  text-decoration: none;
-  font-weight: bold;
-  color: $highlight_color;
-}
-
-.focus {
-  padding: 7px 14px;
-  -webkit-border-radius: 7px;
-  box-shadow: 1px 1px 2px silver;
-  background-color: $highlight_color;
-  color: white;
 }
 
 #overlay {

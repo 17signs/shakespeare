@@ -50,9 +50,21 @@ relations
 
 values
 
+  options available for create/edit/delete
+
+  option         children           no children
+  =============================================
+  name
+
   do: not editable option (like constant value for certain poem types)
   do: not removable option
   do: detach from reference value
+
+  evaluation:
+    modes on value level:
+      full : value for poem without parent, and without children --> all operations, and options available
+      semi : value for poem without parent, but with children    --> all operations available, options availability depend
+      local: value for poem with parent                          --> operations depend on parent; reduced option set for values
 
 html/css
 

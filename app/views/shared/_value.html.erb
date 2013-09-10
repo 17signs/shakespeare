@@ -1,20 +1,20 @@
 <div id="<%= dom_id(value) %>" class="row_wrapper">
   <div class="row_content">
     <em class="bold row_label"><%= value.to_s %></em>
-    <div class="row_value"><%= value.value %></div>
+    <div class="row_value"><%= value.value_to_s %></div>
   </div>
   <div class="row_action">
     <ul class="flat_list">
-      <% if value.poem.has_parent? %>
-      <% if value.is_editable? %>
+      <% if value.reference == nil %>
         <li class="action_item"><%= link_to t('.edit'), edit_value_path(value), :remote => true, :class => "link" %></li>
-      <% end %>
-      <% if value.is_removable? %>
         <li class="action_item"><%= link_to t('.delete'), value, :method => :delete, :remote => true, :class => 'link' %></li>
-      <% end %>
       <% else %>
+        <% if value.is_editable? %>
           <li class="action_item"><%= link_to t('.edit'), edit_value_path(value), :remote => true, :class => "link" %></li>
+        <% end %>
+        <% if value.is_removable? %>
           <li class="action_item"><%= link_to t('.delete'), value, :method => :delete, :remote => true, :class => 'link' %></li>
+        <% end %>
       <% end %>
     </ul>
   </div>
