@@ -17,7 +17,7 @@ poem
 
       done: name
       done: value
-      do: overwrite option
+      done: overwrite option
       type
         input
         textfield
@@ -29,7 +29,9 @@ poem
         fixed options
         dynamic options
 
-      propagates changes in value defintion to poems of this type (reference value)
+      canceled:
+        "propagates changes in value defintion to poems of this type (reference value)" not done
+        because original settings are read from referenced value
 
     defines relation types
 
@@ -50,21 +52,8 @@ relations
 
 values
 
-  options available for create/edit/delete
-
-  option         children           no children
-  =============================================
-  name
-
-  do: not editable option (like constant value for certain poem types)
-  do: not removable option
-  do: detach from reference value
-
-  evaluation:
-    modes on value level:
-      full : value for poem without parent, and without children --> all operations, and options available
-      semi : value for poem without parent, but with children    --> all operations available, options availability depend
-      local: value for poem with parent                          --> operations depend on parent; reduced option set for values
+  done: not editable option (like constant value for certain poem types)
+  done: not removable option
 
 html/css
 

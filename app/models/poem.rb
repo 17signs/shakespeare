@@ -174,12 +174,6 @@ class Poem
     end
   end
 
-  def self.search_values(search)
-    if search
-      Value.where({'value' => Regexp.new(Regexp.escape(search), Regexp::IGNORECASE)})
-    end
-  end
-
   # miller column navigation
 
   def self.navigate(poem=nil, index=nil)

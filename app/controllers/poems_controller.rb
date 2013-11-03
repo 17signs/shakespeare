@@ -13,12 +13,14 @@ class PoemsController < ApplicationController
         nv.poem = @poem
         nv.name = pv.name
         nv.value = pv.value
+        nv.reference = pv
         nv.save
       end
 
     end
 
     # start editing the newly created poem
+    Poem.reset_navigation
     redirect_to @poem
   end
 
@@ -44,7 +46,7 @@ class PoemsController < ApplicationController
     if params[:search]
       @poems = Poem.search_poems(params[:search])
       @poem_types = Poem.search_poem_types(params[:search])
-      @values = Poem.search_values(params[:search])
+      @values = Value.search(params[:search])
     else
       @poems = Poem.poems()
       @poem_types = Poem.poem_types()

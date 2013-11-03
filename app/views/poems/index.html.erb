@@ -46,10 +46,10 @@
       <% if @values && @values.to_a.length > 0  %>
         <table>
           <tr>
-            <td class="label_cell"><%= t('poem_type') %></td>
-            <td class="label_cell"><%= t('poem') %></td>
-            <td class="label_cell"><%= t('attribute') %></td>
-            <td class="label_cell"><%= t('value') %></td>
+            <td class="label_cell"><%= t('.parent') %></td>
+            <td class="label_cell"><%= t('.poem') %></td>
+            <td class="label_cell"><%= t('.attribute') %></td>
+            <td class="label_cell"><%= t('.value') %></td>
           </tr>
           <% @values.each do |v| %>
             <% if v.poem %>

@@ -46,6 +46,22 @@ class Value
     end
   end
 
+  def self.search(search)
+    if search
+      # 1st: direct apearence of search value
+      res = Value.where({'value' => Regexp.new(Regexp.escape(search), Regexp::IGNORECASE)})
+      # 2nd: iterate through reference values
+      res.each do |p|
+        p.referring.each do |r|
+          puts r, r.poem
+        end
+      end
+
+      return res
+
+    end
+  end
+
   def self.value_types
     ret = []
     ret << [I18n.t('value.input'), :input]
