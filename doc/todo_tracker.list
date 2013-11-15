@@ -13,11 +13,12 @@ poem
 
     defines values
 
-      do: control creation of new values for children (eg. forbid by setting flag)
+      evaluate: control creation of new values for children (eg. forbid by setting flag)
 
       done: name
       done: value
       done: overwrite option
+
       type
         input
         textfield
@@ -48,7 +49,7 @@ poem
 
 relations
 
-  do: provide all (inbound/outbound) relations, but eleminate redundancies (self reflecting relations)
+  do: provide all (inbound/outbound) relations, but eleminate redundancies (self reflecting relations; take care!)
 
 values
 
@@ -88,22 +89,3 @@ shakespear general
 
     do: Data Lineage
     do: Authentication / log in / track changes by user
-
-
-Old stuff
-
-ToDos
-
-Finder
-- (medium) keep list alive, but show only latest four columns (offset), but than: provide scrolling
-
-Relations
-- (medium) remove existing poems from relation-to-list
-
-deleted: relation type
-
-  done! check: edit needed? ==> no, simple drop and recreate relation type
-    makes it easier to handle existing references based on this relation
-
-  done! check: need for reverse phrase? ==> drop reverse phrase
-    change create/edit dialog, database will follow

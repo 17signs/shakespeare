@@ -10,7 +10,7 @@ de:
       shakespeare: "shakespeare"
   poems:
     new:
-      new_name_please: "Enter new name please"
+      name_please: "Enter new name please"
       name: "Name"
       is_poem_type: "Is poem type?"
       copy_value_fields: "Copy value fields?"

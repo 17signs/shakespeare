@@ -12,10 +12,10 @@
 <div class="content2">
   <ul id="tabbed_menu">
     <% if @poem_types && @poem_types.to_a.length > 0 %>
-      <li id="tab_parents"><%= t('.poems_without_parents') %></li>
+      <li id="tab_parents"><%= t('.poems_without_parent') %></li>
     <% end %>
     <% if @poems && @poems.to_a.length > 0 %>
-      <li id="tab_children"><%= t('.poems_with_parents') %></li>
+      <li id="tab_children"><%= t('.poems_with_parent') %></li>
     <% end %>
     <% if @values && @values.to_a.length > 0 %>
       <li id="tab_values"><%= t('.values') %></li>

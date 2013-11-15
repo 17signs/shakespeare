@@ -140,8 +140,8 @@ class Poem
     Poem.where('parent_id' => nil)
   end
 
-  def poems_for_relations
-    Poem.where('is_poem_type' => is_poem_type ).map{|p| [p.to_s, p.id]}
+  def self.poems_for_relations
+    Poem.where('parent_id' => nil).map{|p| [p.to_s, p.id]}
   end
 
   def relation_types
