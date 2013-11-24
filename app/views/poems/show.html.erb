@@ -8,6 +8,7 @@
       <li id="tab_meta"><%= t('.meta') %></li>
       <li id="tab_values" class="active"><%= t('.values') %></li>
       <li id="tab_relations"><%= t('.relations') %></li>
+      <li id="tab_references"><%= t('.references') %></li>
       <% if @poem.is_poem_type? %>
         <li id="tab_usage"><%= t('.usage') %></li>
       <% end %>
@@ -85,18 +86,13 @@
             <table>
               <% @poem.links_to_predecessors.each do |p| %>
                 <tr>
-                  <td><%= link_to p.from, p.from, :class => 'link' %></td>
-                  <td><%= link_to p.to, p.to, :class => 'link' %></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              <% end %>
-              <% @poem.links_to_successors.each do |s| %>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td><%= link_to s.from, s.from, :class => 'link' %></td>
-                  <td><%= link_to s.to, s.to, :class => 'link' %></td>
+                  <div id="<%= dom_id(p) %>" class="row_wrapper">
+                    <div class="row_content">
+                      <div class="row_value">
+                        <em class="bold"><%= @poem %></em>&nbsp;<%= p.to_from_phrase %>&nbsp;<%= link_to p.from, p.from, :class => 'link' %>
+                      </div>
+                    </div>
+                  </div>
                 </tr>
               <% end %>
             </table>
@@ -106,4 +102,4 @@
         </div>
       <% end %>
     </div>
-  </div>
+  </div>

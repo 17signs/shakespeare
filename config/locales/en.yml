@@ -111,3 +111,4 @@ en:
   value:
     input: "Input"
     area: "Text area"
+    checkbox: "Checkbox"

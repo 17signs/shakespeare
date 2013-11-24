@@ -39,8 +39,24 @@ class Value
   end
 
   def value_to_s
-    if reference
-      reference.value
+    if is_editable?
+      __real_value_to_s
+    else
+      if reference
+        reference.__real_value_to_s
+      else
+        __real_value_to_s
+      end
+    end
+  end
+
+  def __real_value_to_s
+    if value_type == "check_box"
+      if value == "1"
+        "yes"
+      else
+        "no"
+      end
     else
       value
     end
@@ -66,6 +82,7 @@ class Value
     ret = []
     ret << [I18n.t('value.input'), :input]
     ret << [I18n.t('value.area'), :text_area]
+    ret << [I18n.t('value.checkbox'), :check_box]
     ret
   end
 

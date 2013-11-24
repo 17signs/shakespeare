@@ -1,3 +1,17 @@
+data lineage
+
+  requirements
+
+    - layout shall use all available size
+    - shapes shall be interactive
+      - dragable
+      - click --> show poem
+      - hover --> details
+      - expandeble
+    - relations to be included/excluded
+    - poems to be included/excluded
+    - poems to have color/shape (rectangle, eclipse) options
+
 navigation
 
   evaluate: have navigation as stand alone controller or part of poem.show action
@@ -49,6 +63,7 @@ poem
 
 relations
 
+  do: allow name concatenation (BT --> TABLE --> COLUMN could become BT --> TABLE.COLUMN) oerks!
   do: provide all (inbound/outbound) relations, but eleminate redundancies (self reflecting relations; take care!)
 
 values
