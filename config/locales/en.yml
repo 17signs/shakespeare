@@ -42,6 +42,8 @@ en:
       save: "Save"
       name_please: "Enter poem name..."
       detach: "detach"
+      new_child: "New child"
+      new_poem: "New poem"
     edit:
       name: "Name"
       is_poem_type: "Is poem type?"

@@ -142,15 +142,24 @@ footer {
 .button {
   padding: 7px 14px;
   margin: 0;
-  -webkit-border-radius: 7px;
+  border: 1px solid #d3d3d3;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#e3e3e3));
+  background-image: -webkit-linear-gradient(top, white, #e3e3e3);
+  background-image:    -moz-linear-gradient(top, white, #e3e3e3);
+  background-image:     -ms-linear-gradient(top, white, #e3e3e3);
+  background-image:      -o-linear-gradient(top, white, #e3e3e3);
   text-decoration: none;
   font-weight: bold;
   color: $highlight_color;
 }
 
 .button:hover {
-  background-color: $highlight_color;
-  color: white;
+  border: 1px solid darken(#d3d3d3, 20);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(darken(white,10)), to(darken(#e3e3e3,10)));
+  background-image: -webkit-linear-gradient(top, darken(white,10), darken(#e3e3e3,10));
+  background-image:    -moz-linear-gradient(top, darken(white,10), darken(#e3e3e3,10));
+  background-image:     -ms-linear-gradient(top, darken(white,10), darken(#e3e3e3,10));
+  background-image:      -o-linear-gradient(top, darken(white,10), darken(#e3e3e3,10));
 }
 
 .link {
@@ -167,8 +176,7 @@ footer {
 }
 
 .focus {
-  background-color: $highlight_color;
-  color: white;
+  color: $highlight_color;
 }
 
 
@@ -362,7 +370,8 @@ input[type="submit"] {
 }
 
 .row_wrapper .row_action {
-  float: left;
+  position: absolute;
+  top: 20px;
   display: none;
 }
 
@@ -379,7 +388,21 @@ input[type="submit"] {
   visibility: hidden;
 }
 
+.row_content {
+  position: relative;
+}
+
+.row_value {
+  position: absolute;
+  left: 20%;
+  top: 0;
+}
+
 em.bold {
   font-weight: bold;
   font-style: normal;
+}
+
+.space1 {
+  margin: 28px 0px;
 }
