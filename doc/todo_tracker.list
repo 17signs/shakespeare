@@ -68,13 +68,6 @@ relations
 
 values
 
-  thesis
-
-    reference value -> everything is derived from reference value, except the value itself
-    local value -> value could only be text field
-    new value & poem has children -> value with reference added to children; default value is copied
-    new poem -> existing value definitions are copied by creating reference values
-
   done: not editable option (like constant value for certain poem types)
   done: not removable option
 

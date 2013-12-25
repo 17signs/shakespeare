@@ -37,11 +37,11 @@
         </div>
         <ul class="flat_list">
           <% if @poem.parent %>
-              <li class="action_item"><%= link_to t('.new_sibling'), {:controller => "poems", :action => "new", :new_parent => @poem.parent.id}, :remote => true, :class => "button" %></li>
+              <li class="action_item"><%= link_to t('.new_sibling'), {:controller => 'poems', :action => 'new', :new_parent => @poem.parent.id}, :remote => true, :class => 'button '%></li>
           <% else %>
-              <li class="action_item"><%= link_to t('.new_child'), {:controller => "poems", :action => "new", :new_parent => @poem.id}, :remote => true, :class => "button" %></li>
+              <li class="action_item"><%= link_to t('.new_child'), {:controller => 'poems', :action => 'new', :new_parent => @poem.id}, :remote => true, :class => 'button' %></li>
           <% end %>
-          <li class="action_item"><%= link_to t('.new_poem'), new_poem_path, :remote => true, :class => 'button focus' %></li>
+          <li class="action_item"><%= link_to t('.new_poem'), new_poem_path, :remote => true, :class => 'button' %></li>
           <li class="action_item"><%= link_to t('.delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'button' %></li>
         </ul>
       </article>
@@ -53,42 +53,42 @@
         <div id="values">
           <% if @poem.has_values? %>
               <% @poem.values.each do |v| %>
-                  <%= render :partial => "shared/value", :object => v %>
+                  <%= render :partial => 'shared/value', :object => v %>
               <% end %>
           <% end %>
         </div>
         <ul class="flat_list">
-          <li class="action_item"><%= link_to t('.new_value'), new_value_path(:poem => @poem.id), :remote => true, :class => "button focus" %><li>
+          <li class="action_item"><%= link_to t('.new_value'), new_value_path(:poem => @poem.id), :remote => true, :class => 'button' %><li>
         </ul>
       </article>
     </div>
     <div>
-      <input id="ac-3" name="accordion-3" type="checkbox" checked />
-      <label for="ac-3"><%= t('.relations') %></label>
+      <input id='ac-3' name='accordion-3' type='checkbox' checked />
+      <label for='ac-3'><%= t('.relations') %></label>
       <article>
         <div id="relations">
           <% if @poem.has_relations? %>
               <% @poem.links_to_successors.each do |tr| %>
-                  <%= render :partial => "shared/relation", :object => tr %>
+                  <%= render :partial => 'shared/relation', :object => tr %>
               <% end %>
           <% end %>
         </div>
-        <ul class="flat_list">
-          <li class="action_item"><%= link_to t('.new_relation'), new_relation_path(:poem => @poem.id), :remote => true, :class => "button focus" %><li>
+        <ul class='flat_list'>
+          <li class='action_item'><%= link_to t('.new_relation'), new_relation_path(:poem => @poem.id), :remote => true, :class => 'button' %><li>
         </ul>
       </article>
     </div>
     <div>
-      <input id="ac-4" name="accordion-4" type="checkbox" checked />
-      <label for="ac-4"><%= t('.references') %></label>
+      <input id='ac-4' name='accordion-4' type='checkbox' checked />
+      <label for='ac-4'><%= t('.references') %></label>
       <article>
         <% if @poem.has_references? %>
             <table>
               <% @poem.links_to_predecessors.each do |p| %>
                   <tr>
-                    <div id="<%= dom_id(p) %>" class="row_wrapper">
-                      <div class="row_content">
-                        <div class="row_value">
+                    <div id="<%= dom_id(p) %>" class='row_wrapper'>
+                      <div class='row_content'>
+                        <div class='row_value'>
                           <em class="bold"><%= @poem %></em>&nbsp;<%= p.to_from_phrase %>&nbsp;<%= link_to p.from, p.from, :class => 'link' %>
                         </div>
                       </div>
@@ -103,12 +103,12 @@
     </div>
     <% if @poem.is_poem_type? %>
       <div>
-        <input id="ac-5" name="accordion-5" type="checkbox" />
-        <label for="ac-5"><%= t('.usage') %></label>
+        <input id='ac-5' name='accordion-5' type='checkbox' />
+        <label for='ac-5'><%= t('.usage') %></label>
         <article>
-          <ul class="flat_list">
+          <ul class='flat_list'>
             <% @poem.children.each do |c| %>
-                <li class="action_item"><%= link_to c, c, :class => 'link' %></li>
+                <li class='action_item'><%= link_to c, c, :class => 'link' %></li>
             <% end %>
           </ul>
         </article>

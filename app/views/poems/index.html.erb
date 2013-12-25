@@ -1,5 +1,5 @@
-<div class="header">
-  <div class="header_left">
+<div class='header'>
+  <div class='header_left'>
     <h1>
       <% if params[:search] %>
         <%= t('.search_results_for') %>: <%= params[:search] %>
@@ -9,7 +9,7 @@
     </h1>
   </div>
 </div>
-<section id="new_poem" class="space1">
+<section id='new_poem' class='space1'>
   <%= link_to t('.new_poem'), new_poem_path , :remote => true, :class => 'button' %>
 </section>
 <section class="ac-container">

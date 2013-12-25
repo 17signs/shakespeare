@@ -44,6 +44,13 @@ en:
       detach: "detach"
       new_child: "New child"
       new_poem: "New poem"
+      new_sibling: "New sibling"
+      new_relation: "New relation"
+      poem_meta_data: "Poem Meta data"
+      new_value: "New value"
+      no_references: "No references"
+      relations: "Relations"
+      references: "References"
     edit:
       name: "Name"
       is_poem_type: "Is poem type?"
@@ -74,6 +81,9 @@ en:
       poem: "Poem"
       attribute: "Attribute"
       no_type: "No type"
+      search_results_for: "Search results for"
+      poems_without_parent: "Poems without parents"
+      poems_with_parent: "Poem with parent"
     edit_backup:
       edit: "Edit"
       properties: "Properties"

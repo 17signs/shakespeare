@@ -4,13 +4,19 @@
 // c) ID's
 
 // variables reflecting the color scheme (more or less)
+// scheme based on Theme 85 by Jenny @ AdobeKuler
 
 $main_background: white;
 $main_color: black;
 
-$header_background: rgba(255, 255, 255, 1.0);
-$finder_background: rgba(20, 89, 0, 0.9);
-$highlight_color: rgba(30, 89, 0, 1.0);
+$heading: rgba(45, 50, 64, 1.0);
+$closed_accordion: rgba(191, 73, 4, 1.0);
+$open_accordion: rgba(217, 103, 4, 1.0);
+
+$normal_content: rgba(223, 229, 242, 1.0);
+$hover_content: rgba(176, 183, 191, 1.0);
+
+$finder_background: rgba(217, 103, 4, 1.0);
 
 // section a) standard html tags
 
@@ -35,13 +41,13 @@ footer {
 }
 
 h1 {
-  color: $highlight_color;
+  color: $heading;
 }
 
 hr {
   border: 0;
   height: 1px;
-  background-color: $highlight_color;
+  background-color: $heading;
 }
 
 table {
@@ -53,31 +59,21 @@ table {
 // section b) classes
 
 .active {
-  background-color: $highlight_color;
+  background-color: #ff0000;
   color: white;
 }
 
 .button {
   padding: 4px 7px;
   margin: 0;
-  border: 1px solid #d3d3d3;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, white, #e3e3e3);
-  background-image: -webkit-linear-gradient(top, white, #e3e3e3);
-  background-image:    -moz-linear-gradient(top, white, #e3e3e3);
-  background-image:     -ms-linear-gradient(top, white, #e3e3e3);
-  background-image:      -o-linear-gradient(top, white, #e3e3e3);
+  background: $normal_content;
   text-decoration: none;
   font-weight: bold;
-  color: $highlight_color;
+  color: $heading;
 }
 
 .button:hover {
-  border: 1px solid darken(#d3d3d3, 20);
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, darken(white,10), darken(#e3e3e3,10));
-  background-image: -webkit-linear-gradient(top, darken(white,10), darken(#e3e3e3,10));
-  background-image:    -moz-linear-gradient(top, darken(white,10), darken(#e3e3e3,10));
-  background-image:     -ms-linear-gradient(top, darken(white,10), darken(#e3e3e3,10));
-  background-image:      -o-linear-gradient(top, darken(white,10), darken(#e3e3e3,10));
+  background: $hover_content;
 }
 
 .container {
@@ -138,9 +134,9 @@ table {
 
 .label_cell {
   padding: 5px 20px 5px 0;
-  border-bottom: 1px solid $highlight_color;
+  border-bottom: 1px solid $heading;
   vertical-align: top;
-  color: $highlight_color;
+  color: $heading;
   font-weight: bold;
 }
 
@@ -149,11 +145,11 @@ table {
   margin: 0;
   text-decoration: none;
   font-weight: bold;
-  color: $highlight_color;
+  color: $heading;
 }
 
 .link:hover {
-  background-color: $highlight_color;
+  background-color: $heading;
   color: white;
 }
 
@@ -163,7 +159,7 @@ table {
   position: fixed;
   right: 0;
   z-index: 1030;
-  background-color: $header_background;
+  background-color: $main_background;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(0, 0, 0, 0.1) inset;
   min-height: 40px;
 }
@@ -183,10 +179,9 @@ table {
   position: absolute;
   left: 300px;
   top: 200px;
-  background-color: #ffffff;
+  background-color: white;
   padding: 14px;
-  border: 1px solid $highlight_color;
-  -webkit-border-radius: 7px;
+  border: 1px solid $heading;
   box-shadow: 7px 7px 21px silver;
   opacity: 0.95;
   visibility: hidden;
@@ -207,7 +202,7 @@ table {
 
 .overlay_dialog legend {
   font-weight: bold;
-  color: $highlight_color;
+  color: $heading;
   margin: 0;
   padding: 0px 0px 14px 0px;
 }
@@ -225,7 +220,16 @@ table {
 
 .overlay_dialog fieldset fieldset {
   margin-bottom: 10px;
-  border: 1px solid $highlight_color;
+  border: 1px solid red;
+}
+
+.shakespeare {
+  font-family: "Lucida Grande",sans-serif;
+  font-size: 250%;
+  font-style: italic;
+  font-weight: bold;
+  color: $heading;
+  text-decoration: none;
 }
 
 // section c) ID's
@@ -233,7 +237,7 @@ table {
 #content_pane {
   margin-top: 8px;
   padding: 10px;
-  border-top: 1px solid $highlight_color;
+  border-top: 1px solid red;
 }
 
 .miller_column {
@@ -255,6 +259,8 @@ table {
   list-style-type: none;
 }
 
+// to-do: clear starting here!
+
 .right {
   float: right;
   vertical-align: middle;
@@ -262,15 +268,6 @@ table {
 
 .right > form {
   display: inline;
-}
-
-.shakespeare {
-  font-family: "Lucida Grande",sans-serif;
-  font-size: 250%;
-  font-style: italic;
-  font-weight: bold;
-  color: $highlight_color;
-  text-decoration: none;
 }
 
 .value_cell {
@@ -307,11 +304,10 @@ input[type="submit"] {
 }
 
 .row_wrapper  {
-  border: 1px solid #d3d3d3;
   padding: 7px 14px;
   min-height: 32px;
   margin: 7px 0;
-  -webkit-border-radius: 0px;
+  background: $normal_content;
 }
 
 .row_label {
@@ -327,12 +323,7 @@ input[type="submit"] {
 }
 
 .row_wrapper:hover {
-  border: 1px solid darken(#d3d3d3, 20);
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, darken(white,10), darken(#e3e3e3,10));
-  background-image: -webkit-linear-gradient(top, darken(white,10), darken(#e3e3e3,10));
-  background-image:    -moz-linear-gradient(top, darken(white,10), darken(#e3e3e3,10));
-  background-image:     -ms-linear-gradient(top, darken(white,10), darken(#e3e3e3,10));
-  background-image:      -o-linear-gradient(top, darken(white,10), darken(#e3e3e3,10));
+  background: $hover_content;
 }
 
 .row_wrapper:hover .row_action {
@@ -376,17 +367,10 @@ em.bold {
   display: block;
   height: 20px;
   cursor: pointer;
-  color: $highlight_color;
+  color: white;
   line-height: 22px;
   padding: 7px 14px;
-  border: 1px solid #d3d3d3;
-  background: white;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, white, #eaeaea);
-  background-image: -webkit-linear-gradient(top, white, #eaeaea);
-  background-image:    -moz-linear-gradient(top, white, #e3e3e3);
-  background-image:     -ms-linear-gradient(top, white, #e3e3e3);
-  background-image:      -o-linear-gradient(top, white, #e3e3e3);
-  background:               linear-gradient(top, white, #eaeaea);
+  background: $closed_accordion;
   text-decoration: none;
   font-weight: bold;
   margin: 0px 0px 7px 0px;
@@ -394,8 +378,8 @@ em.bold {
 
 .ac-container input:checked + label,
 .ac-container input:checked + label:hover{
-  background: #c6ece1;
-  color: #3d7489;
+  background: $open_accordion;
+  color: white;
 }
 
 .ac-container label:hover:after{
