@@ -95,16 +95,6 @@
                   $('#mc_open').css("visibility", "hidden");
               }
       );
-
-      $(function(){
-          $("#tabbed_menu li").mouseover(function(){
-              var $this = $(this);
-              $("div[id^='pane']").addClass("hidden");
-              $("#"+$this.attr("id").replace(/tab/, "pane")).removeClass("hidden");
-              $(".active").removeClass("active");
-              $this.addClass("active");
-          });
-      });
   });
 
   function overlay(dialog) {

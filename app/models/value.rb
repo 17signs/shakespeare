@@ -18,7 +18,7 @@ class Value
     if reference
       reference.is_editable?
     else
-      overwrite == "1"
+      overwrite == '1'
     end
   end
 
@@ -26,7 +26,7 @@ class Value
     if reference
       reference.is_removable?
     else
-      removable == "1"
+      removable == '1'
     end
   end
 
@@ -50,12 +50,16 @@ class Value
     end
   end
 
+  def get_value_type
+    reference ? reference.get_value_type : self.value_type
+  end
+
   def __real_value_to_s
-    if value_type == "check_box"
-      if value == "1"
-        "yes"
+    if value_type == 'check_box'
+      if value == '1'
+        'yes'
       else
-        "no"
+        'no'
       end
     else
       value
@@ -80,9 +84,10 @@ class Value
 
   def self.value_types
     ret = []
-    ret << [I18n.t('value.input'), :input]
+    ret << [I18n.t('value.input'), :text_field]
     ret << [I18n.t('value.area'), :text_area]
     ret << [I18n.t('value.checkbox'), :check_box]
+    ret << [I18n.t('value.selection'), :select]
     ret
   end
 

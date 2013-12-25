@@ -60,6 +60,10 @@ de:
       in_poem_types: "... der Poemtypen"
       in_poems: "... in poems"
       in_values: "... in values"
+      no_type: "Kein Typ"
+      values: "Werte"
+      overview: "Übersicht"
+      new_poem: "Neues Poem"
     edit_backup:
       edit: "Edit"
       properties: "Properties"
@@ -76,6 +80,11 @@ de:
   values:
     value:
       delete: "Delete"
+    edit:
+      cancel: "Abbrechen"
+      update: "Aktualisieren"
+      default_value: "Standardwert"
+      edit: "Ändern"
   admin:
     relation_types:
       new:
@@ -93,3 +102,8 @@ de:
         new: "New"
       show:
         phrases: "Phrases"
+  value:
+    checkbox: "Checkbox"
+    input: "Eingabefeld"
+    area: "Textfeld"
+    selection: "Auswahlliste"

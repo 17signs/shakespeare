@@ -3,18 +3,11 @@
     <h1><%= @poem.to_s_long %></h1>
   </div>
 </div>
-<div class="content2">
-    <ul id="tabbed_menu">
-      <li id="tab_meta"><%= t('.meta') %></li>
-      <li id="tab_values" class="active"><%= t('.values') %></li>
-      <li id="tab_relations"><%= t('.relations') %></li>
-      <li id="tab_references"><%= t('.references') %></li>
-      <% if @poem.is_poem_type? %>
-        <li id="tab_usage"><%= t('.usage') %></li>
-      <% end %>
-    </ul>
-    <div id="content_pane">
-      <div id="pane_meta" class="hidden">
+  <section class="ac-container">
+    <div>
+      <input id="ac-1" name="accordion-1" type="checkbox" />
+      <label for="ac-1"><%= t('.poem_meta_data') %></label>
+      <article>
         <div class="row_wrapper">
           <div class="row_content">
             <em class="bold row_label"><%= t('.type') %></em>
@@ -35,11 +28,11 @@
           <div class="row_content">
             <em class="bold row_label"><%= t('.name') %></em>
             <div class="row_value"><%= @poem %></div>
-          <div class="row_action">
-            <ul class="flat_list">
-              <li class="action_item"><%= link_to t('.edit'), edit_poem_path(@poem), :remote => true, :class => 'link' %></li>
-            </ul>
-          </div>
+            <div class="row_action">
+              <ul class="flat_list">
+                <li class="action_item"><%= link_to t('.edit'), edit_poem_path(@poem), :remote => true, :class => 'link' %></li>
+              </ul>
+            </div>
           </div>
         </div>
         <ul class="flat_list">
@@ -51,60 +44,74 @@
           <li class="action_item"><%= link_to t('.new_poem'), new_poem_path, :remote => true, :class => 'button focus' %></li>
           <li class="action_item"><%= link_to t('.delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'button' %></li>
         </ul>
-      </div>
-      <div id="pane_values">
+      </article>
+    </div>
+    <div>
+      <input id="ac-2" name="accordion-1" type="checkbox" checked/>
+      <label for="ac-2"><%= t('.values') %></label>
+      <article>
         <div id="values">
           <% if @poem.has_values? %>
-            <% @poem.values.each do |v| %>
-              <%= render :partial => "shared/value", :object => v %>
-            <% end %>
+              <% @poem.values.each do |v| %>
+                  <%= render :partial => "shared/value", :object => v %>
+              <% end %>
           <% end %>
         </div>
         <ul class="flat_list">
           <li class="action_item"><%= link_to t('.new_value'), new_value_path(:poem => @poem.id), :remote => true, :class => "button focus" %><li>
         </ul>
-      </div>
-      <div id="pane_relations" class="hidden">
+      </article>
+    </div>
+    <div>
+      <input id="ac-3" name="accordion-3" type="checkbox" checked />
+      <label for="ac-3"><%= t('.relations') %></label>
+      <article>
         <div id="relations">
           <% if @poem.has_relations? %>
-            <% @poem.links_to_successors.each do |tr| %>
-              <%= render :partial => "shared/relation", :object => tr %>
-            <% end %>
+              <% @poem.links_to_successors.each do |tr| %>
+                  <%= render :partial => "shared/relation", :object => tr %>
+              <% end %>
           <% end %>
         </div>
         <ul class="flat_list">
           <li class="action_item"><%= link_to t('.new_relation'), new_relation_path(:poem => @poem.id), :remote => true, :class => "button focus" %><li>
         </ul>
-      </div>
-      <% if @poem.is_poem_type? %>
-        <div id="pane_usage" class="hidden">
-          <ul class="flat_list">
-            <% @poem.children.each do |c| %>
-              <li class="action_item"><%= link_to c, c, :class => 'link' %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% else %>
-        <div id="pane_references" class="hidden">
-          <% if @poem.has_references? %>
+      </article>
+    </div>
+    <div>
+      <input id="ac-4" name="accordion-4" type="checkbox" checked />
+      <label for="ac-4"><%= t('.references') %></label>
+      <article>
+        <% if @poem.has_references? %>
             <table>
               <% @poem.links_to_predecessors.each do |p| %>
-                <tr>
-                  <div id="<%= dom_id(p) %>" class="row_wrapper">
-                    <div class="row_content">
-                      <div class="row_value">
-                        <em class="bold"><%= @poem %></em>&nbsp;<%= p.to_from_phrase %>&nbsp;<%= link_to p.from, p.from, :class => 'link' %>
+                  <tr>
+                    <div id="<%= dom_id(p) %>" class="row_wrapper">
+                      <div class="row_content">
+                        <div class="row_value">
+                          <em class="bold"><%= @poem %></em>&nbsp;<%= p.to_from_phrase %>&nbsp;<%= link_to p.from, p.from, :class => 'link' %>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </tr>
+                  </tr>
               <% end %>
             </table>
-          <% else %>
+        <% else %>
             <%= t('.no_references') %>
-          <% end %>
-        </div>
-      <% end %>
+        <% end %>
+      </article>
     </div>
-  </div>
-
+    <% if @poem.is_poem_type? %>
+      <div>
+        <input id="ac-5" name="accordion-5" type="checkbox" />
+        <label for="ac-5"><%= t('.usage') %></label>
+        <article>
+          <ul class="flat_list">
+            <% @poem.children.each do |c| %>
+                <li class="action_item"><%= link_to c, c, :class => 'link' %></li>
+            <% end %>
+          </ul>
+        </article>
+      </div>
+    <% end %>
+  </section>

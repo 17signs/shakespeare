@@ -4,10 +4,10 @@ data lineage
 
     - layout shall use all available size
     - shapes shall be interactive
-      - dragable
+      - drag-able
       - click --> show poem
       - hover --> details
-      - expandeble
+      - expandable
     - relations to be included/excluded
     - poems to be included/excluded
     - poems to have color/shape (rectangle, eclipse) options
@@ -35,7 +35,7 @@ poem
 
       type
         input
-        textfield
+        text field
         selection list
         check box
         radio buttons
@@ -45,7 +45,7 @@ poem
         dynamic options
 
       canceled:
-        "propagates changes in value defintion to poems of this type (reference value)" not done
+        "propagates changes in value definition to poems of this type (reference value)" not done
         because original settings are read from referenced value
 
     defines relation types
@@ -53,7 +53,7 @@ poem
       foundation to create references between poems
 
       maybe: at this level lineage could show structuring of poem types
-        seems expensive comapred to additional value of relation table listing
+        seems expensive compared to additional value of relation table listing
 
       done: create, show, edit (edit function was deleted, see relation type section), delete
 
@@ -64,9 +64,16 @@ poem
 relations
 
   do: allow name concatenation (BT --> TABLE --> COLUMN could become BT --> TABLE.COLUMN) oerks!
-  do: provide all (inbound/outbound) relations, but eleminate redundancies (self reflecting relations; take care!)
+  do: provide all (inbound/outbound) relations, but eliminate redundancies (self reflecting relations; take care!)
 
 values
+
+  thesis
+
+    reference value -> everything is derived from reference value, except the value itself
+    local value -> value could only be text field
+    new value & poem has children -> value with reference added to children; default value is copied
+    new poem -> existing value definitions are copied by creating reference values
 
   done: not editable option (like constant value for certain poem types)
   done: not removable option
@@ -76,8 +83,8 @@ html/css
   styles
 
     normal                  any value/content, which is displayed in normal manner --> belongs to body
-    emphazised              highlighted content, but without any functionality (navigation/action)
-    link                    everything clickable
+    emphasized              highlighted content, but without any functionality (navigation/action)
+    link                    everything click-able
     focus                   a) focused by "nature" because of workflow, or b) focused by :hover
 
   general:
@@ -86,7 +93,7 @@ html/css
     eval: ref/href attributes, hypermedia stuff
     do: small icon for web site
 
-shakespear general
+shakespeare general
 
   mobile
 
@@ -98,7 +105,7 @@ shakespear general
     evaluate: config file or table
 
     possible entries:
-      inheritance_level: how deep changes to poem type are porpagate to children; 0,1,n,...,full
+      inheritance_level: how deep changes to poem type are propagate to children; 0,1,n,...,full
 
   premium features
 

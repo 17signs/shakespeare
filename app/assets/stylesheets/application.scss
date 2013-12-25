@@ -4,14 +4,11 @@
 // c) ID's
 
 // variables reflecting the color scheme (more or less)
-// which is bright orange with some shades of gray
 
-$main_background: rgba(223, 223, 223, 1.0);
+$main_background: white;
 $main_color: black;
 
 $header_background: rgba(255, 255, 255, 1.0);
-// $finder_background: rgba(255, 128, 0, 0.9);
-// $highlight_color: rgba(0, 136, 178, 1.0);
 $finder_background: rgba(20, 89, 0, 0.9);
 $highlight_color: rgba(30, 89, 0, 1.0);
 
@@ -22,14 +19,19 @@ a {
 }
 
 body {
-    background-color: $main_background;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 13px;
-    line-height: 18px;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    color: $main_color;
+  background-color: $main_background;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  color: $main_color;
+}
+
+footer {
+  margin-top: 20px;
+  color: black;
 }
 
 h1 {
@@ -42,108 +44,24 @@ hr {
   background-color: $highlight_color;
 }
 
-footer {
-  margin-top: 20px;
-  color: black;
+table {
+  border-collapse: collapse;
+  padding: 0;
+  margin: 0;
 }
 
 // section b) classes
-
-.container {
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 30px 0;
-  clear: both;
-}
-
-.nav_container {
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  clear: both;
-}
-
-.content {
-  background-color: #ffffff;
-  box-shadow: 2px 2px 10px #999999;
-  padding: 60px 20px 20px;
-}
-
-.nav_content {
-  background-color: #ffffff;
-  padding: 30px 20px;
-}
-
-.content2 {
-  background-color: #ffffff;
-  clear: both;
-}
-
-.header {
-  clear: both;
-  width: 100%;
-  margin-bottom: 100px;
-}
-
-.header_left {
-  float: left;
-}
-
-.header_right {
-  float: right;
-}
-
-.flat_list {
-  display: block;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.flat_list > li {
-  display: inline;
-  text-decoration: none;
-}
-
-#tabbed_menu {
-  display: block;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-#tabbed_menu > li {
-  display: inline;
-  text-decoration: none;
-  margin: 0;
-  padding: 10px 20px;
-}
-
-#content_pane {
-  margin-top: 8px;
-  padding: 10px;
-  border-top: 1px solid $highlight_color;
-}
 
 .active {
   background-color: $highlight_color;
   color: white;
 }
 
-.label_cell {
-  padding: 5px 20px 5px 0;
-  border-bottom: 1px solid $highlight_color;
-  vertical-align: top;
-  color: $highlight_color;
-  font-weight: bold;
-}
-
 .button {
-  padding: 7px 14px;
+  padding: 4px 7px;
   margin: 0;
   border: 1px solid #d3d3d3;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#e3e3e3));
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, white, #e3e3e3);
   background-image: -webkit-linear-gradient(top, white, #e3e3e3);
   background-image:    -moz-linear-gradient(top, white, #e3e3e3);
   background-image:     -ms-linear-gradient(top, white, #e3e3e3);
@@ -155,44 +73,23 @@ footer {
 
 .button:hover {
   border: 1px solid darken(#d3d3d3, 20);
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(darken(white,10)), to(darken(#e3e3e3,10)));
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, darken(white,10), darken(#e3e3e3,10));
   background-image: -webkit-linear-gradient(top, darken(white,10), darken(#e3e3e3,10));
   background-image:    -moz-linear-gradient(top, darken(white,10), darken(#e3e3e3,10));
   background-image:     -ms-linear-gradient(top, darken(white,10), darken(#e3e3e3,10));
   background-image:      -o-linear-gradient(top, darken(white,10), darken(#e3e3e3,10));
 }
 
-.link {
-  padding: 0px 2px;
-  margin: 0;
-  text-decoration: none;
-  font-weight: bold;
-  color: $highlight_color;
+.container {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px 0;
+  clear: both;
 }
 
-.link:hover {
-  background-color: $highlight_color;
-  color: white;
-}
-
-.focus {
-  color: $highlight_color;
-}
-
-
-.main-nav-wrapper {
-  left: 0;
-  margin-bottom: 0;
-  position: fixed;
-  right: 0;
-  z-index: 1030;
-  background-color: $header_background;
-  background-image: -moz-linear-gradient(center top , #FFFFFF, #F9F9F6);
-  background-image: -webkit-linear-gradient(center top , #FFFFFF, #F9F9F6);
-  background-image: linear-gradient(center top , #FFFFFF, #F9F9F6);
-  background-repeat: repeat-x;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(0, 0, 0, 0.1) inset;
-  min-height: 40px;
+.content {
+  padding: 60px 20px 20px;
 }
 
 .finder_layer {
@@ -211,6 +108,132 @@ footer {
 .finder_layer a {
   color: #ffffff;
   text-decoration: none;
+}
+
+.flat_list {
+  display: block;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.flat_list > li {
+  display: inline;
+  text-decoration: none;
+}
+
+.header {
+  clear: both;
+  width: 100%;
+  margin-bottom: 70px;
+}
+
+.header_left {
+  float: left;
+}
+
+.header_right {
+  float: right;
+}
+
+.label_cell {
+  padding: 5px 20px 5px 0;
+  border-bottom: 1px solid $highlight_color;
+  vertical-align: top;
+  color: $highlight_color;
+  font-weight: bold;
+}
+
+.link {
+  padding: 0px 2px;
+  margin: 0;
+  text-decoration: none;
+  font-weight: bold;
+  color: $highlight_color;
+}
+
+.link:hover {
+  background-color: $highlight_color;
+  color: white;
+}
+
+.main-nav-wrapper {
+  left: 0;
+  margin-bottom: 0;
+  position: fixed;
+  right: 0;
+  z-index: 1030;
+  background-color: $header_background;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(0, 0, 0, 0.1) inset;
+  min-height: 40px;
+}
+
+.nav_container {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  clear: both;
+}
+
+.nav_content {
+  padding: 30px 20px;
+}
+
+.overlay_dialog {
+  position: absolute;
+  left: 300px;
+  top: 200px;
+  background-color: #ffffff;
+  padding: 14px;
+  border: 1px solid $highlight_color;
+  -webkit-border-radius: 7px;
+  box-shadow: 7px 7px 21px silver;
+  opacity: 0.95;
+  visibility: hidden;
+}
+
+.overlay_dialog fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.overlay_dialog label {
+  display: inline-block;
+  line-height: 1.8;
+  vertical-align: top;
+  width: 120px;
+}
+
+.overlay_dialog legend {
+  font-weight: bold;
+  color: $highlight_color;
+  margin: 0;
+  padding: 0px 0px 14px 0px;
+}
+
+.overlay_dialog fieldset ol {
+  margin: 0;
+  padding: 0;
+}
+
+.overlay_dialog fieldset ol li {
+  list-style: none;
+  padding: 0px 0px 7px 0px;
+  margin: 0;
+}
+
+.overlay_dialog fieldset fieldset {
+  margin-bottom: 10px;
+  border: 1px solid $highlight_color;
+}
+
+// section c) ID's
+
+#content_pane {
+  margin-top: 8px;
+  padding: 10px;
+  border-top: 1px solid $highlight_color;
 }
 
 .miller_column {
@@ -258,36 +281,8 @@ footer {
   display: none;
 }
 
-table {
-  border-collapse: collapse;
-  padding: 0;
-  margin: 0;
-}
-
 .row_highlight:hover {
   background-color: $main_background;
-}
-
-.action_cell {
-  margin-left: 70px;
-  border-left: 1px dotted $highlight_color;
-  padding-left: 10px;
-}
-
-.action_item {
-  margin: 0 10px;
-}
-
-.action_item:first-child {
-  margin: 0 10px 0 0;
-}
-
-.action_item:last-child {
-  margin: 0 0 0 10px;
-}
-
-.action_item:only-child {
-  margin: 0;
 }
 
 input[type="submit"] {
@@ -311,52 +306,8 @@ input[type="submit"] {
   background-color: rgba(232, 232, 232, 0.4);
 }
 
-.overlay_dialog {
-  position: absolute;
-  left: 300px;
-  top: 200px;
-  background-color: #ffffff;
-  padding: 14px;
-  border: 1px solid $highlight_color;
-  -webkit-border-radius: 7px;
-  box-shadow: 10px 10px 20px silver;
-  opacity: 0.95;
-  visibility: hidden;
-}
-
-.overlay_dialog fieldset {
-  margin-bottom: 10px;
-  border: 0;
-}
-
-.overlay_dialog legend {
-  font-weight: bold;
-  color: $highlight_color;
-}
-
-.overlay_dialog label {
-  display: inline-block;
-  line-height: 1.8;
-  vertical-align: top;
-  width: 120px;
-}
-.overlay_dialog fieldset ol {
-  margin: 0;
-  padding: 0;
-}
-.overlay_dialog fieldset li {
-  list-style: none;
-  padding: 5px;
-  margin: 0;
-}
-
-.overlay_dialog fieldset fieldset {
-  margin-bottom: 10px;
-  border: 1px solid $highlight_color;
-}
-
 .row_wrapper  {
-  border: 1px dotted $main_background;
+  border: 1px solid #d3d3d3;
   padding: 7px 14px;
   min-height: 32px;
   margin: 7px 0;
@@ -376,7 +327,12 @@ input[type="submit"] {
 }
 
 .row_wrapper:hover {
-  background-color: $main_background;
+  border: 1px solid darken(#d3d3d3, 20);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, darken(white,10), darken(#e3e3e3,10));
+  background-image: -webkit-linear-gradient(top, darken(white,10), darken(#e3e3e3,10));
+  background-image:    -moz-linear-gradient(top, darken(white,10), darken(#e3e3e3,10));
+  background-image:     -ms-linear-gradient(top, darken(white,10), darken(#e3e3e3,10));
+  background-image:      -o-linear-gradient(top, darken(white,10), darken(#e3e3e3,10));
 }
 
 .row_wrapper:hover .row_action {
@@ -405,4 +361,66 @@ em.bold {
 
 .space1 {
   margin: 28px 0px;
+}
+
+// accordion style for poem.show
+
+.ac-container {
+  width: 100%;
+  clear: both;
+}
+
+.ac-container label {
+  position: relative;
+  z-index: 20;
+  display: block;
+  height: 20px;
+  cursor: pointer;
+  color: $highlight_color;
+  line-height: 22px;
+  padding: 7px 14px;
+  border: 1px solid #d3d3d3;
+  background: white;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, white, #eaeaea);
+  background-image: -webkit-linear-gradient(top, white, #eaeaea);
+  background-image:    -moz-linear-gradient(top, white, #e3e3e3);
+  background-image:     -ms-linear-gradient(top, white, #e3e3e3);
+  background-image:      -o-linear-gradient(top, white, #e3e3e3);
+  background:               linear-gradient(top, white, #eaeaea);
+  text-decoration: none;
+  font-weight: bold;
+  margin: 0px 0px 7px 0px;
+}
+
+.ac-container input:checked + label,
+.ac-container input:checked + label:hover{
+  background: #c6ece1;
+  color: #3d7489;
+}
+
+.ac-container label:hover:after{
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  right: 13px;
+  top: 7px;
+  background: transparent url(arrow_down.png) no-repeat center center;
+}
+
+.ac-container input:checked + label:hover:after{
+  background-image: url(arrow_up.png);
+}
+
+.ac-container input {
+  display: none;
+}
+
+.ac-container article {
+  display: none;
+  margin: 7px 0px 14px 14px;
+}
+
+.ac-container input:checked ~ article {
+  display: inherit;
 }

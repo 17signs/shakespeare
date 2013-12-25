@@ -1,5 +1,5 @@
 <%= form_for @value, remote: true, :html => { :id => 'edit_value' } do |f| %>
-    <%= field_set_tag t('.edit')+" "+@value do %>
+    <%= field_set_tag t('.edit')+' '+@value.to_s do %>
       <ol>
       <% if @value.reference == nil %>
         <li><%= f.label :name %><%= f.text_field :name %></li>
@@ -8,7 +8,7 @@
         <li><%= f.label :removable %><%= f.check_box :removable %></li>
         <li><%= f.label :value_type %><%= f.select :value_type, Value.value_types %></li>
       <% else %>
-        <li><%= f.label :value %><%= f.send(@value.value_type, :value) %></li>
+        <li><%= f.label :value %><%= f.send(@value.get_value_type, :value) %></li>
       <% end %>
       </ol>
       <ul class="flat_list">

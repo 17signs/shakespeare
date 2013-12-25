@@ -18,9 +18,9 @@
         <li><%= f.label :value_type %><%= f.select :value_type, Value.value_types %></li>
       </ol>
     <% end %>
+  <% end %>
     <ul class="flat_list">
       <li class="action_item"><a href="#" onclick="$('#new_value').submit(); return false;" class="button focus"><%= t('.create') %></a></li>
       <li class="action_item"><a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a></li>
     </ul>
-  <% end %>
 <% end %>
