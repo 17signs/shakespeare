@@ -8,6 +8,7 @@ de:
       home: "Home"
       finder: "Finder"
       shakespeare: "shakespeare"
+      search: "Suche"
   poems:
     new:
       name_please: "Enter new name please"
@@ -123,3 +124,6 @@ de:
     input: "Eingabefeld"
     area: "Textfeld"
     selection: "Auswahlliste"
+  relations:
+    new:
+      specify_phrases: "Phrasen"

@@ -8,6 +8,7 @@ en:
       home: "Home"
       finder: "Finder"
       shakespeare: "shakespeare"
+      search: "Search"
   poems:
     new:
       name_please: "Enter new name please"

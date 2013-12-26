@@ -15,7 +15,7 @@
       <%= link_to t('.shakespeare'), mdms_path, :class => 'shakespeare' %>
       <div class="right">
         <%= form_tag poems_path, :method => :get do %>
-            <%= submit_tag "Search", :name => nil, :style => 'display: none' %>
+            <%= submit_tag t('.search'), :name => nil, :style => 'display: none' %>
             <%= search_field_tag :search, '', :placeholder => 'search...' %>
         <% end %>
         <%= form_tag mdms_path, :class => 'locale' do %>

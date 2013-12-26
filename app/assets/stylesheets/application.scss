@@ -58,9 +58,63 @@ table {
 
 // section b) classes
 
-.active {
-  background-color: #ff0000;
+
+.ac-container {
+  width: 100%;
+  clear: both;
+
+  article {
+    display: none;
+    margin: 7px 0px 14px 14px;
+  }
+
+  input {
+    display: none;
+  }
+
+  label {
+    position: relative;
+    z-index: 20;
+    display: block;
+    height: 20px;
+    cursor: pointer;
+    color: white;
+    line-height: 22px;
+    padding: 7px 14px;
+    background: $closed_accordion;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0px 0px 7px 0px;
+  }
+}
+
+.ac-container input:checked + label,
+.ac-container input:checked + label:hover{
+  background: $open_accordion;
   color: white;
+}
+
+.ac-container label:hover:after{
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  right: 13px;
+  top: 7px;
+  background: transparent url(arrow_down.png) no-repeat center center;
+}
+
+.ac-container input:checked + label:hover:after{
+  background-image: url(arrow_up.png);
+}
+
+.ac-container input:checked ~ article {
+  display: inherit;
+}
+
+.bold {
+  font-weight: bold;
+  font-style: normal;
 }
 
 .button {
@@ -70,10 +124,10 @@ table {
   text-decoration: none;
   font-weight: bold;
   color: $heading;
-}
 
-.button:hover {
-  background: $hover_content;
+  &:hover {
+    background: $hover_content;
+  }
 }
 
 .container {
@@ -99,11 +153,11 @@ table {
   padding: 10px;
   left: 0;
   top: 40px;
-}
 
-.finder_layer a {
-  color: #ffffff;
-  text-decoration: none;
+  a {
+    color: #ffffff;
+    text-decoration: none;
+  }
 }
 
 .flat_list {
@@ -111,11 +165,11 @@ table {
   list-style-type: none;
   padding: 0;
   margin: 0;
-}
 
-.flat_list > li {
-  display: inline;
-  text-decoration: none;
+  li {
+    display: inline;
+    text-decoration: none;
+  }
 }
 
 .header {
@@ -132,6 +186,10 @@ table {
   float: right;
 }
 
+.hidden {
+  display: none;
+}
+
 .label_cell {
   padding: 5px 20px 5px 0;
   border-bottom: 1px solid $heading;
@@ -146,11 +204,11 @@ table {
   text-decoration: none;
   font-weight: bold;
   color: $heading;
-}
 
-.link:hover {
-  background-color: $heading;
-  color: white;
+  &:hover {
+    background-color: $heading;
+    color: white;
+  }
 }
 
 .main-nav-wrapper {
@@ -162,6 +220,20 @@ table {
   background-color: $main_background;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(0, 0, 0, 0.1) inset;
   min-height: 40px;
+}
+
+.mc_selected {
+  background-color: #e5dbcf;
+}
+
+.miller_column {
+  border-right: 1px solid #e5dbcf;
+  border-spacing: 0;
+
+  td {
+    padding-left: 2ex;
+    padding-right: 2ex;
+  }
 }
 
 .nav_container {
@@ -179,7 +251,7 @@ table {
   position: absolute;
   left: 300px;
   top: 200px;
-  background-color: white;
+  background-color: $main_background;
   padding: 14px;
   border: 1px solid $heading;
   box-shadow: 7px 7px 21px silver;
@@ -223,6 +295,66 @@ table {
   border: 1px solid red;
 }
 
+.right {
+  float: right;
+  vertical-align: middle;
+
+  form {
+    display: inline;
+  }
+}
+
+.row_content {
+  position: relative;
+}
+
+.row_highlight {
+  margin: 7px 0;
+  background: $main_background;
+
+  &:hover {
+    background-color: $hover_content;
+  }
+}
+
+.row_label {
+  float: left;
+  min-width: 20%;
+  max-width: 20%;
+}
+
+.row_value {
+  position: absolute;
+  left: 20%;
+  top: 0;
+
+  &:after {
+    content: '.';
+    visibility: hidden;
+  }
+}
+
+.row_wrapper  {
+  padding: 7px 14px;
+  min-height: 32px;
+  margin: 7px 0;
+  background: $main_background;
+
+  &:hover {
+    background: $hover_content;
+  }
+}
+
+.row_wrapper .row_action {
+  position: absolute;
+  top: 20px;
+  display: none;
+}
+
+.row_wrapper:hover .row_action {
+  display: block;
+}
+
 .shakespeare {
   font-family: "Lucida Grande",sans-serif;
   font-size: 250%;
@@ -230,6 +362,14 @@ table {
   font-weight: bold;
   color: $heading;
   text-decoration: none;
+}
+
+.space1 {
+  margin: 28px 0px;
+}
+
+.value_cell {
+  padding: 5px 20px 5px 0;
 }
 
 // section c) ID's
@@ -240,56 +380,9 @@ table {
   border-top: 1px solid red;
 }
 
-.miller_column {
-  border-right: 1px solid #e5dbcf;
-  border-spacing: 0;
-}
-
-.miller_column td {
-  padding-left: 2ex;
-  padding-right: 2ex;
-}
-
-.mc_selected {
-  background-color: #e5dbcf;
-}
-
 #miller_column_view ul li {
   float: left;
   list-style-type: none;
-}
-
-// to-do: clear starting here!
-
-.right {
-  float: right;
-  vertical-align: middle;
-}
-
-.right > form {
-  display: inline;
-}
-
-.value_cell {
-  padding: 5px 20px 5px 0;
-}
-
-.hidden {
-  display: none;
-}
-
-.row_highlight:hover {
-  background-color: $main_background;
-}
-
-input[type="submit"] {
-  outline: none;
-  padding: 7px 14px;
-  -webkit-border-radius: 7px;
-  box-shadow: 1px 1px 2px silver;
-  text-decoration: none;
-  background-color: $main_background;
-  color: $main_color;
 }
 
 #overlay {
@@ -301,110 +394,4 @@ input[type="submit"] {
   height:100%;
   z-index: 1050;
   background-color: rgba(232, 232, 232, 0.4);
-}
-
-.row_wrapper  {
-  padding: 7px 14px;
-  min-height: 32px;
-  margin: 7px 0;
-  background: $normal_content;
-}
-
-.row_label {
-  float: left;
-  min-width: 20%;
-  max-width: 20%;
-}
-
-.row_wrapper .row_action {
-  position: absolute;
-  top: 20px;
-  display: none;
-}
-
-.row_wrapper:hover {
-  background: $hover_content;
-}
-
-.row_wrapper:hover .row_action {
-  display: block;
-}
-
-.row_value:after {
-  content: '.';
-  visibility: hidden;
-}
-
-.row_content {
-  position: relative;
-}
-
-.row_value {
-  position: absolute;
-  left: 20%;
-  top: 0;
-}
-
-em.bold {
-  font-weight: bold;
-  font-style: normal;
-}
-
-.space1 {
-  margin: 28px 0px;
-}
-
-// accordion style for poem.show
-
-.ac-container {
-  width: 100%;
-  clear: both;
-}
-
-.ac-container label {
-  position: relative;
-  z-index: 20;
-  display: block;
-  height: 20px;
-  cursor: pointer;
-  color: white;
-  line-height: 22px;
-  padding: 7px 14px;
-  background: $closed_accordion;
-  text-decoration: none;
-  font-weight: bold;
-  margin: 0px 0px 7px 0px;
-}
-
-.ac-container input:checked + label,
-.ac-container input:checked + label:hover{
-  background: $open_accordion;
-  color: white;
-}
-
-.ac-container label:hover:after{
-  content: '';
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  right: 13px;
-  top: 7px;
-  background: transparent url(arrow_down.png) no-repeat center center;
-}
-
-.ac-container input:checked + label:hover:after{
-  background-image: url(arrow_up.png);
-}
-
-.ac-container input {
-  display: none;
-}
-
-.ac-container article {
-  display: none;
-  margin: 7px 0px 14px 14px;
-}
-
-.ac-container input:checked ~ article {
-  display: inherit;
 }
