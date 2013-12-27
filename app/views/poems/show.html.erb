@@ -8,32 +8,28 @@
       <input id="ac-1" name="accordion-1" type="checkbox" />
       <label for="ac-1"><%= t('.poem_meta_data') %></label>
       <article>
-        <div class="row_wrapper">
-          <div class="row_content">
-            <em class="bold row_label"><%= t('.type') %></em>
-            <div class="row_value">
+        <div class="row-wrapper">
+          <div class="row-menu">
+            <div class="row-label"><%= t('.type') %></div>
+          </div>
+          <div class="row-content">
               <% if @poem.parent %>
                   <%= link_to @poem.parent, @poem.parent, :class => 'link' %>
               <% else %>
                   <%= t('.no_type') %>
               <% end %>
-            </div>
-            <div class="row_action">
-              <ul class="flat_list">
-              </ul>
-            </div>
           </div>
         </div>
-        <div class="row_wrapper">
-          <div class="row_content">
-            <em class="bold row_label"><%= t('.name') %></em>
-            <div class="row_value"><%= @poem %></div>
-            <div class="row_action">
+        <div class="row-wrapper">
+          <div class="row-menu">
+            <div class="row-label"><%= t('.name') %></div>
+            <div class="row-action">
               <ul class="flat_list">
                 <li class="action_item"><%= link_to t('.edit'), edit_poem_path(@poem), :remote => true, :class => 'link' %></li>
               </ul>
             </div>
           </div>
+          <div class="row-content"><%= @poem %></div>
         </div>
         <ul class="flat_list">
           <% if @poem.parent %>

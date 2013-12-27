@@ -9,6 +9,7 @@ en:
       finder: "Finder"
       shakespeare: "shakespeare"
       search: "Search"
+      nothing_to_navigate: "Nothing to navigate to"
   poems:
     new:
       name_please: "Enter new name please"
@@ -106,8 +107,12 @@ en:
       cancel: "Cancel"
       update: "Update"
       edit: "Edit"
+      edit_value: "Edit value"
     new:
       default_value: "Default value"
+      new_value_for: "New value for"
+      create: "Create"
+      cancel: "Cancel"
   admin:
     relation_types:
       new:
@@ -136,3 +141,7 @@ en:
     area: "Text area"
     checkbox: "Checkbox"
     selection: "Selection"
+  shared:
+    value:
+      edit: "Edit"
+      delete: "Delete"

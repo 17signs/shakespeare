@@ -53,7 +53,7 @@
           </tr>
           <% @result[:values].each do |v| %>
               <% if v.poem %>
-                  <tr class="row_highlight">
+                  <tr class="row-wrapper">
                     <% if v.poem.parent == nil %>
                         <td class="value_cell"><%= t('.no_type') %></td>
                     <% else %>

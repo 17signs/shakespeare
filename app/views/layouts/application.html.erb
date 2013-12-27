@@ -2,9 +2,9 @@
 <html>
 <head>
   <title>Shakespeare</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= javascript_include_tag "rails" %>
+  <%= stylesheet_link_tag    'application', :media => 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'rails' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -101,33 +101,33 @@
       $(".overlay_dialog").each(function() {
           $(this).css("visibility", "hidden");
       });
-      el = document.getElementById("overlay");
+      var el = document.getElementById("overlay");
       el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
       if (el.style.visibility == "visible") {
           $('#'+dialog).css("visibility", "visible");
       }
-  };
+  }
 
   function get_to_poems() {
-      rel_id = $('#relation_parent').val();
-      to_poems = $.ajax({
+      var rel_id = $('#relation_parent').val();
+      var to_poems = $.ajax({
           type: "GET",
           url: "to_poems",
           data: {relation: rel_id},
           dataType: 'json',
-          success: function(data){
+          success: function (data) {
               var mySelect = $('#relation_to');
               mySelect.empty();
-              $.each(data['poems'], function(index, element) {
+              $.each(data['poems'], function (index, element) {
                   mySelect.append(
-                    $('<option></option>').val(element.id).html(element.poem_name)
+                          $('<option></option>').val(element.id).html(element.poem_name)
                   );
               });
               $('#relation_from_to_phrase').val(data['ftp']);
               $('#relation_to_from_phrase').val(data['tfp']);
           }
       })
-  };
+  }
 
   function toggle_phrases() {
       $('#new_rel_from_to_phrase').toggle();

@@ -257,42 +257,42 @@ table {
   box-shadow: 7px 7px 21px silver;
   opacity: 0.95;
   visibility: hidden;
-}
 
-.overlay_dialog fieldset {
-  border: 0;
-  margin: 0;
-  padding: 0;
-}
+  fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
 
-.overlay_dialog label {
-  display: inline-block;
-  line-height: 1.8;
-  vertical-align: top;
-  width: 120px;
-}
+    ol {
+      margin: 0;
+      padding: 0;
 
-.overlay_dialog legend {
-  font-weight: bold;
-  color: $heading;
-  margin: 0;
-  padding: 0px 0px 14px 0px;
-}
+      li {
+        list-style: none;
+        padding: 0px 0px 7px 0px;
+        margin: 0;
+      }
+    }
 
-.overlay_dialog fieldset ol {
-  margin: 0;
-  padding: 0;
-}
+    fieldset {
+      margin-bottom: 10px;
+      border: 1px solid $heading;
+    }
+  }
 
-.overlay_dialog fieldset ol li {
-  list-style: none;
-  padding: 0px 0px 7px 0px;
-  margin: 0;
-}
+  label {
+    display: inline-block;
+    line-height: 1.8;
+    vertical-align: top;
+    width: 120px;
+  }
 
-.overlay_dialog fieldset fieldset {
-  margin-bottom: 10px;
-  border: 1px solid red;
+  legend {
+    font-weight: bold;
+    color: $heading;
+    margin: 0;
+    padding: 0px 0px 14px 0px;
+  }
 }
 
 .right {
@@ -304,55 +304,57 @@ table {
   }
 }
 
-.row_content {
-  position: relative;
-}
-
-.row_highlight {
+.row-wrapper {
+  width: 100%;
+  padding: 0;
   margin: 7px 0;
-  background: $main_background;
+  background-color: $main_background;
+  overflow: hidden;
 
   &:hover {
     background-color: $hover_content;
+
+    .row-menu {
+
+      a {
+        color: $heading;
+
+        &:hover {
+          color: $main_background;
+        }
+      }
+    }
   }
-}
 
-.row_label {
-  float: left;
-  min-width: 20%;
-  max-width: 20%;
-}
-
-.row_value {
-  position: absolute;
-  left: 20%;
-  top: 0;
-
-  &:after {
-    content: '.';
-    visibility: hidden;
+  .row-content {
+    overflow: hidden;
+    display: inline-block;
+    padding-bottom: 10000px;
+    margin-bottom: -10000px;
+    width: 69%;
   }
-}
 
-.row_wrapper  {
-  padding: 7px 14px;
-  min-height: 32px;
-  margin: 7px 0;
-  background: $main_background;
-
-  &:hover {
-    background: $hover_content;
+  .row-label {
+    color: $heading;
+    font-weight: bold;
   }
-}
 
-.row_wrapper .row_action {
-  position: absolute;
-  top: 20px;
-  display: none;
-}
+  .row-menu {
+    overflow: hidden;
+    display: inline-block;
+    float: left;
+    padding-bottom: 10000px;
+    margin-bottom: -10000px;
+    width: 30%;
 
-.row_wrapper:hover .row_action {
-  display: block;
+    a {
+      color: $main_background;
+    }
+  }
+
+  .value_cell {
+    padding: 7px 21px 7px 0;
+  }
 }
 
 .shakespeare {
@@ -368,17 +370,7 @@ table {
   margin: 28px 0px;
 }
 
-.value_cell {
-  padding: 5px 20px 5px 0;
-}
-
 // section c) ID's
-
-#content_pane {
-  margin-top: 8px;
-  padding: 10px;
-  border-top: 1px solid red;
-}
 
 #miller_column_view ul li {
   float: left;
@@ -395,3 +387,6 @@ table {
   z-index: 1050;
   background-color: rgba(232, 232, 232, 0.4);
 }
+
+// test section
+// shall be empty in production :)

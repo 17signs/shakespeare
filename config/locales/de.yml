@@ -9,6 +9,7 @@ de:
       finder: "Finder"
       shakespeare: "shakespeare"
       search: "Suche"
+      nothing_to_navigate: "Nicht zum Navigieren vorhanden :)"
   poems:
     new:
       name_please: "Enter new name please"
@@ -102,6 +103,12 @@ de:
       update: "Aktualisieren"
       default_value: "Standardwert"
       edit: "Ändern"
+      edit_value: "Pflege Wert"
+    new:
+      new_value_for: "Neuer Wert für"
+      default_value: "Standardwert"
+      create: "Anlegen"
+      cancel: "Abbrechen"
   admin:
     relation_types:
       new:
@@ -127,3 +134,7 @@ de:
   relations:
     new:
       specify_phrases: "Phrasen"
+  shared:
+    value:
+      edit: "Ändern"
+      delete: "Löschen"
