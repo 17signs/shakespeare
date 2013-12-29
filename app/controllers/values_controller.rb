@@ -3,13 +3,7 @@ class ValuesController < ApplicationController
   def create
     value_data = params[:value]
 
-    #poem = Poem.find_by_id(value_data[:poem])
-    #if poem
-    #  @value = poem.add_value(value_data[:name], value_data[:value])
-    #  redirect_to poem
-    #end
-
-    @value = Value.new()
+    @value = Value.new
 
     @value.poem  = Poem.find_by_id(value_data[:poem])
     @value.name  = value_data[:name]
@@ -22,13 +16,10 @@ class ValuesController < ApplicationController
 
     # Propagate new value to poems children
     @value.poem.children.each do |child|
-      value = Value.new()
+      value = Value.new
       value.poem = child
       value.name = @value.name
       value.value = @value.value
-      value.overwrite = @value.overwrite
-      value.removable = @value.removable
-      value.value_type = @value.value_type
       value.reference = @value
       value.save
     end
@@ -52,16 +43,16 @@ class ValuesController < ApplicationController
 
   def edit
     @value = Value.find_by_id(params[:id])
-    @html = render_to_string(:action => "edit", :formats => [:html], :layout => false)
+    @html = render_to_string(:action => 'edit', :formats => [:html], :layout => false)
     respond_to do |format|
       format.js
     end
   end
 
   def new
-    @value = Value.new()
+    @value = Value.new
     @value.poem = Poem.find_by_id(params[:poem])
-    @html = render_to_string(:action => "new", :formats => [:html], :layout => false)
+    @html = render_to_string(:action => 'new', :formats => [:html], :layout => false)
     respond_to do |format|
       format.js
     end

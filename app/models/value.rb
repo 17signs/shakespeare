@@ -15,19 +15,11 @@ class Value
   many :referring, :foreign_key => :reference_id, :class_name => 'Value', :dependent => :destroy
 
   def is_editable?
-    if reference
-      reference.is_editable?
-    else
-      overwrite == '1'
-    end
+    reference ? reference.overwrite == '1' : true
   end
 
   def is_removable?
-    if reference
-      reference.is_removable?
-    else
-      removable == '1'
-    end
+    reference ? reference.removable == '1' : true
   end
 
   def to_s
@@ -51,11 +43,11 @@ class Value
   end
 
   def get_value_type
-    reference ? reference.get_value_type : self.value_type
+    reference ? reference.get_value_type : :value_type
   end
 
   def __real_value_to_s
-    if value_type == 'check_box'
+    if :value_type == 'check_box'
       if value == '1'
         'yes'
       else
@@ -68,17 +60,7 @@ class Value
 
   def self.search(search)
     if search
-      # 1st: direct apearence of search value
-      res = Value.where({'value' => Regexp.new(Regexp.escape(search), Regexp::IGNORECASE)})
-      # 2nd: iterate through reference values
-      res.each do |p|
-        p.referring.each do |r|
-          puts r, r.poem
-        end
-      end
-
-      return res
-
+      Value.where({:value => Regexp.new(Regexp.escape(search), Regexp::IGNORECASE)})
     end
   end
 
