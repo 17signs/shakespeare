@@ -1,0 +1,27 @@
+<%= form_for @value, remote: true do |f| %>
+  <%= f.hidden_field :poem, :value => @value.poem.id %>
+  <%= field_set_tag t('.new_value_for')+' '+@value.poem.to_s do %>
+    <% if @value.poem.parent == nil %>
+      <ol>
+        <li><%= f.label :name %><%= f.text_field :name %></li>
+        <li><%= f.label t('.default_value') %><%= f.text_field :value %></li>
+        <li><%= f.label :overwrite %><%= f.check_box :overwrite, {checked: true} %></li>
+        <li><%= f.label :removable %><%= f.check_box :removable, {checked: true} %></li>
+        <li><%= f.label :value_type %><%= f.select :value_type, Value.value_types %></li>
+        <li><%= f.label t('.use_reference_poem') %><%= f.check_box :use_reference_poem %></li>
+      </ol>
+    <% else %>
+      <%= f.hidden_field :overwrite, :value => '1' %>
+      <%= f.hidden_field :removable, :value => '1' %>
+      <%= f.hidden_field :value_type, :value => :text_area %>
+      <ol>
+        <li><%= f.label :name %><%= f.text_field :name %></li>
+        <li><%= f.label :value %><%= f.text_area :value %></li>
+      </ol>
+    <% end %>
+  <% end %>
+    <ul class="flat_list">
+      <li class="action_item"><a href="#" onclick="$('#new_value').submit(); return false;" class='button'><%= t('.create') %></a></li>
+      <li class="action_item"><a href='#' onclick='overlay()' class='button'><%= t('.cancel') %></a></li>
+    </ul>
+<% end %>

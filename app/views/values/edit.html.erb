@@ -3,12 +3,16 @@
       <ol>
       <% if @value.poem.parent == nil %>
         <li><%= f.label :name %><%= f.text_field :name %></li>
-        <li><%= f.label t('.default_value') %><%= f.text_field :value, :value => @value.value_to_s %></li>
-        <li><%= f.label :overwrite %><%= f.check_box :overwrite %></li>
         <li><%= f.label :removable %><%= f.check_box :removable %></li>
-        <li><%= f.label :value_type %><%= f.select :value_type, Value.value_types %></li>
+        <% if @value.get_value_type == 'reference_poem' %>
+          <li><%= f.label t('.reference_poem') %><%= f.collection_select :reference_poem, Poem.poem_types, :id, :poem_name %></li>
+        <% end %>
       <% else %>
-        <li><%= f.send(@value.get_value_type, :value) %></li>
+        <% if @value.get_value_type == 'reference_poem' %>
+          <li><%= f.collection_select :reference_poem, @value.reference.reference_poem.children, :id, :poem_name, :selected => @value.reference_poem.id %></li>
+        <% else %>
+          <li><%= f.send(@value.get_value_type, :value ) %></li>
+        <% end %>
       <% end %>
       </ol>
       <ul class="flat_list">

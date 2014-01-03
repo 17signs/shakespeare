@@ -1,15 +1,40 @@
 <%= form_for @value, remote: true do |f| %>
   <%= f.hidden_field :poem, :value => @value.poem.id %>
-  <%= field_set_tag t('.new_value_for')+' '+@value.poem.to_s do %>
     <% if @value.poem.parent == nil %>
-      <ol>
-        <li><%= f.label :name %><%= f.text_field :name %></li>
-        <li><%= f.label t('.default_value') %><%= f.text_field :value %></li>
-        <li><%= f.label :overwrite %><%= f.check_box :overwrite, {checked: true} %></li>
-        <li><%= f.label :removable %><%= f.check_box :removable, {checked: true} %></li>
-        <li><%= f.label :value_type %><%= f.select :value_type, Value.value_types %></li>
-      </ol>
+      <%= field_set_tag t('.new_value_for')+' '+@value.poem.to_s do %>
+        <oL>
+          <li><%= f.label :name       %><%= f.text_field :name                       %></li>
+          <li><%= f.label :removable  %><%= f.check_box  :removable, {checked: true} %></li>
+        </oL>
+      <% end %>
+      <%= field_set_tag t('.value_type'), :class => 'vt-container' do %>
+        <ol>
+          <li>
+            <%= f.radio_button :value_type, :text_field, :id => 'rtf' %>
+            <label for="rtf"><%= t('.text_field') %></label>
+            <article>
+              <%= f.label t('.default_value') %><%= f.text_field :value %>
+            </article>
+          </li>
+          <li>
+            <%= f.radio_button :value_type, :text_area, :id => 'rta' %>
+            <label for="rta"><%= t('.text_area')  %></label>
+          </li>
+          <li>
+            <%= f.radio_button :value_type, :check_box, :id => 'rcb' %>
+            <label for="rcb"><%= t('.check_box')   %></label>
+          </li>
+          <li>
+            <%= f.radio_button :value_type, :reference_poem, :id => 'rrp' %>
+            <label for="rrp"><%= t('.reference_poem') %></label>
+            <article>
+              <%= f.label t('.reference_poem') %><%= f.collection_select :reference_poem, Poem.poem_types, :id, :poem_name %>
+            </article>
+          </li>
+        </ol>
+      <% end %>
     <% else %>
+      <%= field_set_tag t('.new_local_value_for')+' '+@value.poem.to_s do %>
       <%= f.hidden_field :overwrite, :value => '1' %>
       <%= f.hidden_field :removable, :value => '1' %>
       <%= f.hidden_field :value_type, :value => :text_area %>
@@ -17,8 +42,8 @@
         <li><%= f.label :name %><%= f.text_field :name %></li>
         <li><%= f.label :value %><%= f.text_area :value %></li>
       </ol>
+     <% end %>
     <% end %>
-  <% end %>
     <ul class="flat_list">
       <li class="action_item"><a href="#" onclick="$('#new_value').submit(); return false;" class='button'><%= t('.create') %></a></li>
       <li class="action_item"><a href='#' onclick='overlay()' class='button'><%= t('.cancel') %></a></li>

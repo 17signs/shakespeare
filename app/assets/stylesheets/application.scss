@@ -271,12 +271,21 @@ table {
         list-style: none;
         padding: 0px 0px 7px 0px;
         margin: 0;
+
+        article {
+          overflow: hidden;
+          display: none;
+        }
       }
     }
 
     fieldset {
       margin-bottom: 10px;
       border: 1px solid $heading;
+    }
+
+    [type=radio]:checked ~ label ~ article {
+      display: inherit;
     }
   }
 

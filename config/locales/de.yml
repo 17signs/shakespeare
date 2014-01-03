@@ -109,6 +109,10 @@ de:
       default_value: "Standardwert"
       create: "Anlegen"
       cancel: "Abbrechen"
+      use_reference_poem: "Nutze Poemreferenz"
+      reference_poem: "Referenzpoem"
+      rp_presentation: "Präsentation"
+      checkbox: "Checkbox"
   admin:
     relation_types:
       new:

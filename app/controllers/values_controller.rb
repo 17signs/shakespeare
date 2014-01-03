@@ -5,12 +5,12 @@ class ValuesController < ApplicationController
 
     @value = Value.new
 
-    @value.poem  = Poem.find_by_id(value_data[:poem])
-    @value.name  = value_data[:name]
-    @value.value = value_data[:value]
-    @value.overwrite = value_data[:overwrite]
-    @value.removable = value_data[:removable]
-    @value.value_type = value_data[:value_type]
+    @value.poem           = Poem.find_by_id(value_data[:poem])
+    @value.name           = value_data[:name]
+    @value.value          = value_data[:value]
+    @value.removable      = value_data[:removable]
+    @value.value_type     = value_data[:value_type]
+    @value.reference_poem = Poem.find_by_id(value_data[:reference_poem])
     @value.save
     @value.reload
 
@@ -43,6 +43,7 @@ class ValuesController < ApplicationController
 
   def edit
     @value = Value.find_by_id(params[:id])
+    @options = Poem.poem_types
     @html = render_to_string(:action => 'edit', :formats => [:html], :layout => false)
     respond_to do |format|
       format.js
@@ -60,7 +61,14 @@ class ValuesController < ApplicationController
 
   def update
     @value = Value.find_by_id(params[:id])
-    @value.update_attributes!(params[:value])
+    value_data = params[:value]
+
+    value_data[:name]           ? @value.name           = value_data[:name]                            : ''
+    value_data[:value]          ? @value.value          = value_data[:value]                           : ''
+    value_data[:removable]      ? @value.removable      = value_data[:removable]                       : ''
+    value_data[:reference_poem] ? @value.reference_poem = Poem.find_by_id(value_data[:reference_poem]) : nil
+
+    @value.save
     @value.reload
 
     # Save the DOM model id for later highlighting

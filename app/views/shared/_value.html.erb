@@ -5,9 +5,7 @@
     </div>
     <div class="row-action">
       <ul class="flat_list">
-        <% if value.is_editable? %>
-            <li class="action_item"><%= link_to t('.edit'), edit_value_path(value), :remote => true, :class => 'link' %></li>
-        <% end %>
+        <li class="action_item"><%= link_to t('.edit'), edit_value_path(value), :remote => true, :class => 'link' %></li>
         <% if value.is_removable? %>
             <li class="action_item"><%= link_to t('.delete'), value, :method => :delete, :remote => true, :class => 'link' %></li>
         <% end %>
@@ -15,6 +13,10 @@
     </div>
   </div>
   <div class="row-content">
+    <% if value.get_value_type == 'reference_poem' && value.reference_poem %>
+      <%= link_to value.reference_poem, value.reference_poem, :class => 'link' %>
+        <% else %>
     <%= value.value_to_s %>
+        <% end %>
   </div>
 </div>

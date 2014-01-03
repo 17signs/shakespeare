@@ -108,11 +108,16 @@ en:
       update: "Update"
       edit: "Edit"
       edit_value: "Edit value"
+      reference_poem: "Reference poem"
     new:
       default_value: "Default value"
       new_value_for: "New value for"
       create: "Create"
       cancel: "Cancel"
+      use_reference_poem: "Use reference poem"
+      reference_poem: "Reference poem"
+      rp_presentation: "Presentation"
+      checkbox: "Checkbox"
   admin:
     relation_types:
       new:
