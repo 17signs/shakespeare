@@ -141,6 +141,9 @@ en:
       relation_type: "Relation type"
       overwrite_phrases: "Overwrite phrases"
       specify_phrases: "Specify phrases"
+      new_relation_for: "New relation for"
+      create: "Create"
+      cancel: "Cancel"
   value:
     input: "Input"
     area: "Text area"

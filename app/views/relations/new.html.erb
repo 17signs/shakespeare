@@ -1,21 +1,21 @@
 <%= form_for @relation, remote: true do |f| %>
   <%= f.hidden_field :from, :value => @from.id %>
-  <%= field_set_tag t('.new_relation_for')+" "+@from do %>
+  <%= field_set_tag t('.new_relation_for')+' '+@from.to_s do %>
     <% if @from.is_poem_type? %>
       <ol>
         <li><%= f.label :from_to_phrase %><%= f.text_field :from_to_phrase %></li>
         <li><%= f.label :to_from_phrase %><%= f.text_field :to_from_phrase %></li>
-        <li><%= f.label :to %><%= f.select :to, Poem.poems_for_relations() %></li>
+        <li><%= f.label :to %><%= f.select :to, Poem.poems_for_relations %></li>
       </ol>
       <ul class="flat_list">
-        <li class="action_item"><a href="#" onclick="$('#new_relation').submit(); return false;" class="button focus"><%= t('.create') %></a></li>
+        <li class="action_item"><a href="#" onclick="$('#new_relation').submit(); return false;" class="button"><%= t('.create') %></a></li>
         <li class="action_item"><a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a></li>
       </ul>
     <% else %>
       <% if @from.parent.relation_types.length == 0 %>
         Sorry, no relations defined
         <ul class="flat_list">
-          <li class="action_item"><a href='#' onclick='overlay()' class="button focus"><%= t('.cancel') %></a></li>
+          <li class="action_item"><a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a></li>
         </ul>
       <% else %>
         <ol>
@@ -27,8 +27,8 @@
           <li id="new_rel_to_from_phrase" class='hidden'><%= f.label :to_from_phrase %><%= f.text_field :to_from_phrase %></li>
         </ol>
         <ul class="flat_list">
-          <li class="action_item"><a href="#" onclick="$('#new_relation').submit(); return false;" class="button focus"><%= t('.create') %></a></li>
-          <li class="action_item"><a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a></li>
+          <li class="action_item"><a href="#" onclick="$('#new_relation').submit(); return false;" class='button'><%= t('.create') %></a></li>
+          <li class="action_item"><a href='#' onclick='overlay()' class='button'><%= t('.cancel') %></a></li>
         </ul>
       <% end %>
     <% end %>

@@ -138,6 +138,10 @@ de:
   relations:
     new:
       specify_phrases: "Phrasen"
+      new_relation_for: "Neue Beziehung für"
+      create: "Anlegen"
+      cancel: "Abbrechen"
+      relation_type: "Beziehungstyp"
   shared:
     value:
       edit: "Ändern"
