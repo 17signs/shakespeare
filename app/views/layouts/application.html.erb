@@ -5,6 +5,10 @@
   <%= stylesheet_link_tag    'application', :media => 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= javascript_include_tag 'rails' %>
+  <%= javascript_include_tag 'raphael-min' %>
+  <%= javascript_include_tag 'dracula_graffle' %>
+  <%= javascript_include_tag 'dracula_graph' %>
+  <%= javascript_include_tag 'dracula_algorithms' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -27,41 +31,17 @@
   </div>
 </div>
 
-<div class="container">
-  <div class="content">
+<section class="container">
+  <section class="content">
     <%= yield %>
-  </div>
-</div>
+  </section>
+</section>
 
-<div class="finder_layer" id="mc_closed">
-  <%= t('.finder') %>
-</div>
-
-<div class="finder_layer" id="mc_open">
-  <div id="hide_navigation"><%= t('.finder') %></div>
-  <% if $mc.length == 0%>
-      <%= t('.nothing_to_navigate') %>
-  <% else %>
-      <div id="miller_column_view">
-        <ul id="mc_main">
-          <% $mc.each_with_index do |col, index| %>
-              <li>
-                <table class="miller_column" id="mc<%= index %>">
-                  <% col.each do |poem| %>
-                      <tr id="<%= poem.id %>">
-                        <td><%= link_to poem.to_s, poem %></td>
-                        <% if poem.has_successors? %>
-                            <td><%= link_to '&raquo;'.html_safe, poems_mc_navigate_path(:id => poem.id, :mc => index), :remote => true %></td>
-                        <% end %>
-                      </tr>
-                  <% end %>
-                </table>
-              </li>
-          <% end %>
-        </ul>
-      </div>
-  <% end %>
-</div>
+<section class="finder-container">
+  <input id="finder" type="checkbox" />
+  <label for="finder"><%= t('.finder') %></label>
+    <%= finder %>
+</section>
 
 <div id="overlay">
   <div id="generic_dialog" class="overlay_dialog"></div>
@@ -69,32 +49,7 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-
       $('.locale input').css("display", "none");
-
-      $('#mc_open').css("visibility", "hidden");
-
-      <% $mc_selected.each do |poem| %>
-      $('#<%= poem %>').addClass("mc_selected");
-      <% end %>
-
-      /* remove right border from last mc navigation column table */
-
-      $('#mc<%= $mc.length - 1 %>').css({border:"none"});
-
-      $('#mc_closed').click(
-              function() {
-                  $('#mc_closed').css("visibility", "hidden");
-                  $('#mc_open').css("visibility", "visible");
-              }
-      );
-
-      $('#hide_navigation').click(
-              function() {
-                  $('#mc_closed').css("visibility", "visible");
-                  $('#mc_open').css("visibility", "hidden");
-              }
-      );
   });
 
   function overlay(dialog) {

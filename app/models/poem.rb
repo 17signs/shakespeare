@@ -4,9 +4,6 @@ class Poem
   key :parent_id, ObjectId
   key :poem_name
 
-  key :links_to_predecessors
-  key :links_to_successors
-
   belongs_to :parent, :class_name => 'Poem'
   many :children, :foreign_key => :parent_id, :class_name => 'Poem', :dependent => :destroy
 
@@ -14,6 +11,8 @@ class Poem
 
   has_many :links_to_predecessors, :class_name => 'Relation', :foreign_key => 'to_id', :dependent => :destroy
   has_many :links_to_successors, :class_name => 'Relation', :foreign_key => 'from_id', :dependent => :destroy
+
+  has_many :is_value_of, :foreign_key => 'reference_poem_id', :class_name => 'Value', :dependent => :destroy
 
   def destroy
     # call normal behaviour
@@ -33,7 +32,7 @@ class Poem
 
   def to_s_long
     if parent
-      parent.to_s + ": " + to_s
+      parent.to_s + ': ' + to_s
     else
       to_s
     end
@@ -43,7 +42,7 @@ class Poem
     if parent_id
       parent.to_s
     else
-      ""
+      ''
     end
   end
 
@@ -82,20 +81,16 @@ class Poem
 # value handling
 
   def add_value(value_name, value_value)
-    puts "adding #{value_name} = #{value_value}"
     # check existence of such value
     if has_value?(value_name)
-      puts "value exists"
       get_value(value_name)
     else
-      puts "new value"
       new_value = Value.new()
       new_value.name = value_name
       new_value.value = value_value
       new_value.poem = self
 
       new_value.save
-      puts "new value saved: #{new_value}; propagate to children"
 
       children.each { |child| child.add_value(value_name, value_value) }
 
@@ -116,16 +111,11 @@ class Poem
   end
 
   def remove_value(value_name)
-    puts "about to remove: #{value_name}"
     if has_value?(value_name)
-      puts "#{value_name} exists"
       value = get_value(value_name)
       value.destroy
-      puts "#{value_name} destroyed"
       children.each { |child| child.remove_value(value_name) }
-      puts "and same for children"
     else
-      puts "hmm"
       puts Value.where('poem_id' => id, :name => value_name).first
     end
   end
@@ -133,11 +123,15 @@ class Poem
 # class methods
 
   def self.poems
-    Poem.where('parent_id' => {"$ne" => nil})
+    Poem.where('parent_id' => {'$ne' => nil})
   end
 
   def self.poem_types
     Poem.where('parent_id' => nil)
+  end
+
+  def self.poem_types_exist?
+    Poem.poem_types.to_a.length > 0
   end
 
   def self.poems_for_relations
@@ -154,7 +148,7 @@ class Poem
 
   def self.root_poems
     a = []
-    Poem.where('parent_id' => {"$ne" => nil}).each do |p|
+    Poem.where('parent_id' => {'$ne' => nil}).each do |p|
       if not p.has_predecessors?
         a << p
       end
@@ -164,7 +158,7 @@ class Poem
 
   def self.search_poems(search)
     if search
-      Poem.where({'parent_id' => {"$ne" => nil}, 'poem_name' => Regexp.new(Regexp.escape(search), Regexp::IGNORECASE)})
+      Poem.where({'parent_id' => {'$ne' => nil}, 'poem_name' => Regexp.new(Regexp.escape(search), Regexp::IGNORECASE)})
     end
   end
 
@@ -204,16 +198,16 @@ class Poem
           working_index = i_index + 1
           # working index bigger than maximum length --> left shift array
           if working_index > max_mc_length
-            $mc.shift()
-            $mc_selected.shift()
+            $mc.shift
+            $mc_selected.shift
           end
           # clear array from working index to remove "old" navigation
           if working_index < $mc.length
-            working_index.upto($mc.length-1) {$mc.pop()}
+            working_index.upto($mc.length-1) {$mc.pop}
           end
           # clear array of selected poems
           if i_index < $mc_selected.length
-            i_index.upto($mc_selected.length-1) {$mc_selected.pop()}
+            i_index.upto($mc_selected.length-1) {$mc_selected.pop}
           end
           # now push in the new column content
           $mc << poem.links_to_successors.map{|suc| suc.to}

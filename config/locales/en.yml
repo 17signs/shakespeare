@@ -2,139 +2,69 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  poem_no_name: "<no name yet>"
+  cancel: "Cancel"
+  create: "Create"
+  delete: "Delete"
+  edit:   "Edit"
+  update: "Update"
+
   layouts:
     application:
-      home: "Home"
       finder: "Finder"
       shakespeare: "shakespeare"
       search: "Search"
       nothing_to_navigate: "Nothing to navigate to"
+
   poems:
+    data_lineage: "Data Lineage"
+    meta_poem: "Meta poem"
+    meta_poems: "Meta poems"
+    new_meta_poem: "New meta poem"
+    new_poem: "New poem"
+    no_meta_poem: "No meta poem"
+    poem: "Poem"
+    poems: "Poems"
+    poem_name: "Poem name"
+    poem_no_name: "<no name yet>"
+
     new:
       name_please: "Enter new name please"
-      name: "Name"
-      is_poem_type: "Is poem type?"
-      copy_value_fields: "Copy value fields?"
-      save: "Save"
-      new_poem: "New poem"
-      cancel: "Cancel"
-      index: "Index"
-      properties: "Properties"
-      type: "Type"
+
     show:
-      name: "Name"
-      is_poem_type: "Is poem type?"
-      properties: "Properties"
       values: "Values"
-      edit: "Edit"
-      index: "Index"
       new: "New"
-      delete: "Delete"
       type: "Type"
-      no_type: "No type"
-      referencing: "Referencing"
-      referenced_by: "Referenced by"
       usage: "Usage"
-      create_new_relation: "Create new relation"
-      from_to_phrase: "from-to phrase"
-      phrases: "Phrases"
-      to_from_phrase: "to-from phrase"
-      create_new_value: "Create new value"
-      save: "Save"
-      name_please: "Enter poem name..."
-      detach: "detach"
       new_child: "New child"
-      new_poem: "New poem"
       new_sibling: "New sibling"
       new_relation: "New relation"
-      poem_meta_data: "Poem Meta data"
+      poem_meta_data: "Poem meta data"
       new_value: "New value"
       no_references: "No references"
       relations: "Relations"
       references: "References"
-    edit:
-      name: "Name"
-      is_poem_type: "Is poem type?"
-      update_properties: "Update properties"
-      edit: "Edit"
-      cancel: "Cancel"
-      index: "Index"
-      delete: "Delete"
-      properties: "Properties"
-      type: "Type"
-      values: "Values"
-      referencing: "Referencing"
-      referenced_by: "Referenced by"
-      for_structuring: "Used for structuring?"
-    references:
-      references: "References"
-      referencing: "Referencing"
-      relation_type: "Relation type"
-      delete: "Delete"
+
     index:
-      all_poems: "All poems"
-      new: "New"
-      value: "Value"
       overview: "Overview"
-      new_poem: "New poem"
-      values: "Values"
-      parent: "Parent"
-      poem: "Poem"
-      attribute: "Attribute"
-      no_type: "No type"
       search_results_for: "Search results for"
-      poems_without_parent: "Poems without parents"
-      poems_with_parent: "Poem with parent"
-    edit_backup:
-      edit: "Edit"
-      properties: "Properties"
-      type: "Type"
-      name: "Name"
-      is_poem_type: "Is poem type"
-      values: "Values"
-      referencing: "Referencing"
-      referenced_by: "Referenced by"
-  mdms:
-    index:
-      welcome: "Welcome"
-      new: "New"
+
   values:
-    value:
-      delete: "Delete"
+    attribute: "Attribute"
+    value: "Value"
+    values: "Values"
+
     edit:
-      default_value: "Default value"
-      cancel: "Cancel"
-      update: "Update"
-      edit: "Edit"
       edit_value: "Edit value"
       reference_poem: "Reference poem"
+
     new:
       default_value: "Default value"
       new_value_for: "New value for"
-      create: "Create"
-      cancel: "Cancel"
       use_reference_poem: "Use reference poem"
       reference_poem: "Reference poem"
       rp_presentation: "Presentation"
       checkbox: "Checkbox"
-  admin:
-    relation_types:
-      new:
-        from_to_phrase: "From -> To"
-        to_from_phrase: "To -> From"
-        phrases: "Phrases"
-      edit:
-        from_to_phrase: "From -> To"
-        to_from_phrase: "To -> From"
-        edit_relation_type: "Edit relation type"
-        phrases: "Phrases"
-      index:
-        relation_types: "Relation types"
-        edit: "Edit"
-        new: "New"
-      show:
-        phrases: "Phrases"
+
   relations:
     new:
       relation_types: "Relation types"
@@ -142,14 +72,3 @@ en:
       overwrite_phrases: "Overwrite phrases"
       specify_phrases: "Specify phrases"
       new_relation_for: "New relation for"
-      create: "Create"
-      cancel: "Cancel"
-  value:
-    input: "Input"
-    area: "Text area"
-    checkbox: "Checkbox"
-    selection: "Selection"
-  shared:
-    value:
-      edit: "Edit"
-      delete: "Delete"

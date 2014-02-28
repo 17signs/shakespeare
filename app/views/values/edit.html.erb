@@ -1,6 +1,6 @@
 <%= form_for @value, remote: true, :html => { :id => 'edit_value' } do |f| %>
-    <%= field_set_tag t('.edit_value')+' '+@value.to_s do %>
-      <ol>
+  <%= field_set_tag t('.edit_value')+' '+@value.to_s do %>
+    <ol>
       <% if @value.poem.parent == nil %>
         <li><%= f.label :name %><%= f.text_field :name %></li>
         <li><%= f.label :removable %><%= f.check_box :removable %></li>
@@ -9,18 +9,19 @@
         <% end %>
       <% else %>
         <% if @value.get_value_type == 'reference_poem' %>
-          <li><%= f.collection_select :reference_poem, @value.reference.reference_poem.children, :id, :poem_name, :selected => @value.reference_poem.id %></li>
+          <% if @value.reference_poem == nil %>
+            <li><%= f.collection_select :reference_poem, @value.reference.reference_poem.children, :id, :poem_name %></li>
+          <% else %>
+            <li><%= f.collection_select :reference_poem, @value.reference.reference_poem.children, :id, :poem_name, :selected => @value.reference_poem.id %></li>
+          <% end %>
         <% else %>
           <li><%= f.send(@value.get_value_type, :value ) %></li>
         <% end %>
       <% end %>
-      </ol>
-      <ul class="flat_list">
-        <li class="action_item">
-          <a href="#" onclick="$('#edit_value').submit(); return false;" class='button'><%= t('.update') %></a>
-        </li>
-        <li class="action_item">
-          <a href='#' onclick='overlay()' class='button'><%= t('.cancel') %></a></li>
-      </ul>
-    <% end %>
+    </ol>
+    <ul class="flat_list">
+      <li><a href="#" onclick="$('#edit_value').submit(); return false;" class='button'><%= t('.update') %></a></li>
+      <li><a href='#' onclick='overlay()' class='button'><%= t('.cancel') %></a></li>
+    </ul>
+  <% end %>
 <% end %>

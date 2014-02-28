@@ -4,7 +4,7 @@
       <%= field_set_tag t('.new_value_for')+' '+@value.poem.to_s do %>
         <oL>
           <li><%= f.label :name       %><%= f.text_field :name                       %></li>
-          <li><%= f.label :removable  %><%= f.check_box  :removable, {checked: true} %></li>
+          <li><%= f.label :removable  %><%= f.check_box  :removable %></li>
         </oL>
       <% end %>
       <%= field_set_tag t('.value_type'), :class => 'vt-container' do %>
@@ -45,7 +45,7 @@
      <% end %>
     <% end %>
     <ul class="flat_list">
-      <li class="action_item"><a href="#" onclick="$('#new_value').submit(); return false;" class='button'><%= t('.create') %></a></li>
-      <li class="action_item"><a href='#' onclick='overlay()' class='button'><%= t('.cancel') %></a></li>
+      <li><a href="#" onclick="$('#new_value').submit(); return false;" class='button'><%= t('.create') %></a></li>
+      <li><a href='#' onclick='overlay()' class='button'><%= t('.cancel') %></a></li>
     </ul>
 <% end %>

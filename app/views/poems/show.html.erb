@@ -1,8 +1,25 @@
-<div class="header">
+<header>
   <div class="header_left">
-    <h1><%= @poem.to_s_long %></h1>
+    <% if @poem.parent %>
+        <%= @poem.parent.to_s %>
+        <% else %>
+        <%= t('.meta_poem') %>
+        <% end %>
+    <br>
+    <h1><%= @poem.to_s %></h1>
   </div>
-</div>
+  <div class="header_right">
+    <ul class="flat_list">
+      <% if @poem.parent %>
+        <li><%= link_to t('poems.data_lineage'), lineages_index_path(:poem_id => @poem.id), :class => 'button' %></li>
+      <% else %>
+        <li><%= link_to t('poems.data_lineage'), lineages_index_path, :class => 'button' %></li>
+      <% end %>
+      <li><%= link_to t('poems.new_poem'), new_poem_path(:mode => :poem), :remote => true, :class => 'button' %></li>
+      <li><%= link_to t('poems.new_meta_poem'), new_poem_path(:mode => :meta_poem), :remote => true, :class => 'button' %></li>
+    </ul>
+  </div>
+</header>
   <section class="ac-container">
     <div>
       <input id="ac-1" name="accordion-1" type="checkbox" />
@@ -10,22 +27,22 @@
       <article>
         <div class="row-wrapper">
           <div class="row-menu">
-            <div class="row-label"><%= t('.type') %></div>
+            <div class="row-label"><%= t('poems.meta_poem') %></div>
           </div>
           <div class="row-content">
               <% if @poem.parent %>
                   <%= link_to @poem.parent, @poem.parent, :class => 'link' %>
               <% else %>
-                  <%= t('.no_type') %>
+                  <%= t('poems.no_meta_poem') %>
               <% end %>
           </div>
         </div>
         <div class="row-wrapper">
           <div class="row-menu">
-            <div class="row-label"><%= t('.name') %></div>
+            <div class="row-label"><%= t('poems.poem_name') %></div>
             <div class="row-action">
               <ul class="flat_list">
-                <li class="action_item"><%= link_to t('.edit'), edit_poem_path(@poem), :remote => true, :class => 'link' %></li>
+                <li><%= link_to t('edit'), edit_poem_path(@poem), :remote => true, :class => 'link' %></li>
               </ul>
             </div>
           </div>
@@ -33,12 +50,11 @@
         </div>
         <ul class="flat_list">
           <% if @poem.parent %>
-              <li class="action_item"><%= link_to t('.new_sibling'), {:controller => 'poems', :action => 'new', :new_parent => @poem.parent.id}, :remote => true, :class => 'button '%></li>
+              <li><%= link_to t('.new_sibling'), {:controller => 'poems', :action => 'new', :new_parent => @poem.parent.id}, :remote => true, :class => 'button '%></li>
           <% else %>
-              <li class="action_item"><%= link_to t('.new_child'), {:controller => 'poems', :action => 'new', :new_parent => @poem.id}, :remote => true, :class => 'button' %></li>
+              <li><%= link_to t('.new_child'), {:controller => 'poems', :action => 'new', :new_parent => @poem.id}, :remote => true, :class => 'button' %></li>
           <% end %>
-          <li class="action_item"><%= link_to t('.new_poem'), new_poem_path, :remote => true, :class => 'button' %></li>
-          <li class="action_item"><%= link_to t('.delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'button' %></li>
+          <li><%= link_to t('delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'button' %></li>
         </ul>
       </article>
     </div>
@@ -54,7 +70,7 @@
           <% end %>
         </div>
         <ul class="flat_list">
-          <li class="action_item"><%= link_to t('.new_value'), new_value_path(:poem => @poem.id), :remote => true, :class => 'button' %><li>
+          <li><%= link_to t('.new_value'), new_value_path(:poem => @poem.id), :remote => true, :class => 'button' %><li>
         </ul>
       </article>
     </div>
@@ -70,7 +86,7 @@
           <% end %>
         </div>
         <ul class='flat_list'>
-          <li class='action_item'><%= link_to t('.new_relation'), new_relation_path(:poem => @poem.id), :remote => true, :class => 'button' %><li>
+          <li><%= link_to t('.new_relation'), new_relation_path(:poem => @poem.id), :remote => true, :class => 'button' %><li>
         </ul>
       </article>
     </div>
@@ -79,20 +95,19 @@
       <label for='ac-4'><%= t('.references') %></label>
       <article>
         <% if @poem.has_references? %>
-            <table>
-              <% @poem.links_to_predecessors.each do |p| %>
-                  <tr>
-                    <div id="<%= dom_id(p) %>" class='row_wrapper'>
-                      <div class='row_content'>
-                        <div class='row_value'>
-                          <em class="bold"><%= @poem %></em>&nbsp;<%= p.to_from_phrase %>&nbsp;<%= link_to p.from, p.from, :class => 'link' %>
-                        </div>
-                      </div>
-                    </div>
-                  </tr>
-              <% end %>
-            </table>
-        <% else %>
+            <% @poem.links_to_predecessors.each do |p| %>
+              <div id="<%= dom_id(p) %>" class='row-wrapper'>
+                <div class="row-menu">
+                  <div class="row-label"><%= p.to_from_phrase %></div>
+                </div>
+                <div class="row-content">
+                  <div class="row_value">
+                    <%= link_to p.from, p.from, :class => 'link' %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+      <% else %>
             <%= t('.no_references') %>
         <% end %>
       </article>
@@ -104,7 +119,7 @@
         <article>
           <ul class='flat_list'>
             <% @poem.children.each do |c| %>
-                <li class='action_item'><%= link_to c, c, :class => 'link' %></li>
+                <li><%= link_to c, c, :class => 'link' %></li>
             <% end %>
           </ul>
         </article>

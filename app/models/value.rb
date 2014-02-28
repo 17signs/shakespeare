@@ -26,14 +26,11 @@ class Value
   end
 
   def value_to_s
-    if get_value_type == 'check_box'
-      if value == '1'
-        'yes'
+    case get_value_type
+      when 'reference_poem'
+        reference_poem.to_s
       else
-        'no'
-      end
-    else
-      value
+        value
     end
   end
 

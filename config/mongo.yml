@@ -1,0 +1,15 @@
+# config/mongo.yml
+base: &base
+  adapter: mongodb
+  database: coolapp
+
+development:
+  <<: *base
+
+test:
+  <<: *base
+  database: '#shakespeare-test'
+
+
+production:
+  <<: *base

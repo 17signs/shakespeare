@@ -1,7 +1,7 @@
 /**
  * Originally grabbed from the official RaphaelJS Documentation
  * http://raphaeljs.com/graffle.html
- * Changes and comments by Philipp Strathausen http://blog.ameisenbar.de
+ * Adopted (arrows) and commented by Philipp Strathausen http://blog.ameisenbar.de
  * Licenced under the MIT licence.
  */
 
@@ -18,7 +18,6 @@
 Raphael.fn.connection = function (obj1, obj2, style) {
     var selfRef = this;
     /* create and return new connection */
-    var color = style.fg || "#000";
     var edge = {/*
         from : obj1,
         to : obj2,
@@ -27,10 +26,8 @@ Raphael.fn.connection = function (obj1, obj2, style) {
             /* get bounding boxes of target and source */
             var bb1 = obj1.getBBox();
             var bb2 = obj2.getBBox();
-            bb1.height = bb1.height + 15; /* respect the label TODO do it in a cleaner way */
-            bb2.height = bb2.height + 15;
-            var off1 = 1;
-            var off2 = 2;
+            var off1 = 0;
+            var off2 = 0;
             /* coordinates for potential connection coordinates from/to the objects */
             var p = [
                 {x: bb1.x + bb1.width / 2, y: bb1.y - off1},              /* NORTH 1 */
@@ -57,11 +54,11 @@ Raphael.fn.connection = function (obj1, obj2, style) {
                         dy = Math.abs(p[i].y - p[j].y);
                     if ((i == j - 4) || (((i != 3 && j != 6) || p[i].x < p[j].x) && ((i != 2 && j != 7) || p[i].x > p[j].x) && ((i != 0 && j != 5) || p[i].y > p[j].y) && ((i != 1 && j != 4) || p[i].y < p[j].y))) {
                         dis.push(dx + dy);
-                        d[dis[dis.length - 1]] = [i, j];
+                        d[dis[dis.length - 1].toFixed(3)] = [i, j];
                     }
                 }
             }
-            var res = dis.length == 0 ? res = [0, 4] : d[Math.min.apply(Math, dis)];
+            var res = dis.length == 0 ? [0, 4] : d[Math.min.apply(Math, dis).toFixed(3)];
             /* bezier path */
             var x1 = p[res[0]].x,
                 y1 = p[res[0]].y,
@@ -88,14 +85,22 @@ Raphael.fn.connection = function (obj1, obj2, style) {
                 ];
                 path = path + ",M"+arr[0].x+","+arr[0].y+",L"+x4+","+y4+",L"+arr[1].x+","+arr[1].y; 
             }
-            
-            // applying path
-            edge.fg && edge.fg.attr({path:path}) 
-                || (edge.fg = selfRef.path(path).attr({stroke: color, fill: "none"}).toBack());
-            edge.bg && edge.bg.attr({path:path})
-                || style && style.bg && (edge.bg = style.bg.split && selfRef.path(path).attr({stroke: style.bg.split("|")[0], fill: "none", "stroke-width": style.bg.split("|")[1] || 3}).toBack());
+            /* function to be used for moving existent path(s), e.g. animate() or attr() */
+            var move = "attr";
+            /* applying path(s) */
+            edge.fg && edge.fg[move]({path:path}) 
+                || (edge.fg = selfRef.path(path).attr({stroke: style && style.stroke || "#000", fill: "none"}).toBack());
+            edge.bg && edge.bg[move]({path:path})
+                || style && style.fill && (edge.bg = style.fill.split && selfRef.path(path).attr({stroke: style.fill.split("|")[0], fill: "none", "stroke-width": style.fill.split("|")[1] || 3}).toBack());
+            /* setting label */
+            style && style.label 
+                && (edge.label && edge.label.attr({x:(x1+x4)/2, y:(y1+y4)/2}) 
+                    || (edge.label = selfRef.text((x1+x4)/2, (y1+y4)/2, style.label).attr({fill: "#000", "font-size": style["font-size"] || "12px"})));
+            style && style.label && style["label-style"] && edge.label && edge.label.attr(style["label-style"]);
+            style && style.callback && style.callback(edge);
         }
     }
     edge.draw();
     return edge;
 };
+//Raphael.prototype.set.prototype.dodo=function(){console.log("works");};

@@ -22,6 +22,7 @@ de:
       index: "Index"
       properties: "Properties"
       type: "Type"
+      meta_poem: "Metapoem"
     show:
       name: "Name"
       is_poem_type: "Is poem type?"
@@ -46,6 +47,8 @@ de:
       references: "Referenzen"
       new_child: "Neues Kind"
       new_sibling: "Neues Geschwister :)"
+      new_meta_poem: "Neues Metapoem"
+      meta_poem: "Metapoem"
     edit:
       name: "Name"
       is_poem_type: "Is poem type?"
@@ -82,6 +85,10 @@ de:
       attribute: "Attribut"
       value: "Wert"
       parent: "Poemtyp"
+      data_lineage: "Herkunftsanalyse"
+      meta_poems: "Metapoems"
+      poems: "Poems"
+      new_meta_poem: "Neues Metapoem"
     edit_backup:
       edit: "Edit"
       properties: "Properties"
@@ -91,13 +98,20 @@ de:
       values: "Values"
       referencing: "Referencing"
       referenced_by: "Referenced by"
+    new_meta_poem: "Neues Metapoem"
+    new_poem: "Neues Poem"
+    meta_poem: "Metapoem"
+    data_lineage: "Herkunftsanalyse"
+    poems: "Poems"
+    meta_poems: "Metapoems"
+    poem: "Poem"
+    no_meta_poem: "Kein Metapoem"
+    poem_name: "Poemname"
   mdms:
     index:
       welcome: "Willkommen"
       new: "Neu"
   values:
-    value:
-      delete: "Delete"
     edit:
       cancel: "Abbrechen"
       update: "Aktualisieren"
@@ -113,6 +127,9 @@ de:
       reference_poem: "Referenzpoem"
       rp_presentation: "Präsentation"
       checkbox: "Checkbox"
+    attribute: "Attribut"
+    value: "Wert"
+    values: "Werte"
   admin:
     relation_types:
       new:
@@ -135,6 +152,7 @@ de:
     input: "Eingabefeld"
     area: "Textfeld"
     selection: "Auswahlliste"
+    values: "Werte"
   relations:
     new:
       specify_phrases: "Phrasen"
@@ -146,3 +164,8 @@ de:
     value:
       edit: "Ändern"
       delete: "Löschen"
+  create: "Anlegen"
+  cancel: "Abbrechen"
+  update: "Aktualisieren"
+  edit: "Ändern"
+  delete: "Löschen"

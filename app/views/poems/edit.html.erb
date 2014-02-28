@@ -1,11 +1,11 @@
 <%= form_for @poem, :html => { :id => 'edit_poem' } do |f| %>
-    <%= field_set_tag t('.edit')+" "+@poem.to_s_long do %>
+    <%= field_set_tag t('edit')+" "+@poem.to_s_long do %>
         <ol>
-          <li><%= f.label :poem_name %><%= f.text_field :poem_name, :value => @poem.poem_name %></li>
+          <li><%= f.label :poem_name %><%= f.text_field :poem_name, :value => @poem.to_s %></li>
         </ol>
     <ul class="flat_list">
-      <li class="action_item"><a href="#" onclick="document.forms['edit_poem'].submit(); return false;" class="button focus"><%= t('.save') %></a></li>
-      <li class="action_item"><a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a></li>
+      <li><a href="#" onclick="document.forms['edit_poem'].submit(); return false;" class="button focus"><%= t('update') %></a></li>
+      <li><a href='#' onclick='overlay()' class="button"><%= t('cancel') %></a></li>
     </ul>
     <% end %>
 <% end %>

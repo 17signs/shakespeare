@@ -1,106 +1,108 @@
+general
+
+  open topics (sorted for Shakespeare as a Product):
+
+    02 - data lineage
+    05 - useful finder navigation
+    08 - install prototype repository
+    09 - documentation (installation, usage)
+    ==== initial public release, version 0.5
+
+    10 - license
+    11 - value type: sequence (as human readable poem ID)
+    12 - options for poem appearances: relation, lineage, finder
+    13 - advanced lineage options for poems: color; are there others? Shape too expansive
+    14 - import (maybe export too)
+    ==== 1st product release, version 1.0
+
+    20 - authentication
+    21 - timestamps and user information (created/changed by) on every model
+    ==== 2nd product release, version 2.0
+
+    30 - generic workflow
+    31 - translation
+    ==== 3rd product release, version 3.0
+
+    40 - versioning
+    41 - active/inactive versions, display according user/role
+    ==== 4th product release, version 4.0
+
+    50 - mobile browsing
+    ==== 5th product release, version 5.0
+
+  mobile
+    check: mobile behaviour
+    check: specific css
+
 data lineage
 
   requirements
 
-    - layout shall use all available size
+    - layout shall use all available size; evaluate increase option (JavaScript)
     - shapes shall be interactive
-      - drag-able
-      - click --> show poem
-      - hover --> details
-      - expandable
-    - relations to be included/excluded
+      - working on: expandable
+      - evaluate: hover --> details
+      - done: drag-able
+      - done: click --> show poem
+    - evaluate: relations to be included/excluded
     - poems to be included/excluded
-    - poems to have color/shape (rectangle, eclipse) options
+
+    node weights
+    - as it is a directed graph we need to count ingoing and outgoing edges separately
+    - count both potential and displayed connections (derive label from it)
+    - updated during initial build, expand, and collapse operations
+    - if displayed weight equals 0 (zero) node shall be removed
+    - ensure, that the node itself is at least part of the lineage (circle problem)
+
+    - potential_weight_[in|out] == 0 --> no [in|out] connector
+    - potential_weight_[in|out] > 0 && displayed_weight_[in|out] == 0 --> fully closed [in|out] connector ('+')
+    - potential_weight_[in|out] == displayed_weight_[in|out] --> full open [in|out] connector ('-')
+    - potential_weight_[in|out] > displayed_weight_[in|out] --> partially open [in|out] connector ('o')
+
+    - evaluate: effect of new/deleted relations on existing lineage
+
+    collapse algorithm (example: remove out relation e)
+
+        n = e.from
+        n.open_out_weight = n.open_out_weight - 1
+        n.open.out_weight == 0?
+            remove n
+            remove n.in-relations.each as out relation
+
 
 navigation
 
-  evaluate: have navigation as stand alone controller or part of poem.show action
-  evaluate: move navigation into ajax procedures
+    evaluate: have navigation as stand alone controller or part of poem.show action
+    evaluate: move navigation into ajax procedures
 
 poem
 
-  general
+  meta poem
 
-    evaluate: rename parent into poem_type
+    evaluate: control creation of new values for children (eg. forbid by setting flag)
 
-  poem without parent
+  poem
 
-    defines values
+    do: show usage as value!
+    do: question delete command when used as value
 
-      evaluate: control creation of new values for children (eg. forbid by setting flag)
-
-      done: name
-      done: value
-      done: overwrite option
-
-      type
-        input
-        text field
-        selection list
-        check box
-        radio buttons
-        flag
-      [options]
-        fixed options
-        dynamic options
-
-      canceled:
-        "propagates changes in value definition to poems of this type (reference value)" not done
-        because original settings are read from referenced value
-
-    defines relation types
-
-      foundation to create references between poems
-
-      maybe: at this level lineage could show structuring of poem types
-        seems expensive compared to additional value of relation table listing
-
-      done: create, show, edit (edit function was deleted, see relation type section), delete
-
-  poem with parent
-
-    do: convert poem into poem type (detach from parent; confirmation needed)
+    evaluate: convert poem into poem type (detach from parent; confirmation needed)
 
 relations
 
-  do: allow name concatenation (BT --> TABLE --> COLUMN could become BT --> TABLE.COLUMN) oerks!
-  do: provide all (inbound/outbound) relations, but eliminate redundancies (self reflecting relations; take care!)
+    do: do not show "New relation" if there is no relation template defined. Show help instead (eval)
+
+    do: allow name concatenation (BT --> TABLE --> COLUMN could become BT --> TABLE.COLUMN) oerks!
+    do: provide all (inbound/outbound) relations, but eliminate redundancies (self reflecting relations; take care!)
 
 values
 
-  done: not editable option (like constant value for certain poem types)
-  done: not removable option
+    evaluate: value order
 
 html/css
-
-  styles
-
-    normal                  any value/content, which is displayed in normal manner --> belongs to body
-    emphasized              highlighted content, but without any functionality (navigation/action)
-    link                    everything click-able
-    focus                   a) focused by "nature" because of workflow, or b) focused by :hover
 
   general:
 
     do: hover pointer for buttons
     eval: ref/href attributes, hypermedia stuff
     do: small icon for web site
-
-shakespeare general
-
-  mobile
-
-    check: mobile behaviour
-    check: specific css
-
-  configuration
-
-    evaluate: config file or table
-
-    possible entries:
-      inheritance_level: how deep changes to poem type are propagate to children; 0,1,n,...,full
-
-  premium features
-
-    do: Data Lineage
-    do: Authentication / log in / track changes by user

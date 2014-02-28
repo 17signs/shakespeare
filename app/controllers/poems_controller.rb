@@ -27,6 +27,9 @@ class PoemsController < ApplicationController
 
     @poem.destroy if @poem
 
+    # remove all existing lineages too, they may become invalid
+    Lineage.collection.remove
+
     redirect_to poems_path
 
   end
@@ -70,7 +73,8 @@ class PoemsController < ApplicationController
   def new
     @poem = Poem.new
     @poem.parent = Poem.find_by_id(params[:new_parent]) if params[:new_parent]
-    @html = render_to_string(:action => 'new', :formats => [:html], :layout => false)
+    @mode = params[:mode]
+    @html = render_to_string(:action => :new, :formats => [:html], :layout => false)
     respond_to do |format|
       format.js
     end

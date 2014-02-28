@@ -13,6 +13,8 @@ Shakespeare::Application.routes.draw do
     resources :values
     resources :relations
 
+    match 'lineages/index', :controller => 'lineage', :action => 'index'
+
     root :to => 'poems#index', :as => 'mdms'
   end
 

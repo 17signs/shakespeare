@@ -10,6 +10,7 @@ $main_background: white;
 $main_color: black;
 
 $heading: rgba(45, 50, 64, 1.0);
+
 $closed_accordion: rgba(191, 73, 4, 1.0);
 $open_accordion: rgba(217, 103, 4, 1.0);
 
@@ -19,6 +20,14 @@ $hover_content: rgba(176, 183, 191, 1.0);
 $finder_background: rgba(217, 103, 4, 1.0);
 
 // section a) standard html tags
+
+* {
+   -webkit-box-sizing: border-box;
+   -moz-box-sizing:    border-box;
+   box-sizing:         border-box;
+  margin: 0;
+  padding: 0;
+}
 
 a {
   display: inline-block;
@@ -42,6 +51,15 @@ footer {
 
 h1 {
   color: $heading;
+  margin: 0;
+  padding: 0;
+  font-size: 200%;
+}
+
+header {
+  clear: both;
+  width: 100%;
+  margin-bottom: 85px;
 }
 
 hr {
@@ -65,7 +83,12 @@ table {
 
   article {
     display: none;
-    margin: 7px 0px 14px 14px;
+    margin: 7px 0px 14px 7px;
+
+    input {
+      // inputs must be visible inside article because they are used to maintain values
+      display: inherit;
+    }
   }
 
   input {
@@ -76,35 +99,32 @@ table {
     position: relative;
     z-index: 20;
     display: block;
-    height: 20px;
     cursor: pointer;
     color: white;
-    line-height: 22px;
-    padding: 7px 14px;
+    padding: 7px;
     background: $closed_accordion;
     text-decoration: none;
     font-weight: bold;
-    margin: 0px 0px 7px 0px;
+    margin: 14px 0px;
   }
 }
 
 .ac-container input:checked + label,
 .ac-container input:checked + label:hover{
   background: $open_accordion;
-  color: white;
 }
 
-.ac-container label:hover:after{
+.ac-container label:hover:after {
   content: '';
   position: absolute;
   width: 24px;
   height: 24px;
   right: 13px;
-  top: 7px;
+  top: 5px;
   background: transparent url(arrow_down.png) no-repeat center center;
 }
 
-.ac-container input:checked + label:hover:after{
+.ac-container input:checked + label:hover:after {
   background-image: url(arrow_up.png);
 }
 
@@ -142,22 +162,80 @@ table {
   padding: 60px 20px 20px;
 }
 
-.finder_layer {
-  z-index: 1000;
+.finder-container {
   position: fixed;
   margin-left: 0;
-  margin-top: 120px;
-  background-color: $finder_background;
-  box-shadow: 3px 3px 15px #999999;
-  color: white;
-  padding: 10px;
+  margin-top: 0;
+  padding: 0;
   left: 0;
-  top: 40px;
+  top: 55px;
+  min-width: 10%;
+  z-index: 60;
+
+  section {
+    display: none;
+    background: $open_accordion;
+  }
+
+  input {
+    display: none;
+  }
+
+  label {
+    display: block;
+    cursor: pointer;
+    color: white;
+    background: $closed_accordion;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px 0 5px 10px;
+  }
+}
+
+.finder-container input:checked + label {
+  background: $open_accordion;
+}
+
+.finder-container input:checked ~ section {
+  display: inherit;
+}
+
+.finder {
+  text-align: left;
+  padding: 5px 10px;
 
   a {
-    color: #ffffff;
     text-decoration: none;
+    color: white;
+    font-weight: normal;
   }
+
+  article {
+    display: none;
+    margin-left: 17px;
+  }
+
+  input {
+    margin: 0;
+    margin-right: 5px;
+    display: inline-block;
+  }
+
+  label {
+    position: relative;
+    z-index: 20;
+    display: inline;
+    color: white;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    background: $open_accordion;
+  }
+}
+
+.finder input:checked ~ article {
+  display: inherit;
 }
 
 .flat_list {
@@ -172,17 +250,13 @@ table {
   }
 }
 
-.header {
-  clear: both;
-  width: 100%;
-  margin-bottom: 70px;
-}
-
 .header_left {
+  margin-top: 17px;
   float: left;
 }
 
 .header_right {
+  margin-top: 17px;
   float: right;
 }
 
@@ -216,24 +290,9 @@ table {
   margin-bottom: 0;
   position: fixed;
   right: 0;
-  z-index: 1030;
-  background-color: $main_background;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(0, 0, 0, 0.1) inset;
+  z-index: 50;
+  background-color: $finder_background;
   min-height: 40px;
-}
-
-.mc_selected {
-  background-color: #e5dbcf;
-}
-
-.miller_column {
-  border-right: 1px solid #e5dbcf;
-  border-spacing: 0;
-
-  td {
-    padding-left: 2ex;
-    padding-right: 2ex;
-  }
 }
 
 .nav_container {
@@ -380,6 +439,11 @@ table {
 }
 
 // section c) ID's
+
+#lineage-container {
+  width: 100%;
+  height: 100%;
+}
 
 #miller_column_view ul li {
   float: left;

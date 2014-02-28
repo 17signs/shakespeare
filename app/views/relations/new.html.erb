@@ -8,14 +8,14 @@
         <li><%= f.label :to %><%= f.select :to, Poem.poems_for_relations %></li>
       </ol>
       <ul class="flat_list">
-        <li class="action_item"><a href="#" onclick="$('#new_relation').submit(); return false;" class="button"><%= t('.create') %></a></li>
-        <li class="action_item"><a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a></li>
+        <li><a href="#" onclick="$('#new_relation').submit(); return false;" class="button"><%= t('.create') %></a></li>
+        <li><a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a></li>
       </ul>
     <% else %>
       <% if @from.parent.relation_types.length == 0 %>
         Sorry, no relations defined
         <ul class="flat_list">
-          <li class="action_item"><a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a></li>
+          <li><a href='#' onclick='overlay()' class="button"><%= t('.cancel') %></a></li>
         </ul>
       <% else %>
         <ol>
@@ -27,8 +27,8 @@
           <li id="new_rel_to_from_phrase" class='hidden'><%= f.label :to_from_phrase %><%= f.text_field :to_from_phrase %></li>
         </ol>
         <ul class="flat_list">
-          <li class="action_item"><a href="#" onclick="$('#new_relation').submit(); return false;" class='button'><%= t('.create') %></a></li>
-          <li class="action_item"><a href='#' onclick='overlay()' class='button'><%= t('.cancel') %></a></li>
+          <li><a href="#" onclick="$('#new_relation').submit(); return false;" class='button'><%= t('.create') %></a></li>
+          <li><a href='#' onclick='overlay()' class='button'><%= t('.cancel') %></a></li>
         </ul>
       <% end %>
     <% end %>
