@@ -53,10 +53,7 @@ de:
       name: "Name"
       is_poem_type: "Is poem type?"
       update_properties: "Update properties"
-      edit: "Edit"
-      cancel: "Cancel"
       index: "Index"
-      delete: "Delete"
       properties: "Properties"
       type: "Type"
       values: "Values"
@@ -67,10 +64,8 @@ de:
       references: "References"
       referencing: "Referencing"
       relation_type: "Relation type"
-      delete: "Delete"
     index:
       all_poems: "All poems"
-      new: "New"
       in_poem_types: "... der Poemtypen"
       in_poems: "... in poems"
       in_values: "... in values"
@@ -89,15 +84,6 @@ de:
       meta_poems: "Metapoems"
       poems: "Poems"
       new_meta_poem: "Neues Metapoem"
-    edit_backup:
-      edit: "Edit"
-      properties: "Properties"
-      type: "Type"
-      name: "Name"
-      is_poem_type: "Is poem type"
-      values: "Values"
-      referencing: "Referencing"
-      referenced_by: "Referenced by"
     new_meta_poem: "Neues Metapoem"
     new_poem: "Neues Poem"
     meta_poem: "Metapoem"
@@ -110,19 +96,13 @@ de:
   mdms:
     index:
       welcome: "Willkommen"
-      new: "Neu"
   values:
     edit:
-      cancel: "Abbrechen"
-      update: "Aktualisieren"
       default_value: "Standardwert"
-      edit: "Ändern"
       edit_value: "Pflege Wert"
     new:
       new_value_for: "Neuer Wert für"
       default_value: "Standardwert"
-      create: "Anlegen"
-      cancel: "Abbrechen"
       use_reference_poem: "Nutze Poemreferenz"
       reference_poem: "Referenzpoem"
       rp_presentation: "Präsentation"
@@ -143,8 +123,6 @@ de:
         phrases: "Phrases"
       index:
         relation_types: "Relation types"
-        edit: "Edit"
-        new: "New"
       show:
         phrases: "Phrases"
   value:
@@ -157,15 +135,12 @@ de:
     new:
       specify_phrases: "Phrasen"
       new_relation_for: "Neue Beziehung für"
-      create: "Anlegen"
-      cancel: "Abbrechen"
       relation_type: "Beziehungstyp"
-  shared:
-    value:
-      edit: "Ändern"
-      delete: "Löschen"
+
+
   create: "Anlegen"
   cancel: "Abbrechen"
   update: "Aktualisieren"
-  edit: "Ändern"
+  edit:   "Ändern"
+  new:    "Neu"
   delete: "Löschen"

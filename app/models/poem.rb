@@ -14,14 +14,6 @@ class Poem
 
   has_many :is_value_of, :foreign_key => 'reference_poem_id', :class_name => 'Value', :dependent => :destroy
 
-  def destroy
-    # call normal behaviour
-    super
-
-    # reset navigation
-    Poem.reset_navigation
-  end
-
   def to_s
     if poem_name && poem_name.length > 0
       poem_name
@@ -122,6 +114,14 @@ class Poem
 
 # class methods
 
+  def self.meta_poems?
+    Poem.where('parent_id' => nil).count != 0
+  end
+
+  def self.poems?
+    Poem.where('parent_id' => {'$ne' => nil}).count != 0
+  end
+
   def self.poems
     Poem.where('parent_id' => {'$ne' => nil})
   end
@@ -168,58 +168,31 @@ class Poem
     end
   end
 
-  # miller column navigation
-
-  def self.navigate(poem=nil, index=nil)
-    # the maximum miller column navigation is 4; set to 3 because index start with 0
-    max_mc_length = 3
-
-    # initial call?
-    if not $mc
-      # create miller column array and fill root poems, which are used for structuring
-      # as first element
-      $mc = []
-      $mc << Poem.root_poems
-      # no poem selected yet
-      $mc_selected = []
-    # not initial call --> handle poem and index
-    else
-      if poem && index
-        # validate index quality
-        # a) not negative
-        # b) not larger than mc array length
-        # convert parameter into integer
-        i_index = index.to_i
-
-        if i_index < 0 || i_index > $mc.length - 1
-          throw :error
-        else
-          # new working index is selected index + 1; next column
-          working_index = i_index + 1
-          # working index bigger than maximum length --> left shift array
-          if working_index > max_mc_length
-            $mc.shift
-            $mc_selected.shift
-          end
-          # clear array from working index to remove "old" navigation
-          if working_index < $mc.length
-            working_index.upto($mc.length-1) {$mc.pop}
-          end
-          # clear array of selected poems
-          if i_index < $mc_selected.length
-            i_index.upto($mc_selected.length-1) {$mc_selected.pop}
-          end
-          # now push in the new column content
-          $mc << poem.links_to_successors.map{|suc| suc.to}
-          $mc_selected << poem.id
-        end
+  # template repository
+  def self.install_template_repository
+    unless self.meta_poems?
+      # User is used as reference poem for business terms data owner
+      p_user = Poem.new({:poem_name => 'User'})
+      p_user.save
+      ['ID', 'Department'].each do |name|
+        Value.new({:name => name, :value_type => :text_field, :poem => p_user}).save
       end
-    end
-  end
 
-  def self.reset_navigation
-    $mc = nil
-    Poem.navigate()
+      p_business_term = Poem.new({:poem_name => 'Business Term'})
+      p_business_term.save
+      Value.new({:name => 'Description', :value_type => :text_area, :poem => p_business_term}).save
+      Value.new({:name => 'Data Owner', :value_type => 'reference_poem', :reference_poem => p_user, :poem => p_business_term}).save
+      Relation.new({:from => p_business_term, :to => p_business_term, :from_to_phrase => 'references', :to_from_phrase => 'is referenced by'}).save
+
+      p_folder = Poem.new({:poem_name => 'Folder'})
+      p_folder.save
+      Relation.new({:from => p_folder, :to => p_business_term, :from_to_phrase => 'contains business term', :to_from_phrase => 'is part of folder'}).save
+      Relation.new({:from => p_folder, :to => p_folder, :from_to_phrase => 'is structured by folder', :to_from_phrase => 'structures folder'}).save
+
+      p_glossary = Poem.new({:poem_name => 'Glossary'})
+      p_glossary.save
+      Relation.new({:from => p_glossary, :to => p_folder, :from_to_phrase => 'is structured by folder', :to_from_phrase => 'structures glossary'}).save
+    end
   end
 
 end

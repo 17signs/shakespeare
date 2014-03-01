@@ -35,7 +35,7 @@ class Value
   end
 
   def get_value_type
-    reference ? reference.get_value_type : self.value_type
+    reference ? reference.get_value_type : value_type
   end
 
   def self.search(search)

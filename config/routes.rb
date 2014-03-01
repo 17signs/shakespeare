@@ -1,12 +1,11 @@
 Shakespeare::Application.routes.draw do
 
-  get "mdms/index"
+  get 'mdms/index'
 
   scope '(:locale)' do
 
     match '/relation_type_selected', :controller => 'relations', :action => 'relation_type_selected'
 
-    match 'poems/mc_navigate', :controller => 'poems', :action => 'mc_navigate'
     match 'poems/to_poems', :controller => 'poems', :action => 'to_poems'
 
     resources :poems

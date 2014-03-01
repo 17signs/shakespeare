@@ -50,9 +50,9 @@
         </div>
         <ul class="flat_list">
           <% if @poem.parent %>
-              <li><%= link_to t('.new_sibling'), {:controller => 'poems', :action => 'new', :new_parent => @poem.parent.id}, :remote => true, :class => 'button '%></li>
+              <li><%= link_to t('new')+' '+@poem.parent.to_s, {:controller => 'poems', :action => 'new', :new_parent => @poem.parent.id}, :remote => true, :class => 'button '%></li>
           <% else %>
-              <li><%= link_to t('.new_child'), {:controller => 'poems', :action => 'new', :new_parent => @poem.id}, :remote => true, :class => 'button' %></li>
+              <li><%= link_to t('new')+' '+@poem.to_s, {:controller => 'poems', :action => 'new', :new_parent => @poem.id}, :remote => true, :class => 'button' %></li>
           <% end %>
           <li><%= link_to t('delete'), @poem, confirm: 'Are you sure?', method: :delete, :class => 'button' %></li>
         </ul>

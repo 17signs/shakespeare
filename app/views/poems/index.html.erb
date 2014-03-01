@@ -10,9 +10,13 @@
   </div>
   <div class="header_right">
     <ul class="flat_list">
-      <li><%= link_to t('poems.data_lineage'), lineages_index_path, :class => 'button' %></li>
-      <% if Poem.poem_types_exist? %>
+      <% if Poem.poems? %>
+        <li><%= link_to t('poems.data_lineage'), lineages_index_path, :class => 'button' %></li>
+      <% end %>
+      <% if Poem.meta_poems? %>
         <li><%= link_to t('poems.new_poem'), new_poem_path(:mode => :poem), :remote => true, :class => 'button' %></li>
+      <% else %>
+        <li><%= link_to t('poem.install_template_repository'), poems_path(:task => :install_template_repository), :class => 'button' %></li>
       <% end %>
       <li><%= link_to t('poems.new_meta_poem'), new_poem_path(:mode => :meta_poem), :remote => true, :class => 'button' %></li>
     </ul>

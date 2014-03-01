@@ -6,6 +6,7 @@ en:
   create: "Create"
   delete: "Delete"
   edit:   "Edit"
+  new:    "New"
   update: "Update"
 
   layouts:
@@ -32,7 +33,6 @@ en:
 
     show:
       values: "Values"
-      new: "New"
       type: "Type"
       usage: "Usage"
       new_child: "New child"

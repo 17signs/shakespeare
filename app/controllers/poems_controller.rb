@@ -18,7 +18,6 @@ class PoemsController < ApplicationController
     end
 
     # start editing the newly created poem
-    Poem.reset_navigation
     redirect_to @poem
   end
 
@@ -49,6 +48,10 @@ class PoemsController < ApplicationController
     @result[:cnt_poems] = 0
     @result[:cnt_values] = 0
 
+    if params[:task]
+      Poem.install_template_repository
+    end
+
     if params[:search]
       @result[:poem_types] = Poem.search_poem_types(params[:search])
       @result[:poems]      = Poem.search_poems(params[:search])
@@ -62,11 +65,6 @@ class PoemsController < ApplicationController
     @result[:cnt_poem_types] = @result[:poem_types].to_a.length
     @result[:cnt_poems]      = @result[:poems].to_a.length
     @result[:cnt_values]     = @result[:values].to_a.length
-
-    # do some miller column stuff
-    $mc = nil
-    $mc_selected = []
-    Poem.navigate
 
   end
 
@@ -96,15 +94,6 @@ class PoemsController < ApplicationController
       redirect_to @poem
     end
 
-  end
-
-  def mc_navigate
-    poem = Poem.find_by_id(params[:id])
-    Poem.navigate(poem, params[:mc])
-
-    respond_to do |format|
-      format.js
-    end
   end
 
   def to_poems

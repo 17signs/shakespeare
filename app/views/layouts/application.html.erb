@@ -38,9 +38,11 @@
 </section>
 
 <section class="finder-container">
-  <input id="finder" type="checkbox" />
-  <label for="finder"><%= t('.finder') %></label>
+  <% if Poem.poems? %>
+    <input id="finder" type="checkbox" />
+    <label for="finder"><%= t('.finder') %></label>
     <%= finder %>
+  <% end %>
 </section>
 
 <div id="overlay">

@@ -14,11 +14,6 @@ class Relation
 
   validate :validate_references
 
-  def destroy
-    super
-    Poem.reset_navigation
-  end
-
   def to_s
     from_to_phrase
   end
