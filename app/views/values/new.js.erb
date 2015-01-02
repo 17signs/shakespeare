@@ -2,7 +2,7 @@ $(".overlay_dialog").each(function() {
     $(this).css("visibility", "hidden");
 });
 el = document.getElementById("overlay");
-el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+el.style.visibility = "visible";
 if (el.style.visibility == "visible") {
     $('#generic_dialog').css("visibility", "visible").empty().append("<%== escape_javascript @html %>");
 }

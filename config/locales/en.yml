@@ -8,10 +8,17 @@ en:
   edit:   "Edit"
   new:    "New"
   update: "Update"
+  workspace: "Workspace"
+  meta_poem_workspace: "Meta poems"
+
+  relation_types:
+    1: "Structural"
+    2: "Semantical"
 
   layouts:
     application:
       finder: "Finder"
+      rename: "Rename"
       shakespeare: "shakespeare"
       search: "Search"
       nothing_to_navigate: "Nothing to navigate to"

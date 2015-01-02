@@ -7,7 +7,7 @@
       <ul class="flat_list">
         <li><%= link_to t('.edit'), edit_value_path(value), :remote => true, :class => 'link' %></li>
         <% if value.is_removable? %>
-            <li><%= link_to t('.delete'), value, :method => :delete, :remote => true, :class => 'link' %></li>
+            <li><%= link_to t('.delete'), value, confirm: 'Are you sure?', :method => :delete, :remote => true, :class => 'link' %></li>
         <% end %>
       </ul>
     </div>

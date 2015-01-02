@@ -1,13 +1,13 @@
-<header>
-  <div class="header_left">
+<section id="lineage-header">
+  <div class="align-left">
     <h1><%= t('.visual_data_lineage')%></h1>
   </div>
-  <div class="header_right">
+  <div class="align-right">
     <ul class="flat_list">
       <li><%= link_to t('.reset'), lineages_index_path(:do => :reset), :class => 'button' %></li>
     </ul>
   </div>
-</header>
+</section>
 
 <div id="lineage-container"></div>
 
@@ -58,10 +58,10 @@
 
           var action;
           action = r.rect(n.point[0], n.point[1]+35, 100, 5);
-          action.attr({"stroke-width":0, "fill":"#fb4904", "href": n.poem_url});
+          action.attr({"stroke-width":0, "fill":"#00ccff", "href": n.poem_url});
           set.push(action);
           action = r.rect(n.point[0], n.point[1]-10, 100, 5);
-          action.attr({"stroke-width":0, "fill":"#fb4904", "href": n.poem_url});
+          action.attr({"stroke-width":0, "fill":"#00ccff", "href": n.poem_url});
           set.push(action);
 
           return set;

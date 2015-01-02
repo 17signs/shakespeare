@@ -70,6 +70,10 @@ class Poem
     values.length > 0
   end
 
+  def relation_types
+    Relation.where('from_id' => id).map{|r| [r.to_s, r.id]}
+  end
+
 # value handling
 
   def add_value(value_name, value_value)
@@ -138,12 +142,18 @@ class Poem
     Poem.where('parent_id' => nil).map{|p| [p.to_s, p.id]}
   end
 
-  def relation_types
-    Relation.where('from_id' => id).map{|r| [r.to_s, r.id]}
-  end
-
   def self.poem_types_for_relations
     Poem.where('is_poem_type' => '1').map{|p| [p.to_s, p.id]}
+  end
+
+  def self.root_meta_poems
+    a = []
+    Poem.where('parent_id' => nil).each do |p|
+      if not p.has_predecessors?
+        a << p
+      end
+    end
+    a
   end
 
   def self.root_poems

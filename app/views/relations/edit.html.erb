@@ -1,8 +1,9 @@
 <%= form_for @relation, :html => { :id => 'edit_relation' } do |f| %>
     <%= field_set_tag t('.edit')+" "+@relation.to_s do %>
         <ol>
-          <li><%= f.label :from_to_phrase %><%= f.text_field :from_to_phrase %></li>
-          <li><%= f.label :to_from_phrase %><%= f.text_field :to_from_phrase %></li>
+          <li><%= f.label :from_to_phrase %><%= f.text_field :from_to_phrase               %></li>
+          <li><%= f.label :to_from_phrase %><%= f.text_field :to_from_phrase               %></li>
+          <li><%= f.label :relation_type  %><%= f.select     :relation_type, relation_types %></li>
         </ol>
     <% end %>
     <ul class="flat_list">

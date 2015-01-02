@@ -1,16 +1,18 @@
 general
+=======
 
   open topics (sorted for Shakespeare as a Product):
+  --------------------------------------------------
 
-    02 - data lineage
-    05 - useful finder navigation
-    08 - install prototype repository
+    01 - fix navigation
+    05 - value order
     09 - documentation (installation, usage)
     ==== initial public release, version 0.5
 
     10 - license
     11 - value type: sequence (as human readable poem ID)
-    12 - options for poem appearances: relation, lineage, finder
+    11 - value type: date
+    12 - options for poem/relation appearances: relation, lineage, finder
     13 - advanced lineage options for poems: color; are there others? Shape too expansive
     14 - import (maybe export too)
     ==== 1st product release, version 1.0
@@ -30,13 +32,18 @@ general
     50 - mobile browsing
     ==== 5th product release, version 5.0
 
-  mobile
+  mobile:
+  -------
+
     check: mobile behaviour
     check: specific css
 
+
 data lineage
+============
 
   requirements
+  ------------
 
     - layout shall use all available size; evaluate increase option (JavaScript)
     - shapes shall be interactive
@@ -70,39 +77,46 @@ data lineage
             remove n.in-relations.each as out relation
 
 
-navigation
-
-    evaluate: have navigation as stand alone controller or part of poem.show action
-    evaluate: move navigation into ajax procedures
-
 poem
+====
 
   meta poem
+  ---------
 
     evaluate: control creation of new values for children (eg. forbid by setting flag)
 
   poem
+  ----
 
     do: show usage as value!
     do: question delete command when used as value
+    do: index => alphabetical order
 
     evaluate: convert poem into poem type (detach from parent; confirmation needed)
 
+
 relations
+=========
 
     do: do not show "New relation" if there is no relation template defined. Show help instead (eval)
 
     do: allow name concatenation (BT --> TABLE --> COLUMN could become BT --> TABLE.COLUMN) oerks!
     do: provide all (inbound/outbound) relations, but eliminate redundancies (self reflecting relations; take care!)
 
-values
 
-    evaluate: value order
+search
+======
+
+  eval: index values on poem pages to make them adressable from search results
+
 
 html/css
+========
 
   general:
+  --------
 
     do: hover pointer for buttons
     eval: ref/href attributes, hypermedia stuff
     do: small icon for web site
+    do: footer pointing to 17signs.com

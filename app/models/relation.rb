@@ -5,6 +5,7 @@ class Relation
   key :to
   key :from_to_phrase
   key :to_from_phrase
+  key :relation_type
   key :parent_id, ObjectId
 
   belongs_to :parent, :class_name => 'Relation'

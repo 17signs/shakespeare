@@ -3,6 +3,11 @@
 
 de:
   poem_no_name: "<no name yet>"
+
+  relation_types:
+    1: "Strukturell"
+    2: "Semantisch"
+
   layouts:
     application:
       home: "Home"

@@ -1,59 +1,53 @@
-<header>
-  <div class='header_left'>
-    <h1>
-      <% if params[:search] %>
-        <%= t('.search_results_for') %>: <%= params[:search] %>
-      <% else %>
-        <%= t('.overview') %>
-      <% end %>
-    </h1>
-  </div>
-  <div class="header_right">
-    <ul class="flat_list">
-      <% if Poem.poems? %>
-        <li><%= link_to t('poems.data_lineage'), lineages_index_path, :class => 'button' %></li>
-      <% end %>
-      <% if Poem.meta_poems? %>
-        <li><%= link_to t('poems.new_poem'), new_poem_path(:mode => :poem), :remote => true, :class => 'button' %></li>
-      <% else %>
-        <li><%= link_to t('poem.install_template_repository'), poems_path(:task => :install_template_repository), :class => 'button' %></li>
-      <% end %>
-      <li><%= link_to t('poems.new_meta_poem'), new_poem_path(:mode => :meta_poem), :remote => true, :class => 'button' %></li>
-    </ul>
-  </div>
-</header>
-<section class="ac-container">
-  <% if @result[:cnt_poem_types] > 0 %>
-    <div>
-      <input id="ac-1" name="accordion-1" type="checkbox" checked />
-      <label for="ac-1"><%= t('poems.meta_poems') %></label>
-      <article>
-        <ul class="flat_list">
-          <% @result[:poem_types].each do |p| %>
-              <li><%= link_to p, p, :class => 'link' %></li>
-          <% end %>
-        </ul>
-      </article>
-    </div>
+<h1>
+  <% if params[:search] %>
+    <%= t('.search_results_for') %>: <%= params[:search] %>
+  <% else %>
+    <%= t('.overview') %>
   <% end %>
-  <% if @result[:cnt_poems] > 0 %>
-    <div>
-      <input id="ac-2" name="accordion-2" type="checkbox" checked />
-      <label for="ac-2"><%= t('poems.poems') %></label>
-      <article>
-        <ul class="flat_list">
-          <% @result[:poems].each do |p| %>
-              <li><%= link_to p, p, :class => 'link' %></li>
-          <% end %>
-        </ul>
-      </article>
-    </div>
-  <% end %>
-  <% if @result[:cnt_values] > 0 %>
-    <div>
-      <input id="ac-3" name="accordion-3" type="checkbox" checked />
-      <label for="ac-3"><%= t('values.values') %></label>
-      <article>
+</h1>
+
+<% if @result[:cnt_poem_types] > 0 %>
+  <section class="poem-data">
+    <section class="poem-data-header">
+      <div class="align-left">
+        <em><%= t('poems.meta_poems') %></em>
+      </div>
+    </section>
+    <article class="poem-data-content">
+      <ul class="flat_list">
+        <% @result[:poem_types].each do |p| %>
+            <li><%= link_to p, p, :class => 'link' %></li>
+        <% end %>
+      </ul>
+    </article>
+  </section>
+<% end %>
+
+<% if @result[:cnt_poems] > 0 %>
+  <section class="poem-data">
+    <section class="poem-data-header">
+      <div class="align-left">
+        <em><%= t('poems.poems') %></em>
+      </div>
+    </section>
+    <article class="poem-data-content">
+      <ul class="flat_list">
+        <% @result[:poems].each do |p| %>
+            <li><%= link_to p, p, :class => 'link' %></li>
+        <% end %>
+      </ul>
+    </article>
+  </section>
+<% end %>
+
+<% if @result[:cnt_values] > 0 %>
+  <section class="poem-data">
+    <section class="poem-data-header">
+      <div class="align-left">
+        <em><%= t('values.values') %></em>
+      </div>
+    </section>
+    <article class="poem-data-content">
         <table>
           <tr>
             <td class="label_cell"><%= t('poems.meta_poem') %></td>
@@ -63,7 +57,7 @@
           </tr>
           <% @result[:values].each do |v| %>
               <% if v.poem %>
-                  <tr class="row-wrapper">
+                 <tr class="row-wrapper">
                     <% if v.poem.parent == nil %>
                         <td class="value_cell"><%= t('poems.no_meta_poem') %></td>
                     <% else %>
@@ -76,7 +70,6 @@
               <% end %>
           <% end %>
         </table>
-      </article>
-    </div>
-  <% end %>
-</section>
+    </article>
+  </section>
+<% end %>

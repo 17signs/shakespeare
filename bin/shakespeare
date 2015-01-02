@@ -1,0 +1,4 @@
+#!/bin/sh
+
+RAILS_ENV=development
+rails server &
