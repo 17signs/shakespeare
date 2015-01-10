@@ -59,8 +59,16 @@ class ValuesController < ApplicationController
     # but needs to be highest position plus one
     # TO-DO access seems to complicated
     last_value_a = Value.where('poem_id' => value_poem.id).sort(:position.desc).limit(1).map{|v| [v.id]}
-    last_value = Value.find(last_value_a[0])
-    @value.position = last_value[0].position + 1
+    if last_value_a.length > 0
+      last_value = Value.find(last_value_a[0])
+      if last_value[0].position
+        @value.position = last_value[0].position + 1
+      else
+        @value.position = 1
+      end
+    else
+      @value.position = 1
+    end
     @html = render_to_string(:action => 'new', :formats => [:html], :layout => false)
     respond_to do |format|
       format.js
