@@ -4,12 +4,10 @@ general
   open topics (sorted for Shakespeare as a Product):
   --------------------------------------------------
 
-    01 - fix navigation
-    05 - value order
+    05 - value order + "new value" button for last value; inherit value order
     09 - documentation (installation, usage)
     ==== initial public release, version 0.5
 
-    10 - license
     11 - value type: sequence (as human readable poem ID)
     11 - value type: date
     12 - options for poem/relation appearances: relation, lineage, finder
@@ -17,8 +15,9 @@ general
     14 - import (maybe export too)
     ==== 1st product release, version 1.0
 
-    20 - authentication
-    21 - timestamps and user information (created/changed by) on every model
+    20 - license
+    24 - authentication
+    28 - timestamps and user information (created/changed by) on every model
     ==== 2nd product release, version 2.0
 
     30 - generic workflow
@@ -37,6 +36,11 @@ general
 
     check: mobile behaviour
     check: specific css
+
+  defects:
+  --------
+
+    def150101_01: data lineage does not support screen resize
 
 
 data lineage

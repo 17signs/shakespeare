@@ -5,6 +5,7 @@ class Value
   key :value
   key :removable
   key :value_type
+  key :position,   Integer
 
   belongs_to :poem
 

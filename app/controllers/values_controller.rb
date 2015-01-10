@@ -10,6 +10,7 @@ class ValuesController < ApplicationController
     @value.value          = value_data[:value]
     @value.removable      = value_data[:removable]
     @value.value_type     = value_data[:value_type]
+    @value.position       = value_data[:position]
     @value.reference_poem = Poem.find_by_id(value_data[:reference_poem])
     @value.save
     @value.reload
@@ -52,7 +53,14 @@ class ValuesController < ApplicationController
 
   def new
     @value = Value.new
-    @value.poem = Poem.find_by_id(params[:poem])
+    value_poem = Poem.find_by_id(params[:poem])
+    @value.poem = value_poem
+    # number for new value position can't be the lenght of the value arry plus one
+    # but needs to be highest position plus one
+    # TO-DO access seems to complicated
+    last_value_a = Value.where('poem_id' => value_poem.id).sort(:position.desc).limit(1).map{|v| [v.id]}
+    last_value = Value.find(last_value_a[0])
+    @value.position = last_value[0].position + 1
     @html = render_to_string(:action => 'new', :formats => [:html], :layout => false)
     respond_to do |format|
       format.js
@@ -67,6 +75,7 @@ class ValuesController < ApplicationController
     value_data[:value]          ? @value.value          = value_data[:value]                           : ''
     value_data[:removable]      ? @value.removable      = value_data[:removable]                       : ''
     value_data[:reference_poem] ? @value.reference_poem = Poem.find_by_id(value_data[:reference_poem]) : nil
+    value_data[:position]       ? @value.position       = value_data[:position]                        : 0
 
     @value.save
     @value.reload

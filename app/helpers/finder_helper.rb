@@ -1,6 +1,7 @@
 # app/helpers/finder_helper.rb
 module FinderHelper
   def finder
+
 # r = return string containing html representation of repository
 # a = array holding all coverred poems
 
@@ -32,42 +33,35 @@ module FinderHelper
     if poem
       r = r + "<div>"
       hist << poem.id
-      if poem.has_successors?
+
+      sub_r    = ""
+      poem.links_to_successors.each do |l|
+        if l.relation_type == "1"
+          if hist.include?(l.to_id)
+            sub_r = sub_r + "loop at: " + get_anchor(poem)
+          else
+            ap_r, ap_hist = add_poem(l.to, hist)
+            sub_r = sub_r + ap_r
+            hist.concat(ap_hist)
+          end
+        end
+      end
+
+      # in case of relevant successor links sub_r contains those html rendering
+      # if there are no such links the poem itself is displayed as simple link
+      if sub_r.length > 0
         r = r + "<input id='" + poem.id + "' type='checkbox' />"
         r = r + "<label for='" + poem.id + "'><em>" + poem.to_s + "/</em></label>"
         r = r + "<article>"
-        poem.links_to_successors.each do |l|
-          if l.relation_type == "1"
-            if hist.include?(l.to.id)
-              r = r + "infinite loop at: " + get_anchor(poem)
-            else
-              sub, suba = add_poem(l.to, hist)
-              r = r + sub
-              hist.concat(suba)
-            end
-          end
-        end
+        r = r + sub_r
         r = r + "</article>"
       else
         r = r + get_anchor(poem)
       end
+
       r = r + "</div>"
     end
     return r, hist
-  end
-
-  def add_poem2(poem=nil, hist)
-    sub_str = ""
-    count   = 0
-
-    if poem
-      sub_str = sub_str + "<div>"
-      hist << poem.id
-      count = 1
-      sub_str = sub_str + "</div>"
-    end
-
-    return sub_str, hist, count
   end
 
   def get_anchor(poem=nil)
@@ -78,6 +72,3 @@ module FinderHelper
     r
   end
 end
-
-
-

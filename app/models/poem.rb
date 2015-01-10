@@ -7,7 +7,7 @@ class Poem
   belongs_to :parent, :class_name => 'Poem'
   many :children, :foreign_key => :parent_id, :class_name => 'Poem', :dependent => :destroy
 
-  has_many :values, :dependent => :destroy
+  has_many :values, :dependent => :destroy, :order => :position
 
   has_many :links_to_predecessors, :class_name => 'Relation', :foreign_key => 'to_id', :dependent => :destroy
   has_many :links_to_successors, :class_name => 'Relation', :foreign_key => 'from_id', :dependent => :destroy
@@ -127,11 +127,11 @@ class Poem
   end
 
   def self.poems
-    Poem.where('parent_id' => {'$ne' => nil})
+    Poem.all('parent_id' => {'$ne' => nil}, :order => :poem_name)
   end
 
   def self.poem_types
-    Poem.where('parent_id' => nil)
+    Poem.all('parent_id' => nil, :order => :poem_name)
   end
 
   def self.poem_types_exist?

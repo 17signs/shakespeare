@@ -7,16 +7,21 @@
         <% if @value.get_value_type == 'reference_poem' %>
           <li><%= f.label t('.reference_poem') %><%= f.collection_select :reference_poem, Poem.poem_types, :id, :poem_name %></li>
         <% end %>
+        <li><%= f.label :position %><%= f.text_field :position %></li>
       <% else %>
+        <li>
+          <%= f.label :value %>
         <% if @value.get_value_type == 'reference_poem' %>
           <% if @value.reference_poem == nil %>
-            <li><%= f.collection_select :reference_poem, @value.reference.reference_poem.children, :id, :poem_name %></li>
+            <%= f.collection_select :reference_poem, @value.reference.reference_poem.children, :id, :poem_name %>
           <% else %>
-            <li><%= f.collection_select :reference_poem, @value.reference.reference_poem.children, :id, :poem_name, :selected => @value.reference_poem.id %></li>
+            <%= f.collection_select :reference_poem, @value.reference.reference_poem.children, :id, :poem_name, :selected => @value.reference_poem.id %>
           <% end %>
         <% else %>
-          <li><%= f.send(@value.get_value_type, :value ) %></li>
+          <%= f.send(@value.get_value_type, :value ) %>
         <% end %>
+        </li>
+        <li><%= f.label :position %><%= f.text_field :position %></li>
       <% end %>
     </ol>
     <ul class="flat_list">

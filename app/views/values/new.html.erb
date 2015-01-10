@@ -3,8 +3,9 @@
     <% if @value.poem.parent == nil %>
       <%= field_set_tag t('.new_value_for')+' '+@value.poem.to_s do %>
         <oL>
-          <li><%= f.label :name       %><%= f.text_field :name                       %></li>
-          <li><%= f.label :removable  %><%= f.check_box  :removable %></li>
+          <li><%= f.label :name      %><%= f.text_field :name      %></li>
+          <li><%= f.label :removable %><%= f.check_box  :removable %></li>
+          <li><%= f.label :position  %><%= f.text_field :position  %></li>
         </oL>
       <% end %>
       <%= field_set_tag t('.value_type'), :class => 'vt-container' do %>
@@ -41,6 +42,7 @@
       <ol>
         <li><%= f.label :name %><%= f.text_field :name %></li>
         <li><%= f.label :value %><%= f.text_area :value %></li>
+        <li><%= f.label :position %><%= f.text_field :position %></li>
       </ol>
      <% end %>
     <% end %>
